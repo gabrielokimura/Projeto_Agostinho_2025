@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro</title>
+</head>
+<body>
+    <center><h1>Cadastro</h1>
+
+
+    <form action="/cadastro" method="POST">
+
+        <div>
+            <label for="nome">Nome de Usuário</label>
+            <input type="text"  name="nome" required minlength="3" placeholder="  " >
+        </div>
+
+        <div>
+
+            <label for="senha">Senha</label>
+            <input type="text" name="senha" required minlength="3" placeholder="  ">
+
+        </div>
+
+        <div>
+
+            <label for="email">Email</label>
+            <input type="email" name="email" required minlength="3" placeholder="  ">
+
+        </div>
+
+        <div>
+
+            <label for="telefone">Telefone</label>
+            <input type="tel" name="telefone" required minlength="11" placeholder="  ">
+
+        </div>
+
+        <div>
+
+            <label for="data_nasc">Data de nascimento</label>
+            <input type="date" name="data_nasc" required placeholder="  ">
+
+        </div>
+
+        <div>
+
+            <label for="CPF">CPF</label>
+            <input type="number" name="cpf" required placeholder="  ">
+
+        </div>
+
+        <div>
+
+            <label for="CNH">CNH</label>
+            <input type="number" name="cnh" required minlength="11" placeholder="  ">
+
+        </div>
+
+        <button type="submit">cadastrar</button>
+
+    </form>
+
+
+    {{mensagem}}
+
+    <a href="/login">Fazer login</a>
+
+
+
+
+
+
+
+    </center>
+</body>
+</html>

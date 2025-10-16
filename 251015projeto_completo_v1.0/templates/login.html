@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+<body>
+    
+<center>
+<h1>Login</h1>
+    
+    <form action="/login" method="POST" novalidate>
+
+        <div>
+            <label for="nome">Nome de Usuário</label>
+            <input type="text" id="nome" name="nome" required minlength="3" placeholder="  " >
+        </div>
+
+        <div>
+
+            <label for="senha">Senha</label>
+            <input type="text" id="senha" name="senha" required minlength="3" placeholder="  ">
+
+        </div>        
+        <button type="submit">logar</button>
+
+    </form>
+
+    {{mensagem}}
+    <p>Não está cadastrado? <a href="/cadastro">Faça cadastro</a></p>
+
+</center>
+</body>
+</html>
