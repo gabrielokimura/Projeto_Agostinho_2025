@@ -40,10 +40,67 @@ body{
     display: block;
     justify-content: center;
     align-items: center;
-    padding: 20px;
     margin: 0;
     min-height: 100vh;
 }
+
+header {
+    background-color: #ff6606; 
+    padding: 10px 0; 
+    border-bottom: 3px solid #fff;
+    display: flex;
+    justify-content: center; 
+}
+
+header .container {
+  max-width: 1100px; /* same as search form */
+  width: 100%;
+  padding: 0 30px; /* same horizontal padding as search panel */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+}
+.logo img {
+  height: 70px;
+  margin-right: 10px;
+}
+
+  nav {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    color: white;
+    font-weight: 600;
+    font-size: 14px;
+  }
+  nav a {
+    color: white;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  nav a:hover {
+    text-decoration: underline;
+  }
+  /* Icons placeholders: use emojis or unicode for simplicity */
+  .icon-contato::before {
+    content: "\1F551"; /* Clock emoji */
+  }
+  .icon-ajuda::before {
+    content: "\2753"; /* Question mark emoji */
+  }
+  .icon-login::before {
+    content: "\1F464"; /* Bust in silhouette */
+  }
+  .icon-carrinho::before {
+    content: "\1F6D2"; /* Shopping cart */
+  }
 
 label{
     display: block;
