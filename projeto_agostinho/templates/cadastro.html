@@ -7,6 +7,21 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='estilo.css') }}">
 </head>
 <body>
+    
+    <header>
+        <div class="container">
+            <div class="logo">
+                <img src="{{ url_for('static', filename='imagens/Isologo Show.png') }}" alt="Show" />
+            </div>
+            <nav>
+            <a href="#" class="icon-contato">Contato</a>
+            <a href="#" class="icon-ajuda">Ajuda</a>
+            <span>|</span>
+            <a href="#" class="icon-login">Login</a>
+            </nav>
+        </div>
+    </header>
+    
     <h1>Cadastro</h1>
 
     <form action="/cadastro" method="POST">
