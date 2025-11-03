@@ -3,17 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Logado</title>
+    <title>{{ carro["modelo"] }}</title>
 </head>
 <body>
-    <h1>Bem vindo, {{usuario["nome"]}}</h1>
-
-    {% if carros_cadastrados %}
-
-    <h2>Frota de carros</h2>
-    <ul>
-    {% for carro in carros_cadastrados %}
-        <a href="{{ url_for('detalhar_carro', carro_id = carro['id']) }}"><div><li>
     <ul>
         <li>Marca: {{ carro["marca"] }}</li>
         <li>Modelo: {{ carro["modelo"] }}</li>
@@ -27,23 +19,6 @@
         <li>Combustível: {{ carro["combustivel"] }}</li>
         <li>Categoria: {{ carro["categoria"] }}</li>
     </ul>
-        </li></div></a><br>
-        
-    {% endfor %} 
-    </ul>
     
-    {% else %}
-
-    <p>Não há carros cadastrados no momento</p>
-
-    {% endif %}
-
-
-
-
-    {% if usuario["admin"] %}
-    <a href="/cadastro_carro">Cadastrar novos carros</a>
-    {% endif %}
-    <a href="/logout"> Logout</a>
 </body>
 </html>

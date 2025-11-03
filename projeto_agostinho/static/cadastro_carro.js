@@ -11,8 +11,12 @@ const combustivel = document.getElementById("combustivel")
 const quilometragem = document.getElementById("quilometragem")
 const categoria = document.getElementById("categoria")
 const CAMPOS = [marca, modelo, aluguel, cor, cambio, portas, airbag, ar_condicionado,combustivel, quilometragem, categoria]
-const carroscadastrados = []
 const conteudo = document.getElementById("carros_cadastrados")
+var id_carro = 0
+
+
+document.addEventListener("DOMContentLoaded", carregarCarros)
+
 
 formulario.addEventListener("submit", (event) =>{
     event.preventDefault()
@@ -55,9 +59,8 @@ function validarFormulario (){
 
     if (valido){
         alert("Carro cadastrado com sucesso")
-        var carro = adicionarCarro()
-        carroscadastrados.push(carro)
-        criarTabela()
+        const carro = adicionarCarro()
+        
         formulario.reset()
 
         fetch("/receber_carro",{
@@ -70,6 +73,7 @@ function validarFormulario (){
             console.log('Resposta do servidor:', data)
             if (data.success) {
                 alert('Carro cadastrado!')
+                carregarCarros()
             } else {
                 alert('Erro ao cadastrar.')
             }
@@ -83,7 +87,9 @@ function validarFormulario (){
 
 
 function adicionarCarro(){
+    id_carro++
     return{
+        "id":id_carro,
         "marca":marca.value,
         "modelo":modelo.value,
         "aluguel":aluguel.value,
@@ -101,12 +107,20 @@ function adicionarCarro(){
 }
 
 
-function criarTabela (){
+function criarTabela (carroscadastrados){
     let tabela = "<h2>Carros cadastrados</h2><table border='1'>"
-    tabela+="<tr><th>Marca</th><th>Modelo</th><th>Aluguel</th><th>Cor</th><th>Cambio</th><th>Portas</th><th>Airbag</th><th>Ar condicionado</th><th>Quilometragem</th><th>Combustível</th><th>Categoria</th></tr>"
+    tabela+="<tr><th>Id do carro</th><th>Marca</th><th>Modelo</th><th>Aluguel</th><th>Cor</th><th>Cambio</th><th>Portas</th><th>Airbag</th><th>Ar condicionado</th><th>Quilometragem</th><th>Combustível</th><th>Categoria</th></tr>"
     for (const veiculo of carroscadastrados){
-        tabela+=`<tr><td>${veiculo.marca}</td><td>${veiculo.modelo}</td><td>${veiculo.aluguel}</td><td>${veiculo.cor}</td><td>${veiculo.cambio}</td><td>${veiculo.portas}</td><td>${veiculo.airbag}</td><td>${veiculo.ar_condicionado}</td><td>${veiculo.quilometragem}</td><td>${veiculo.combustivel}</td><td>${veiculo.categoria}</td></tr>`
+        tabela+=`<tr><td>${veiculo.id}</td><td>${veiculo.marca}</td><td>${veiculo.modelo}</td><td>${veiculo.aluguel}</td><td>${veiculo.cor}</td><td>${veiculo.cambio}</td><td>${veiculo.portas}</td><td>${veiculo.airbag}</td><td>${veiculo.ar_condicionado}</td><td>${veiculo.quilometragem}</td><td>${veiculo.combustivel}</td><td>${veiculo.categoria}</td></tr>`
     }
     tabela+="</table>"
     conteudo.innerHTML = tabela
 }
+
+
+function carregarCarros() {
+    fetch("/pegar_lista")
+        .then(response => response.json())
+        .then(carros => {
+            criarTabela(carros);  // Passa os carros do servidor
+        })}
