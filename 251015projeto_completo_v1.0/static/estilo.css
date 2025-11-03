@@ -1,8 +1,0 @@
-.conteudo a{
-    visibility: hidden;
-}
-
-.conteudo.erro a{
-    visibility: visible;
-    color: red;
-}
