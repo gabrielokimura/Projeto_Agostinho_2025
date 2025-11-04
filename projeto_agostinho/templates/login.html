@@ -8,47 +8,44 @@
 </head>
 <body>
     
-<<<<<<< Updated upstream
-=======
-<header>
-  <div class="container">
-    <div class="logo">
-        <img src="{{ url_for('static', filename='imagens/Isologo Show.png') }}" alt="Show" />
-    </div>
-    <nav>
-        <a href="#" class="icon-contato">Contato</a>
-        <a href="#" class="icon-ajuda">Ajuda</a>
-        <span>|</span>
-        <a href="#" class="icon-login">Login</a>
-    </nav>
-  </div>
-</header>
-
-
->>>>>>> Stashed changes
-<center>
-<h1>Login</h1>
-    
-    <form action="/login" method="POST" novalidate>
-
-        <div>
-            <label for="nome">Nome de Usuário</label>
-            <input type="text" id="nome" name="nome" required minlength="3" placeholder="  " >
+    <header>
+        <div class="logo">
+            <img src="{{ url_for('static', filename='imagens/Isologo Show.png') }}" alt="Show" />
         </div>
+        <nav>
+            <a href="#" class="icon-contato">Contato</a>
+            <a href="#" class="icon-ajuda">Ajuda</a>
+            <span>|</span>
+            <a href="#" class="icon-login">Login</a>
+        </nav>
+      </div>
+    </header>
 
-        <div>
 
-            <label for="senha">Senha</label>
-            <input type="text" id="senha" name="senha" required minlength="3" placeholder="  ">
 
-        </div>        
-        <button type="submit">logar</button>
+    <h1>Login</h1>
+    
+    <div class ="form-container">
+        <form action="/login" method="POST" novalidate>
 
-    </form>
+            <div>
+                <label for="nome">Nome de Usuário</label>
+                <input type="text" id="nome" name="nome" required minlength="3" placeholder="  " >
+            </div>
+
+            <div>
+
+                <label for="senha">Senha</label>
+                <input type="text" id="senha" name="senha" required minlength="3" placeholder="  ">
+
+            </div>        
+            <button type="submit">logar</button>
+        </form>
+    </div>
 
     {{mensagem}}
     <p>Não está cadastrado? <a href="/cadastro">Faça cadastro</a></p>
 
-</center>
+
 </body>
 </html>
