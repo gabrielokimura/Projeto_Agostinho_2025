@@ -17,59 +17,58 @@
                 <a href="#" class="icon-contato">Contato</a>
                 <a href="#" class="icon-ajuda">Ajuda</a>
                 <span>|</span>
-                <a href="#" class="icon-login">Login</a>
+                <a href="/login" class="icon-login">Login</a>
             </nav>
         </div>
     </header>
     
-    <h1>Cadastro</h1>
+<h1>Cadastro</h1>
 
+<div class="form-container">
     <form action="/cadastro" method="POST">
 
         <div class="container">
             <label for="nome">Nome de Usuário</label>
-            <input type="text"  name="nome" required minlength="3" placeholder="  " >
+            <input type="text" name="nome" required minlength="3" placeholder="  ">
         </div>
-        <div class="container">
 
+        <div class="container">
             <label for="senha">Senha</label>
-            <input type="text" name="senha" required minlength="3" placeholder="  ">
-
+            <input type="password" name="senha" required minlength="3" placeholder="  ">
         </div>
-        <div class="container">
 
+        <div class="container">
             <label for="email">Email</label>
             <input type="email" name="email" required minlength="3" placeholder="  ">
-
         </div>
-        <div class="container">
 
+        <div class="container">
             <label for="telefone">Telefone</label>
-            <input type="tel" name="telefone" required minlength="11" placeholder="  ">
-
+            <input type="tel" name="telefone" required placeholder="(xx) xxxxx-xxxx">
         </div>
-        <div class="container">
 
+        <div class="container">
             <label for="data_nasc">Data de nascimento</label>
             <input type="date" name="data_nasc" required placeholder="  ">
-
         </div>
-        <div class="container">
 
+        <div class="container">
             <label for="CPF">CPF</label>
-            <input type="number" name="cpf" required placeholder="  ">
-
+            <input type="number" name="cpf" required minlength="11" maxlength="11" placeholder="  ">
         </div>
-        <div class="container">
 
+        <div class="container">
             <label for="CNH">CNH</label>
-            <input type="number" name="cnh" required minlength="11" placeholder="  ">
+            <input type="number" name="cnh" required minlength="11" maxlength="11" placeholder="  ">
+        </div>
 
-        </div>
         <div class="container">
-        <button type="submit">cadastrar</button>
+            <button type="submit">Cadastrar</button>
         </div>
+
     </form>
+</div>
+
 
     {{mensagem}}
 
