@@ -1,30 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='estilo.css') }}">
-</head>
-<body>
+    {% extends "base.html" %}
+
+    {% block title %}Login{% endblock %}
+
+    {% block content %}
     
-    <header>
-        <div class="container">
-            <div class="logo">
-                <img src="{{ url_for('static', filename='imagens/Isologo Show.png') }}" alt="Show" />
-            </div>
-            <nav>
-                <a href="#" class="icon-contato">Contato</a>
-                <a href="#" class="icon-ajuda">Ajuda</a>
-                <span>|</span>
-                <a href="/login" class="icon-login">Login</a>
-            </nav>
-        </div>
-    </header>
-
-
-
-    <h1>Login</h1>
+    
     
     <div class ="form-container">
         <form action="/login" method="POST" novalidate>
@@ -46,7 +26,7 @@
 
     {{mensagem}}
     <p>Não está cadastrado? <a href="/cadastro">Faça cadastro</a></p>
+    
+    {% endblock %}
+    
 
-
-</body>
-</html>

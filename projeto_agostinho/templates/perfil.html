@@ -1,44 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ usuario["nome"] }}</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='estilo.css') }}">   
-</head>
-<body>
+{% extends "base.html" %}
 
-    <header>
-        <div class="container">
-            <div class="logo">
-                <img src="{{ url_for('static', filename='imagens/Isologo Show.png') }}" alt="Show" />
-            </div>
-            <nav>
-                <a href="#" class="icon-contato">Contato</a>
-                <a href="#" class="icon-ajuda">Ajuda</a>
-                <span>|</span>
-                <a href="/login" class="icon-login">Login</a>
-            </nav>
-        </div>
-    </header>    
-
-    <p>Nome de usuário: {{ usuario["nome"] }}</p>
-
-    <p>senha: {{ usuario["senha"] }}</p>
-
-    <p>Email: {{ usuario["email"] }}</p>
-
-    <p>Telefone: {{ usuario["telefone"] }}</p>
-
-    <p>Data de nascimento: {{ usuario["data_nasc"] }}</p>
-
-    <p>CPF: {{ usuario["cpf"] }}</p>
-
-    <p>CNH: {{ usuario["cnh"] }}</p>
+{% block title %}Perfil{% endblock %}
 
 
+{% block content %}
 
+<h1>Perfil</h1>
 
-    
-</body>
-</html>
+<p>Nome de usuário: {{ usuario["nome"] }}</p>
+
+<p>senha: {{ usuario["senha"] }}</p>
+
+<p>Email: {{ usuario["email"] }}</p>
+
+<p>Telefone: {{ usuario["telefone"] }}</p>
+
+<p>Data de nascimento: {{ usuario["data_nasc"] }}</p>
+
+<p>CPF: {{ usuario["cpf"] }}</p>
+
+<p>CNH: {{ usuario["cnh"] }}</p>
+
+{% endblock %}
+
+        

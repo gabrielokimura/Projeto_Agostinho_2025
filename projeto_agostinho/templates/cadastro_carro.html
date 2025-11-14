@@ -1,26 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro carro</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='estilo.css') }}">
-</head>
-<body><center>
-    
-    <header>
-        <div class="container">
-            <div class="logo">
-                <img src="{{ url_for('static', filename='imagens/Isologo Show.png') }}" alt="Show" />
-            </div>
-            <nav>
-                <a href="#" class="icon-contato">Contato</a>
-                <a href="#" class="icon-ajuda">Ajuda</a>
-                <span>|</span>
-                <a href="/login" class="icon-login">Login</a>
-            </nav>
-        </div>
-    </header>
+    {% extends "base.html" %}
+
+    {% block title %}Login{% endblock %}
+
+    {% block content %}
         
     <h1>Cadastrar Veículo</h1>
 
@@ -119,5 +101,6 @@
 
 
 
-</center><script src="/static/cadastro_carro.js"></script></body>
-</html>
+</center><script src="/static/cadastro_carro.js"></script>
+
+{% endblock %}
