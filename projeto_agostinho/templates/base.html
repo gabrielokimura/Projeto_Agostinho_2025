@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,9 +11,9 @@
     
     <header>
         <div class="container">
-            <div class="logo">
+            <a href="/" class="logo">
                 <img src="{{ url_for('static', filename='imagens/Isologo Show.png') }}" alt="Show" />
-            </div>
+            </a>
             <nav>
                 <a href="#" class="icon-contato">Contato</a>
                 <a href="#" class="icon-ajuda">Ajuda</a>
@@ -23,8 +23,10 @@
         </div>
     </header>
 
-    <main> 
-        {% block content %}{% endblock %}
+    <main>
+        <div class="conteudo_principal">
+        {% block conteudo_principal %}{% endblock %}
+        </div>
     </main>
 
 </body>

@@ -8,6 +8,10 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = "456743785t24783564738564783"
 
 
+@app.route("/")
+def pagina_inicial():
+    return render_template("pagina_inicial.html")
+
 
 @app.route("/pegar_lista")
 def get_carros():
