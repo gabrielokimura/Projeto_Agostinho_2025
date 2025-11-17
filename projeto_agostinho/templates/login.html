@@ -1,0 +1,32 @@
+    {% extends "base.html" %}
+
+    {% block title %}Login{% endblock %}
+
+    {% block conteudo_principal %}
+    
+    
+    
+    <div class ="form-container">
+        <form action="/login" method="POST" novalidate>
+
+            <div>
+                <label for="nome">Nome de Usuário</label>
+                <input type="text" id="nome" name="nome" required minlength="3" placeholder="  " >
+            </div>
+
+            <div>
+
+                <label for="senha">Senha</label>
+                <input type="password" id="senha" name="senha" required minlength="3" placeholder="  ">
+
+            </div>        
+            <button type="submit">logar</button>
+        </form>
+    </div>
+
+    {{mensagem}}
+    <p>Não está cadastrado? <a href="/cadastro">Faça cadastro</a></p>
+    
+    {% endblock %}
+    
+
