@@ -10,7 +10,11 @@ app.config['SECRET_KEY'] = "456743785t24783564738564783"
 
 @app.route("/")
 def pagina_inicial():
-    return render_template("pagina_inicial.html")
+    if session.get("usuario") != None:
+        usuario = session.get("usuario")
+    else:
+        usuario=None
+    return render_template("pagina_inicial.html", carros_cadastrados=modelo.carros_cadastrados, usuario=usuario)
 
 
 @app.route("/pegar_lista")
@@ -86,7 +90,7 @@ def logado():
 @app.route("/logout")
 def logout():
     session.clear()     
-    return redirect(url_for("login"))
+    return redirect(url_for("pagina_inicial"))
 
 
 
