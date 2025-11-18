@@ -4,10 +4,10 @@
 
     {% block conteudo_principal %}
     
+    <h1>Login</h1>
     
-    
-    <div class ="form-container">
-        <form action="/login" method="POST" novalidate>
+    <div class ="form_container">
+        <form class="form_simples input" action="/login" method="POST" novalidate>
 
             <div>
                 <label for="nome">Nome de Usuário</label>
@@ -20,12 +20,15 @@
                 <input type="password" id="senha" name="senha" required minlength="3" placeholder="  ">
 
             </div>        
-            <button type="submit">logar</button>
-        </form>
-    </div>
+            <button type="submit">Confirmar</button>
+            <div class="mensagem_cadastro p">
+                {{mensagem}}
+                <p>Não está cadastrado? <a href="/cadastro">Cadastre-se</a></p> 
+            </div>
 
-    {{mensagem}}
-    <p>Não está cadastrado? <a href="/cadastro">Faça cadastro</a></p>
+        </form>
+        
+    </div>
     
     {% endblock %}
     

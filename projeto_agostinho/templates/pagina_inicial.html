@@ -6,18 +6,16 @@
 {% block conteudo_principal %}
 
 <div class="painel_pesquisa">
-    <div class="formulario_pesquisa">
-        <form class="formulario_pesquisa" action="#">
-            <div class="local_retirada">
-                <input type="text" placeholder="local de retirada"/>
-            </div>
-            <div class="data" title="Data de retirada e horário">
-                <input type="date" aria-label="Data de retirada"/>
-                <input type="time" aria-label="Hora de devolução"/>
-            </div>
-            <button type="submit">Pesquisar</button>
-        </form>
-    </div>
+    <form class="formulario_pesquisa" action="#">
+        <div class="local_retirada">
+            <input type="text" class="input_local" placeholder="local de retirada"/>
+        </div>
+        <div class="data" title="Data de retirada e horário">
+            <input type="date" class="input_data" aria-label="Data de retirada"/>
+            <input type="time" class="input_hora" aria-label="Hora de devolução"/>
+        </div>
+        <button type="submit">Pesquisar</button>
+    </form>
 </div>
 <br><br><br>
 
