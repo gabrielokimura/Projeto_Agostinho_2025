@@ -34,7 +34,7 @@ class Avaliacao(Base):
 class Cliente(Base):
     __tablename__ = "clientes"
     id = Column("id", Integer, primary_key=True, autoincrement=True)
-    cpf = Column("cpf", String(11), nullable=False)
+    cpf = Column("cpf", String(11))
     doc_identificacao = Column("doc_identificacao", String(20))
     nome = Column("nome", String(200), nullable=False)
     email = Column("email", String(255), nullable=False)
@@ -408,10 +408,6 @@ def cadastrar_carro(portas, preco_diaria, placa, cor, preco_compra, capacidade_p
         preco_compra = float(preco_compra)
         capacidade_pessoas = int(capacidade_pessoas)
         quilometragem = int(quilometragem)
-        airbags = (airbags == "sim")
-        ar_condicionado = (ar_condicionado == "sim")
-        disponivel = disponivel == "sim"
-        categoria = categoria
         sessao =Sessao()
         print(f"Cadastrando carro: portas={portas}, preco_diaria={preco_diaria}, ...")  # Log
         fornecedor_obj = sessao.query(Fornecedor).filter_by(nome=fornecedor).first()
@@ -419,7 +415,7 @@ def cadastrar_carro(portas, preco_diaria, placa, cor, preco_compra, capacidade_p
             return "Erro: Fornecedor não encontrado"
         id_fornecedor = fornecedor_obj.id
         
-        garagem_obj = sessao.query(Garagem).filter_by(bairro=garagem).first()
+        garagem_obj = sessao.query(Garagem).filter_by(cep=garagem).first()
         if not garagem_obj:
             return "Erro: Garagem não encontrada"
         id_garagem = garagem_obj.id

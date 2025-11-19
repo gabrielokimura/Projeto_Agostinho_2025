@@ -188,7 +188,7 @@ def pegar_lista():
             categoria = sessao.query(Categoria).filter_by(id= carro.id_categoria).first()
             if not categoria:
                 return "Categoria não encontrada"
-            fornecedor = sessao.query(Fornecedor).filter_by(id= carro.id_fornecedor).first()
+            fornecedor = sessao.query(Fornecedor).filter_by(id = carro.id_fornecedor).first()
             if not fornecedor:
                 return "Fornecedor não encontrado"
             garagem = sessao.query(Garagem).filter_by(id= carro.id_garagem).first()
