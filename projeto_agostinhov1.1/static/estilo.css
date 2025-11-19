@@ -182,7 +182,7 @@ button[type="submit"] {
 .formulario_pesquisa{
   display:flex;
   gap: 10px;
-  flex-wrap: wrap;
+  width: 100%;
   align-items: center;
 }
 
@@ -201,16 +201,30 @@ button[type="submit"] {
   gap: 10px;            /* opcional para espaçar inputs dentro dos grupos */
 }
 
-.input_local{
+.local_retirada {
+    flex: 4; 
 }
 
-.input_data{
+.input_local {
+  width:100%;
 }
 
-.input_hora{
+.data {
+    flex: 3; /* Pega um espaço médio (menor que o local, maior que o botão) */
+    display: flex; /* Torna essa div um container flex também */
+    gap: 10px;
 }
 
+/* Dentro da div .data, definimos os tamanhos da Data vs Hora */
+.input_data {
+    flex: 2; /* Data ocupa 2/3 do espaço desse grupo */
+    width: 100%;
+}
 
+.input_hora {
+    flex: 1; /* Hora ocupa 1/3 do espaço (menor) */
+    width: 100%;
+}
 
 .formulario_pesquisa button{
   height: 80px;
@@ -220,7 +234,8 @@ button[type="submit"] {
   border-radius: 10px;
   border:none;
   background-color: #ff6606;
-  color: #ddd;
+  font-size: 17px;
+  color: #ffffff;
 }
 
 footer {
@@ -229,6 +244,7 @@ footer {
   padding: 40px 20px 20px 20px;
   margin-top: 60px;
   font-family: "Work Sans", sans-serif;
+  margin: -20px;
 }
 
 .footer_container {
@@ -288,6 +304,7 @@ margin-top: 30px;
 font-size: 12px;
 opacity: 0.8;
 }
+
 
 
 
