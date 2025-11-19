@@ -40,6 +40,7 @@ sessao.commit()
  """
 
 """ try:
+    sessao = Sessao()
     # Marcas
     sessao.add(Marca(nome="Marca_1", descricao="Marca de exemplo 1"))
     sessao.add(Marca(nome="Marca_2", descricao="Marca de exemplo 2"))
@@ -83,7 +84,8 @@ except Exception as e:
     sessao.rollback()
     print(f"Erro ao inserir dados: {e}")
 finally:
-    sessao.close() """
+    sessao.close() 
+"""
 
 
 
@@ -318,3 +320,15 @@ def receber_carro():
 def get_carros():
     return jsonify(sessao.query(Veiculo).all())
  """
+
+
+
+
+""" try:
+    sessao =Sessao()
+    carro = sessao.query(Veiculo).filter_by(id=1).first()
+    sessao.delete(carro)
+    sessao.commit()
+    sessao.close()
+except Exception as e:
+    print (e) """

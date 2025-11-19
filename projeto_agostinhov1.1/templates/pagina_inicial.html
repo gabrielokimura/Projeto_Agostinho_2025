@@ -27,21 +27,24 @@
     <h2>Frota de carros</h2>
     <ul>
     {% for carro in carros_cadastrados %}
+    {% if carro %}
         <a href="{{ url_for('detalhar_carro', carro_id = carro['id']) }}"><div><li>
     <ul>
-        <li>Marca: {{ carro["marca"] }}</li>
-        <li>Modelo: {{ carro["modelo"] }}</li>
-        <li>Aluguel: {{ carro["aluguel"] }}</li>
-        <li>Cor: {{ carro["cor"] }}</li>
-        <li>Cambio: {{ carro["cambio"] }}</li>
-        <li>Portas: {{ carro["portas"] }}</li>
-        <li>Airbag: {{ carro["airbag"] }}</li>
-        <li>Ar condicionado: {{ carro["ar_condicionado"] }}</li>
-        <li>Quilometragem: {{ carro["quilometragem"] }}</li>
-        <li>Combustível: {{ carro["combustivel"] }}</li>
-        <li>Categoria: {{ carro["categoria"] }}</li>
+        <li>Marca: {{ carro.marca }}</li>
+        <li>Modelo: {{ carro.modelo }}</li>
+        <li>Aluguel: {{ carro.aluguel }}</li>
+        <li>Cor: {{ carro.cor }}</li>
+        <li>Cambio: {{ carro.cambio }}</li>
+        <li>Portas: {{ carroportas }}</li>
+        <li>Airbag: {{ carro.airbag }}</li>
+        <li>Ar condicionado: {{ carro.ar_condicionado }}</li>
+        <li>Quilometragem: {{ carro.quilometragem }}</li>
+        <li>Combustível: {{ carro.combustivel }}</li>
+        <li>Categoria: {{ carro.categoria }}</li>
     </ul>
         </li></div></a><br>
+
+        {% endif %}
         
     {% endfor %} 
     </ul>

@@ -10,17 +10,17 @@ app.config['SECRET_KEY'] = "456743785t24783564738564783"
 
 @app.route("/")
 def pagina_inicial():
+    sessao =Sessao()
+    carros = sessao.query(Veiculo).all() 
     if session.get("funcionario_id"):
         funcionario = sessao.query(Funcionario).filter_by(id = session.get("funcionario_id")).first()
         cargo = funcionario.cargo
     else:
-        cargo=None       
-    return render_template("pagina_inicial.html", carros_cadastrados=sessao.query(Veiculo).all(), cargo = cargo)
+        cargo=None 
+    sessao.close()
+             
+    return render_template("pagina_inicial.html", carros_cadastrados=carros, cargo = cargo)
 
-
-@app.route("/pegar_lista")
-def get_carros():
-    return jsonify(sessao.query(Veiculo).all())
 
 
 @app.errorhandler(404)
@@ -45,6 +45,7 @@ def acesso_proibido(error):
 
 @app.route("/cadastro", methods=["GET", "POST"])
 def cadastro():
+    sessao =Sessao()
     mensagem= ""
     if request.method=="POST":
         session["nome"]=request.form.get("nome")
@@ -56,7 +57,7 @@ def cadastro():
         session["cnh"] = request.form.get("cnh")
         session["doc_identificacao"] = request.form.get("doc_identificacao")
         if session["nome"] and session["email"] and session["senha"] and session["telefone"] and session["data_nasc"] and session["cpf"] and session["cnh"] and session["doc_identificacao"]:
-            cadastrar_cliente(session["nome"], session["nome"], session["email"],session["senha"],session["data_nasc"], session["cnh"], session["cpf"], session["doc_identificacao"])
+            cadastrar_cliente( session["nome"], session["email"],session["senha"],session["data_nasc"], session["cnh"], session["cpf"], session["doc_identificacao"], session["telefone"])
             flash(f'Obrigado por se cadastrar, {session["nome"]}!', "success")
             return redirect(url_for("login"))
         else:
@@ -67,6 +68,7 @@ def cadastro():
 
 @app.route("/login", methods = ["GET", "POST"])
 def login():
+    sessao=Sessao()
     mensagem = ""
     if request.method=="POST":
         nome = request.form.get("nome")
@@ -133,12 +135,13 @@ def cadastro_carro():
     return render_template("cadastro_carro.html")
 
 
-""" @app.route("/<int:carro_id>")
+@app.route("/<int:carro_id>")
 def detalhar_carro(carro_id):
-    carro = modelo.achar_carro(carro_id)
+    sessao =Sessao()
+    carro = sessao.query(Veiculo).filter_by(id=carro_id).first()
     if carro is None:
         abort(404)
-    return render_template("detalhar_carro.html", carro= carro) """
+    return render_template("detalhar_carro.html", carro= carro) 
 
 
 
@@ -159,59 +162,71 @@ def receber_carro():
         print(f"Erro na rota: {erro}")  # Log
         return jsonify({"success": False, "message": "Erro interno"}), 500
 
-def cadastrar_carro(portas, preco_diaria, placa, cor, preco_compra, capacidade_pessoas, quilometragem, cambio, airbags, ar_condicionado, disponivel, fornecedor, garagem, plano_seguro, marca, modelo, categoria, combustivel):
+
+
+
+
+
+
+
+@app.route("/pegar_lista")
+def pegar_lista():
+    sessao = Sessao()
     try:
-        print(f"Cadastrando carro: portas={portas}, preco_diaria={preco_diaria}, ...")  # Log
-        fornecedor_obj = sessao.query(Fornecedor).filter_by(nome=fornecedor).first()
-        if not fornecedor_obj:
-            return "Erro: Fornecedor não encontrado"
-        id_fornecedor = fornecedor_obj.id
-        
-        garagem_obj = sessao.query(Garagem).filter_by(bairro=garagem).first()
-        if not garagem_obj:
-            return "Erro: Garagem não encontrada"
-        id_garagem = garagem_obj.id
-        
-        plano_seguro_obj = sessao.query(PlanoSeguro).filter_by(tipo=plano_seguro).first()
-        if not plano_seguro_obj:
-            return "Erro: Plano seguro não encontrado"
-        id_plano_seguro = plano_seguro_obj.id
-        
-        marca_obj = sessao.query(Marca).filter_by(nome=marca).first()
-        if not marca_obj:
-            return "Erro: Marca não encontrada"
-        id_marca = marca_obj.id
-        
-        modelo_obj = sessao.query(Modelo).filter_by(nome=modelo).first()
-        if not modelo_obj:
-            return "Erro: Modelo não encontrado"
-        id_modelo = modelo_obj.id
-        
-        categoria_obj = sessao.query(Categoria).filter_by(nome=categoria).first()
-        if not categoria_obj:
-            return "Erro: Categoria não encontrada"
-        id_categoria = categoria_obj.id
-        
-        combustivel_obj = sessao.query(Combustivel).filter_by(tipo=combustivel).first()
-        if not combustivel_obj:
-            return "Erro: Combustível não encontrado"
-        id_combustivel = combustivel_obj.id
-        
-        novo_carro = Veiculo(
-            portas=portas, preco_diaria=preco_diaria, placa=placa, cor=cor, preco_compra=preco_compra,
-            capacidade_pessoas=capacidade_pessoas, quilometragem=quilometragem, cambio=cambio, airbags=airbags,
-            ar_condicionado=ar_condicionado, disponivel=disponivel, id_fornecedor=id_fornecedor,
-            id_garagem=id_garagem, id_plano_seguro=id_plano_seguro, id_marca=id_marca, id_modelo=id_modelo,
-            id_categoria=id_categoria, id_combustivel=id_combustivel
-        )
-        sessao.add(novo_carro)
-        sessao.commit()
-        return "Carro cadastrado com sucesso"
-    except Exception as e:
-        sessao.rollback()
-        return f"Erro: {str(e)}"
+        carros = sessao.query(Veiculo).all()
+        lista_carros = []
+        for carro in carros:
+            marca = sessao.query(Marca).filter_by(id= carro.id_marca).first()
+            if not marca:
+                return "Marca não encontrada"
+            modelo = sessao.query(Modelo).filter_by(id= carro.id_modelo).first()
+            if not modelo:
+                return "Modelo não encontrado"
+            combustivel = sessao.query(Combustivel).filter_by(id= carro.id_combustivel).first()
+            if not combustivel:
+                return "Combustível não encontrado"
+            categoria = sessao.query(Categoria).filter_by(id= carro.id_categoria).first()
+            if not categoria:
+                return "Categoria não encontrada"
+            fornecedor = sessao.query(Fornecedor).filter_by(id= carro.id_fornecedor).first()
+            if not fornecedor:
+                return "Fornecedor não encontrado"
+            garagem = sessao.query(Garagem).filter_by(id= carro.id_garagem).first()
+            if not garagem:
+                return "Garagem não encontrada"
+            plano_seguro = sessao.query(PlanoSeguro).filter_by(id= carro.id_plano_seguro).first()
+            if not plano_seguro:
+                return "plano de seguro não encontrado"
+            lista_carros.append(
+                {
+                "id": carro.id,
+                "placa": carro.placa,
+                "marca": marca.nome,  
+                "modelo": modelo.nome,
+                "preco_diaria": float(carro.preco_diaria),
+                "cor": carro.cor,
+                "cambio": carro.cambio,
+                "portas": carro.portas,
+                "airbags": carro.airbags,
+                "ar_condicionado": carro.ar_condicionado,
+                "quilometragem": carro.quilometragem,
+                "combustivel": combustivel.tipo,
+                "categoria": categoria.nome,
+                "preco_compra": float(carro.preco_compra),
+                "capacidade_pessoas": carro.capacidade_pessoas,
+                "fornecedor": fornecedor.nome,
+                "garagem": garagem.logradouro,
+                "plano_seguro": plano_seguro.tipo
+            }
+            )
+        return jsonify(lista_carros)
     finally:
         sessao.close()
+
+
+
+
+
 
 if __name__=="__main__":
     app.run(debug=True)

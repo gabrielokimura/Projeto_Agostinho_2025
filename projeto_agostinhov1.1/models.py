@@ -7,7 +7,7 @@ bd = create_engine("sqlite:///projeto_concessionaria.db")
 
 Sessao = sessionmaker(bind = bd)
 
-sessao = Sessao()
+
 
 
 Base = declarative_base()
@@ -44,7 +44,7 @@ class Cliente(Base):
 
     def __init__(self, nome, email, senha, data_nasc, cnh, cpf, doc_identificacao):
         self.cpf = cpf
-        self.documento_identificacao = doc_identificacao
+        self.doc_identificacao = doc_identificacao
         self.nome = nome
         self.email = email
         self.senha = senha
@@ -377,11 +377,11 @@ Base.metadata.create_all(bind = bd)
 
 
 
-
 # Funções 
 
 
-def cadastrar_cliente(nome, senha, email, telefone, data_nasc, cpf,cnh, doc_identificacao):
+def cadastrar_cliente(nome, email, senha, data_nasc, cnh,cpf, doc_identificacao, telefone):
+    sessao = Sessao()
     data_nasc2 = date.fromisoformat(data_nasc)
     novo_cliente = Cliente(nome,email, senha, data_nasc2, cnh, cpf, doc_identificacao)
     sessao.add(novo_cliente)
@@ -400,7 +400,19 @@ def cadastrar_cliente(nome, senha, email, telefone, data_nasc, cpf,cnh, doc_iden
 
 
 def cadastrar_carro(portas, preco_diaria, placa, cor, preco_compra, capacidade_pessoas, quilometragem, cambio, airbags, ar_condicionado, disponivel, fornecedor, garagem, plano_seguro, marca, modelo, categoria, combustivel):
+
     try:
+        # Conversões
+        portas = int(portas)
+        preco_diaria = float(preco_diaria)
+        preco_compra = float(preco_compra)
+        capacidade_pessoas = int(capacidade_pessoas)
+        quilometragem = int(quilometragem)
+        airbags = (airbags == "sim")
+        ar_condicionado = (ar_condicionado == "sim")
+        disponivel = disponivel == "sim"
+        categoria = categoria
+        sessao =Sessao()
         print(f"Cadastrando carro: portas={portas}, preco_diaria={preco_diaria}, ...")  # Log
         fornecedor_obj = sessao.query(Fornecedor).filter_by(nome=fornecedor).first()
         if not fornecedor_obj:
@@ -452,3 +464,6 @@ def cadastrar_carro(portas, preco_diaria, placa, cor, preco_compra, capacidade_p
         return f"Erro: {str(e)}"
     finally:
         sessao.close()
+    
+
+    
