@@ -376,6 +376,8 @@ Base.metadata.create_all(bind = bd)
 
 
 
+
+
 # Funções 
 
 
@@ -395,44 +397,58 @@ def cadastrar_cliente(nome, senha, email, telefone, data_nasc, cpf,cnh, doc_iden
 
 """ portas, preco_diaria, placa, cor, preco_compra, capacidade_pessoas,quilometragem, cambio,airbags,ar_condicionado,disponivel,id_fornecedor,id_garage,id_plano_seguro,id_marca,id_modelo,id_categoria,id_combustivel """
 
-def cadastrar_carro(portas, preco_diaria, placa, cor, preco_compra, capacidade_pessoas,quilometragem, cambio,airbags,ar_condicionado,disponivel,fornecedor,garagem,plano_seguro,marca,modelo,categoria,combustivel):
-   try:
-    fornecedor = sessao.query(Fornecedor).filter_by(nome = fornecedor).first()
-    if fornecedor:
-        id_fornecedor = fornecedor.id
-    garagem = sessao.query(Garagem).filter_by(bairro = garagem).first()
-    if garagem:
-        id_garagem = garagem.id
-    plano_seguro = sessao.query(PlanoSeguro).filter_by(tipo = plano_seguro).first()
-    if plano_seguro:
-        id_plano_seguro = plano_seguro.id
-    marca = sessao.query(Marca).filter_by(nome = marca).first()
-    if marca:
-        id_marca = marca.id
-    modelo = sessao.query(Modelo).filter_by(nome = modelo).first()
-    if modelo:
-        id_modelo = modelo.id
-    categoria = sessao.query(Categoria).filter_by(nome = categoria).first()
-    if categoria:
-        id_categoria = categoria.id
-    combustivel = sessao.query(Combustivel).filter_by(tipo = combustivel).first()
-    if combustivel:
-        id_combustivel = combustivel.id
-    if id_fornecedor and id_garagem and id_plano_seguro and id_marca and id_modelo and id_categoria and id_combustivel:
-        novo_carro= Veiculo(
-            portas=portas,preco_diaria=preco_diaria,placa=placa, cor=cor,preco_compra=preco_compra,
-              capacidade_pessoas=capacidade_pessoas, quilometragem=quilometragem, cambio=cambio, airbags=airbags,
-                ar_condicionado=ar_condicionado,disponivel=disponivel, id_fornecedor=id_fornecedor,
-                id_garagem=id_garagem, id_plano_seguro=id_plano_seguro, id_marca=id_marca, id_modelo=id_modelo,
-                id_categoria=id_categoria, id_combustivel=id_combustivel)
+
+
+def cadastrar_carro(portas, preco_diaria, placa, cor, preco_compra, capacidade_pessoas, quilometragem, cambio, airbags, ar_condicionado, disponivel, fornecedor, garagem, plano_seguro, marca, modelo, categoria, combustivel):
+    try:
+        print(f"Cadastrando carro: portas={portas}, preco_diaria={preco_diaria}, ...")  # Log
+        fornecedor_obj = sessao.query(Fornecedor).filter_by(nome=fornecedor).first()
+        if not fornecedor_obj:
+            return "Erro: Fornecedor não encontrado"
+        id_fornecedor = fornecedor_obj.id
+        
+        garagem_obj = sessao.query(Garagem).filter_by(bairro=garagem).first()
+        if not garagem_obj:
+            return "Erro: Garagem não encontrada"
+        id_garagem = garagem_obj.id
+        
+        plano_seguro_obj = sessao.query(PlanoSeguro).filter_by(tipo=plano_seguro).first()
+        if not plano_seguro_obj:
+            return "Erro: Plano seguro não encontrado"
+        id_plano_seguro = plano_seguro_obj.id
+        
+        marca_obj = sessao.query(Marca).filter_by(nome=marca).first()
+        if not marca_obj:
+            return "Erro: Marca não encontrada"
+        id_marca = marca_obj.id
+        
+        modelo_obj = sessao.query(Modelo).filter_by(nome=modelo).first()
+        if not modelo_obj:
+            return "Erro: Modelo não encontrado"
+        id_modelo = modelo_obj.id
+        
+        categoria_obj = sessao.query(Categoria).filter_by(nome=categoria).first()
+        if not categoria_obj:
+            return "Erro: Categoria não encontrada"
+        id_categoria = categoria_obj.id
+        
+        combustivel_obj = sessao.query(Combustivel).filter_by(tipo=combustivel).first()
+        if not combustivel_obj:
+            return "Erro: Combustível não encontrado"
+        id_combustivel = combustivel_obj.id
+        
+        novo_carro = Veiculo(
+            portas=portas, preco_diaria=preco_diaria, placa=placa, cor=cor, preco_compra=preco_compra,
+            capacidade_pessoas=capacidade_pessoas, quilometragem=quilometragem, cambio=cambio, airbags=airbags,
+            ar_condicionado=ar_condicionado, disponivel=disponivel, id_fornecedor=id_fornecedor,
+            id_garagem=id_garagem, id_plano_seguro=id_plano_seguro, id_marca=id_marca, id_modelo=id_modelo,
+            id_categoria=id_categoria, id_combustivel=id_combustivel
+        )
         sessao.add(novo_carro)
         sessao.commit()
-
-   except Exception as e:
-    return "Erro inesperado", e
-   
-
-
-
-    
-
+        return "Carro cadastrado com sucesso"
+    except Exception as e:
+        sessao.rollback()
+        return f"Erro: {str(e)}"
+    finally:
+        sessao.close()
