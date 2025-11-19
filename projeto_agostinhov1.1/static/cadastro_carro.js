@@ -120,9 +120,9 @@ function adicionarCarro(){
 
 function criarTabela (carroscadastrados){
     let tabela = "<h2>Carros cadastrados</h2><table border='1'>"
-    tabela+="<tr><th>Id do carro</th><th>Marca</th><th>Modelo</th><th>Aluguel</th><th>Cor</th><th>Cambio</th><th>Portas</th><th>Airbag</th><th>Ar condicionado</th><th>Quilometragem</th><th>Combustível</th><th>Categoria</th></tr>"
+    tabela+="<tr><th>Id do carro</th><th>Marca</th><th>Modelo</th><th>Aluguel</th><th>Cor</th><th>Cambio</th><th>Portas</th><th>Airbag</th><th>Ar condicionado</th><th>Quilometragem</th><th>Combustível</th><th>Categoria</th><th>Preço de compra</th><th>Capacidade</th><th>Fornecedor</th><th>Garagem</th><th>Plano de seguro</th></tr>"
     for (const veiculo of carroscadastrados){
-        tabela+=`<tr><td>${veiculo.id}</td><td>${veiculo.marca}</td><td>${veiculo.modelo}</td><td>${veiculo.aluguel}</td><td>${veiculo.cor}</td><td>${veiculo.cambio}</td><td>${veiculo.portas}</td><td>${veiculo.airbag}</td><td>${veiculo.ar_condicionado}</td><td>${veiculo.quilometragem}</td><td>${veiculo.combustivel}</td><td>${veiculo.categoria}</td></tr>`
+        tabela+=`<tr><td>${veiculo.id}</td><td>${veiculo.marca}</td><td>${veiculo.modelo}</td><td>${veiculo.aluguel}</td><td>${veiculo.cor}</td><td>${veiculo.cambio}</td><td>${veiculo.portas}</td><td>${veiculo.airbag}</td><td>${veiculo.ar_condicionado}</td><td>${veiculo.quilometragem}</td><td>${veiculo.combustivel}</td><td>${veiculo.categoria}</td><td>${veiculo.capacidade_pessoas}</td><td>${veiculo.fornecedor}</td><td>${veiculo.garagem}</td><td>${veiculo.plano_seguro}</td></tr>`
     }
     tabela+="</table>"
     conteudo.innerHTML = tabela
