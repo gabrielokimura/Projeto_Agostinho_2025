@@ -119,15 +119,17 @@ class Funcionario(Base):
     id = Column("id", Integer, primary_key=True, autoincrement=True)
     cpf = Column("cpf", String(11), nullable=False)
     nome = Column("nome", String(200), nullable=False)
+    senha = Column("senha", String(200), nullable=False)
     data_nasc = Column("data_nasc", Date, nullable=False)
     email = Column("email", String(255), nullable=False)
     cargo = Column("cargo", String(255), nullable=False)
     salario = Column("salario", Numeric(10, 2), nullable=False)
     data_admissao = Column("data_admissao", Date, nullable=False)
 
-    def __init__(self, cpf, nome, data_nasc, email, cargo, salario, data_admissao):
+    def __init__(self, cpf, nome,senha, data_nasc, email, cargo, salario, data_admissao):
         self.cpf = cpf
         self.nome = nome
+        self.senha=senha
         self.data_nasc = data_nasc
         self.email = email
         self.cargo = cargo
@@ -373,6 +375,7 @@ Base.metadata.create_all(bind = bd)
 
 
 
+
 # Funções 
 
 
@@ -394,25 +397,25 @@ def cadastrar_cliente(nome, senha, email, telefone, data_nasc, cpf,cnh, doc_iden
 
 def cadastrar_carro(portas, preco_diaria, placa, cor, preco_compra, capacidade_pessoas,quilometragem, cambio,airbags,ar_condicionado,disponivel,fornecedor,garagem,plano_seguro,marca,modelo,categoria,combustivel):
    try:
-    fornecedor = sessao.query(Fornecedor).filter_by(nome = fornecedor)
+    fornecedor = sessao.query(Fornecedor).filter_by(nome = fornecedor).first()
     if fornecedor:
         id_fornecedor = fornecedor.id
-    garagem = sessao.query(Garagem).filter_by(bairro = garagem)
+    garagem = sessao.query(Garagem).filter_by(bairro = garagem).first()
     if garagem:
         id_garagem = garagem.id
-    plano_seguro = sessao.query(PlanoSeguro).filter_by(tipo = plano_seguro)
+    plano_seguro = sessao.query(PlanoSeguro).filter_by(tipo = plano_seguro).first()
     if plano_seguro:
         id_plano_seguro = plano_seguro.id
-    marca = sessao.query(Marca).filter_by(nome = marca)
+    marca = sessao.query(Marca).filter_by(nome = marca).first()
     if marca:
         id_marca = marca.id
-    modelo = sessao.query(Modelo).filter_by(nome = modelo)
+    modelo = sessao.query(Modelo).filter_by(nome = modelo).first()
     if modelo:
         id_modelo = modelo.id
-    categoria = sessao.query(Categoria).filter_by(nome = categoria)
+    categoria = sessao.query(Categoria).filter_by(nome = categoria).first()
     if categoria:
         id_categoria = categoria.id
-    combustivel = sessao.query(Combustivel).filter_by(tipo = combustivel)
+    combustivel = sessao.query(Combustivel).filter_by(tipo = combustivel).first()
     if combustivel:
         id_combustivel = combustivel.id
     if id_fornecedor and id_garagem and id_plano_seguro and id_marca and id_modelo and id_categoria and id_combustivel:
@@ -429,8 +432,6 @@ def cadastrar_carro(portas, preco_diaria, placa, cor, preco_compra, capacidade_p
     return "Erro inesperado", e
    
 
-print("oi")
-    
 
 
     
