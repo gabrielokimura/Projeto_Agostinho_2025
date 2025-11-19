@@ -137,6 +137,7 @@ button[type="submit"] {
   margin-top: 5px;
   margin-bottom: 10px;
   font-size: 15px;
+  background-color: #fff;
 }
 
 .form_simples button {
