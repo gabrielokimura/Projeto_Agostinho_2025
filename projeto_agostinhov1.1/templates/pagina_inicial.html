@@ -55,8 +55,10 @@
 
 
 
-    {% if usuario["admin"]==True %}
+    {% if cargo !=None %}
+        {% if cargo == "administrador" %}
     <a href="/cadastro_carro">Cadastrar novos carros</a>
+        {% endif %}
     {% endif %}
 
     <br>

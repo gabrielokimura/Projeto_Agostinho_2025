@@ -6,62 +6,41 @@
         
     <h1>Cadastrar Veículo</h1>
 
-<div class="form_container">
-    <form class="form_simples input">
+
+    <form id="formulario">
         <div class="conteudo">
-            <label for="marca">Marca do Carro</label>
-            <select type="text" id="marca">
-                <option value="Marca">Marca</option>
-                <option value="Marca_1">Marca_1</option>
-                <option value="Marca_2">Marca_2</option>
-                <option value="Marca_3">Marca_3</option>
-                <option value="Marca_4">Marca_4</option>
-                <option value="Marca_5">Marca_5</option>
-            </select>
-            <br>
-            <a>Mensagem de erro</a><br><br>
+        <label for="marca">Marca do Carro</label>
+        <input type="text" id="marca" placeholder="Digite a marca do carro"
+        ><br>
+        <a>Mensagem de erro</a><br><br>
         </div>
 
         <div class="conteudo">
-            <label for="modelo">Modelo do Carro</label>
-            <select type="text" id="modelo" >
-                <option value="Modelo">Modelo</option>
-                <option value="Modelo_1">Modelo_1</option>
-                <option value="Modelo_2">Modelo_2</option>
-                <option value="Modelo_3">Modelo_3</option>
-                <option value="Modelo_4">Modelo_4</option>
-                <option value="Modelo_5">Modelo_5</option>
-            </select>
-            <br>
-            <a>Mensagem de erro</a><br><br>
+        <label for="modelo">Modelo do Carro</label>
+        <input type="text" id="modelo" placeholder="Digite o modelo do carro"
+        ><br>
+        <a>Mensagem de erro</a><br><br>
         </div>
 
         <div class="conteudo">
-            <label for="aluguel">Aluguel do Carro (Diária)</label>
-            <input type="number" id="aluguel" placeholder="Digite o aluguel do carro"
-            ><br>
-            <a>Mensagem de erro</a><br><br>
+        <label for="aluguel">Aluguel do Carro (Diária)</label>
+        <input type="number" id="aluguel" placeholder="Digite o aluguel do carro"
+        ><br>
+        <a>Mensagem de erro</a><br><br>
         </div>
 
 
         <div class="conteudo">
-            <label for="cor">Cor do Carro </label>
-            <select type="text" id="cor" >
-                <option value="Cor">Cor</option>
-                <option value="Cor_1">Cor_1</option>
-                <option value="Cor_2">Cor_2</option>
-                <option value="Cor_3">Cor_3</option>
-                <option value="Cor_4">Cor_4</option>
-                <option value="Cor_5">Cor_5</option>
-            </select>
-            <br>
-            <a>Mensagem de erro</a><br><br>
+        <label for="cor">Cor do Carro </label>
+        <input type="text" id="cor" placeholder="Digite a cor do carro"
+        ><br>
+        <a>Mensagem de erro</a><br><br>
         </div>
 
 
         <div class="conteudo">
         <label for="cambio">Cambio do Carro </label>
-        <select type="text" id="cambio">
+        <select type="text" id="cambio" placeholder="Digite o cambio do carro">
             <option value="Manual">Manual</option>
             <option value="Automatico">Automático</option>
         </select>
@@ -71,69 +50,51 @@
 
 
         <div class="conteudo">
-            <label for="portas">Portas do Carro</label>
-            <select type="text" id="portas">
-                <option value="2_portas">portas</option>
-                <option value="2_portas">2 portas</option>
-                <option value="4_portas">4 portas</option>
-            </select>
-            <br>
-            <a>Mensagem de erro</a><br><br>
+        <label for="portas">Portas do Carro </label>
+        <input type="number" id="portas" placeholder="Digite o número de portas do carro"
+        ><br>
+        <a>Mensagem de erro</a><br><br>
         </div>
 
         <div class="conteudo">
-            <label for="airbag">Airbag</label>
-            <select type="text" id="airbag">
-                <option value="airbag">airbag</option>
-                <option value="sim_airbag">Sim</option>
-                <option value="nao_airbag">Não</option>
-            </select>
-            <br>
-            <a>Mensagem de erro</a><br><br>
+        <label for="airbag">Airbag</label>
+        <input type="text" id="airbag" placeholder="Digite se há airbag no carro"
+        ><br>
+        <a>Mensagem de erro</a><br><br>
         </div>
 
         <div class="conteudo">
-            <label for="ar_condicionado">Ar condicionado</label>
-            <select type="text" id="airbag">
-                <option value="ar_condicionado">airbag</option>
-                <option value="sim_ar_condicionado">Sim</option>
-                <option value="nao_ar_condicionado">Não</option>
-            </select>
-            <br>
-            <a>Mensagem de erro</a><br><br>
+        <label for="ar condicionado">Ar condicionado</label>
+        <input type="text" id="ar_condicionado" placeholder="Digite se há ar condicionado no carro"
+        ><br>
+        <a>Mensagem de erro</a><br><br>
         </div>
 
         <div class="conteudo">
-            <label for="combustivel">Combustivel</label>
-            <select type="text" id="combustivel" >
-                <option value="Combustivel">Combustível</option>
-                <option value="Gasolina">Gasolina</option>
-                <option value="Etanol">Etanol</option>
-                <option value="Diesel">Diesel</option>
-                <option value="GNV">GNV</option>
-            </select>
-            <br>
-            <a>Mensagem de erro</a><br><br>
+        <label for="combustivel">Combustivel</label>
+        <input type="text" id="combustivel" placeholder="Digite os combustiveis aceitos no carro"
+        ><br>
+        <a>Mensagem de erro</a><br><br>
         </div>
 
         <div class="conteudo">
-            <label for="quilometragem">quilometragem</label>
-            <input type="number" id="quilometragem" placeholder="Digite a quilometragem do carro"
-            ><br>
-            <a>Mensagem de erro</a><br><br>
+        <label for="quilometragem">quilometragem</label>
+        <input type="number" id="quilometragem" placeholder="Digite a quilometragem do carro"
+        ><br>
+        <a>Mensagem de erro</a><br><br>
         </div>
 
         <div class="conteudo">
-            <label for="categoria">Categoria</label>
-            <input type="text" id="categoria" placeholder="Digite a categoria do carro"
-            ><br>
-            <a>Mensagem de erro</a><br><br>
+        <label for="categoria">Categoria</label>
+        <input type="text" id="categoria" placeholder="Digite a categoria do carro"
+        ><br>
+        <a>Mensagem de erro</a><br><br>
         </div>
 
         <button type="submit">Cadastrar</button>
 
     </form>
-</div>
+
 
 
     <div id="carros_cadastrados"></div>

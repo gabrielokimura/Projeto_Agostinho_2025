@@ -387,3 +387,49 @@ def cadastrar_cliente(nome, senha, email, telefone, data_nasc, cpf,cnh, doc_iden
         sessao.add(novo_telefone)
     sessao.commit()
     sessao.close()
+
+
+
+""" portas, preco_diaria, placa, cor, preco_compra, capacidade_pessoas,quilometragem, cambio,airbags,ar_condicionado,disponivel,id_fornecedor,id_garage,id_plano_seguro,id_marca,id_modelo,id_categoria,id_combustivel """
+
+def cadastrar_carro(portas, preco_diaria, placa, cor, preco_compra, capacidade_pessoas,quilometragem, cambio,airbags,ar_condicionado,disponivel,fornecedor,garagem,plano_seguro,marca,modelo,categoria,combustivel):
+   try:
+    fornecedor = sessao.query(Fornecedor).filter_by(nome = fornecedor)
+    if fornecedor:
+        id_fornecedor = fornecedor.id
+    garagem = sessao.query(Garagem).filter_by(bairro = garagem)
+    if garagem:
+        id_garagem = garagem.id
+    plano_seguro = sessao.query(PlanoSeguro).filter_by(tipo = plano_seguro)
+    if plano_seguro:
+        id_plano_seguro = plano_seguro.id
+    marca = sessao.query(Marca).filter_by(nome = marca)
+    if marca:
+        id_marca = marca.id
+    modelo = sessao.query(Modelo).filter_by(nome = modelo)
+    if modelo:
+        id_modelo = modelo.id
+    categoria = sessao.query(Categoria).filter_by(nome = categoria)
+    if categoria:
+        id_categoria = categoria.id
+    combustivel = sessao.query(Combustivel).filter_by(tipo = combustivel)
+    if combustivel:
+        id_combustivel = combustivel.id
+    if id_fornecedor and id_garagem and id_plano_seguro and id_marca and id_modelo and id_categoria and id_combustivel:
+        novo_carro= Veiculo(
+            portas=portas,preco_diaria=preco_diaria,placa=placa, cor=cor,preco_compra=preco_compra,
+              capacidade_pessoas=capacidade_pessoas, quilometragem=quilometragem, cambio=cambio, airbags=airbags,
+                ar_condicionado=ar_condicionado,disponivel=disponivel, id_fornecedor=id_fornecedor,
+                id_garagem=id_garagem, id_plano_seguro=id_plano_seguro, id_marca=id_marca, id_modelo=id_modelo,
+                id_categoria=id_categoria, id_combustivel=id_combustivel)
+        sessao.add(novo_carro)
+        sessao.commit()
+
+   except Exception as e:
+    return "Erro inesperado", e
+   
+    
+
+
+    
+

@@ -7,15 +7,15 @@ app = Flask(__name__)
 
 app.config['SECRET_KEY'] = "456743785t24783564738564783"
 
-cliente = Cliente
-veiculo =Veiculo
+
 @app.route("/")
 def pagina_inicial():
-    if session.get("usuario") != None:
-        usuario = session.get("usuario")
+    if session.get("funcionario_id"):
+        funcionario = sessao.query(Funcionario).filter_by(id = session.get("funcionario_id")).first()
+        cargo = funcionario.cargo
     else:
-        usuario=None
-    return render_template("pagina_inicial.html", carros_cadastrados=sessao.query(Veiculo).all(), usuario=usuario)
+        cargo=None       
+    return render_template("pagina_inicial.html", carros_cadastrados=sessao.query(Veiculo).all(), cargo = cargo)
 
 
 @app.route("/pegar_lista")
@@ -55,8 +55,8 @@ def cadastro():
         session["cpf"] = request.form.get("cpf")
         session["cnh"] = request.form.get("cnh")
         session["doc_identificacao"] = request.form.get("doc_identificacao")
-        if session["nome"] and session["senha"] and session["email"] and session["telefone"] and session["data_nasc"] and session["cpf"] and session["cnh"] and session["doc_identificacao"]:
-            cadastrar_cliente(session["nome"], session["senha"], session["email"],session["telefone"],session["data_nasc"], session["cpf"], session["cnh"], session["doc_identificacao"])
+        if session["nome"] and session["email"] and session["senha"] and session["telefone"] and session["data_nasc"] and session["cpf"] and session["cnh"] and session["doc_identificacao"]:
+            cadastrar_cliente(session["nome"], session["email"], session["senha"],session["telefone"],session["data_nasc"], session["cpf"], session["cnh"], session["doc_identificacao"])
             flash(f'Obrigado por se cadastrar, {session["nome"]}!', "success")
             return redirect(url_for("login"))
         else:
@@ -71,15 +71,38 @@ def login():
     if request.method=="POST":
         nome = request.form.get("nome")
         senha = request.form.get("senha")
-        tamanho = len(sessao.query(Cliente).all())
-        for i in range (tamanho):
-            if nome == sessao.query(Cliente).all()[i].nome and senha == sessao.query(Cliente).all()[i].senha:
-                session["nome"] = sessao.query(Cliente).all()[i].nome
-                session["senha"] = sessao.query(Cliente).all()[i].senha
-                session["usuario"] = sessao.query(Cliente).all()[i]
+        try:
+            cliente = sessao.query(Cliente).filter_by(nome=nome, senha=senha).first()
+            if cliente:
+                session["nome"] = cliente.nome
+                session["senha"] = cliente.senha
+                session["cliente_id"] = cliente.id
+                session["cargo"] = "cliente"  
+                sessao.close()
                 return redirect(url_for("pagina_inicial"))
-        mensagem = "Usúario ou senha incorretos"
+            
+            funcionario = sessao.query(Funcionario).filter_by(nome=nome, cpf=senha).first()  
+            if funcionario:
+                session["nome"] = funcionario.nome
+                session["senha"] = funcionario.cpf  
+                session["funcionario_id"] = funcionario.id
+                session["tipo"] = "funcionario" 
+                sessao.close()
+                return redirect(url_for("pagina_inicial"))
+            
+
+            mensagem = "Usúario ou senha incorretos"
+        except Exception as e:
+            mensagem = f"Ocorreu um erro: {str(e)}" 
+        finally:
+            sessao.close() 
     return render_template("login.html", mensagem=mensagem)
+        
+
+    
+       
+                
+                
         
 
 
@@ -93,8 +116,8 @@ def logout():
 @app.route("/receber_carro", methods = ["POST"])
 def receber_carro():
     try:
-        novo_carro = request.get_json()
-        """ modelo.cadastrar_carro(novo_carro) """
+        lista_de_atributos = request.get_json()
+        cadastrar_carro(*lista_de_atributos) 
         return jsonify({"success": True, "message": "Carro cadastrado com sucesso!"})
     except Exception as erro:
         return jsonify({"success": False, "message": str(erro)}), 500
@@ -112,10 +135,6 @@ def perfil():
 
 @app.route("/cadastro_carro")
 def cadastro_carro():
-    usuario = session.get("usuario")
-    
-    if usuario == None or not usuario["admin"]:
-        return abort(403)
     return render_template("cadastro_carro.html")
 
 

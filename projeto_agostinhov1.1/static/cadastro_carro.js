@@ -88,23 +88,20 @@ function validarFormulario (){
 
 function adicionarCarro(){
     id_carro++
-    return{
-        "id":id_carro,
-        "marca":marca.value,
-        "modelo":modelo.value,
-        "aluguel":aluguel.value,
-        "cor":cor.value,
-        "cambio":cambio.value,
-        "portas":portas.value,
-        "airbag":airbag.value,
-        "ar_condicionado":ar_condicionado.value,
-        "quilometragem":quilometragem.value,
-        "combustivel":combustivel.value,
-        "categoria":categoria.value,
-        "disponivel":true
-
-    }
-}
+    return [
+        marca.value,
+        modelo.value,
+        aluguel.value,
+        cor.value,
+        cambio.value,
+        portas.value,
+        airbag.value,
+        ar_condicionado.value,
+        quilometragem.value, 
+        combustivel.value,
+        categoria.value,
+        disponivel.value
+    ]}
 
 
 function criarTabela (carroscadastrados){
