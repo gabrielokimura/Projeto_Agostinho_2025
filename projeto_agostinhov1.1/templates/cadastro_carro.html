@@ -1,16 +1,16 @@
-    {% extends "base.html" %}
+{% extends "base.html" %}
 
-    {% block title %}Login{% endblock %}
+{% block title %}Login{% endblock %}
 
-    {% block conteudo_principal %}
-        
-    <h1>Cadastrar Veículo</h1>
+{% block conteudo_principal %}
+    
+<h1>Cadastrar Veículo</h1>
 
 <div class="form_container">
-    <form class="form_simples input">
+    <form class="form_simples input" id="formulario">
         <div class="conteudo">
             <label for="marca">Marca do Carro</label>
-            <select type="text" id="marca">
+            <select id="marca" type="text">
                 <option value="Marca_1">Marca_1</option>
                 <option value="Marca_2">Marca_2</option>
                 <option value="Marca_3">Marca_3</option>
@@ -21,14 +21,16 @@
             <a>Mensagem de erro</a><br><br>
         </div>
 
-        <div class="container">
+        <div class="conteudo">
             <label for="placa">Placa</label>
-            <input type="text" name="placa" required placeholder="Digite a placa do carro">
+            <input type="text" id="placa" name="placa" required placeholder="Digite a placa do carro">
+            <a>Mensagem de erro</a>
         </div>
+        
 
         <div class="conteudo">
             <label for="modelo">Modelo do Carro</label>
-            <select type="text" id="modelo" >
+            <select id="modelo" type="text">
                 <option value="Modelo_1">Modelo_1</option>
                 <option value="Modelo_2">Modelo_2</option>
                 <option value="Modelo_3">Modelo_3</option>
@@ -40,16 +42,16 @@
         </div>
 
         <div class="conteudo">
-            <label for="aluguel">Aluguel do Carro (Diária)</label>
-            <input type="number" id="aluguel" placeholder="Digite o aluguel do carro"
-            ><br>
+            <label for="preco_diaria">Aluguel do Carro (Diária)</label>
+            <input type="number" id="preco_diaria" placeholder="Digite o aluguel do carro">
+            <br>
             <a>Mensagem de erro</a><br><br>
         </div>
 
 
         <div class="conteudo">
             <label for="cor">Cor do Carro </label>
-            <select type="text" id="cor" >
+            <select id="cor" type="text">
                 <option value="Cor_1">Cor_1</option>
                 <option value="Cor_2">Cor_2</option>
                 <option value="Cor_3">Cor_3</option>
@@ -63,7 +65,7 @@
 
         <div class="conteudo">
         <label for="cambio">Cambio do Carro </label>
-        <select type="text" id="cambio">
+        <select id="cambio" type="text">
             <option value="Manual">Manual</option>
             <option value="Automatico">Automático</option>
         </select>
@@ -74,9 +76,9 @@
 
         <div class="conteudo">
             <label for="portas">Portas do Carro</label>
-            <select type="text" id="portas">
-                <option value="2_portas">2 portas</option>
-                <option value="4_portas">4 portas</option>
+            <select id="portas">
+                <option value="2">2 portas</option>
+                <option value="4">4 portas</option>
             </select>
             <br>
             <a>Mensagem de erro</a><br><br>
@@ -84,9 +86,9 @@
 
         <div class="conteudo">
             <label for="airbag">Airbag</label>
-            <select type="text" id="airbag">
-                <option value="sim_airbag">Sim</option>
-                <option value="nao_airbag">Não</option>
+            <select id="airbag" type="text">
+                <option value="sim">Sim</option>
+                <option value="nao">Não</option>
             </select>
             <br>
             <a>Mensagem de erro</a><br><br>
@@ -94,9 +96,9 @@
 
         <div class="conteudo">
             <label for="ar_condicionado">Ar condicionado</label>
-            <select type="text" id="ar_condicionado">
-                <option value="sim_ar_condicionado">Sim</option>
-                <option value="nao_ar_condicionado">Não</option>
+            <select id="ar_condicionado" type="text">
+                <option value="sim">Sim</option>
+                <option value="nao">Não</option>
             </select>
             <br>
             <a>Mensagem de erro</a><br><br>
@@ -104,7 +106,7 @@
 
         <div class="conteudo">
             <label for="combustivel">Combustivel</label>
-            <select type="text" id="combustivel" >
+            <select id="combustivel" type="text">
                 <option value="Gasolina">Gasolina</option>
                 <option value="Etanol">Etanol</option>
                 <option value="Diesel">Diesel</option>
@@ -116,12 +118,12 @@
 
         <div class="conteudo">
             <label for="fornecedor">Fornecedor</label>
-            <select type="text" id="fornecedor" >
-                <option value="Cor_1">Fornecedor_1</option>
-                <option value="Cor_2">Fornecedor_2</option>
-                <option value="Cor_3">Fornecedor_3</option>
-                <option value="Cor_4">Fornecedor_4</option>
-                <option value="Cor_5">Fornecedor_5</option>
+            <select id="fornecedor" type="text">
+                <option value="Fornecedor_1">Fornecedor_1</option>
+                <option value="Fornecedor_2">Fornecedor_2</option>
+                <option value="Fornecedor_3">Fornecedor_3</option>
+                <option value="Fornecedor_4">Fornecedor_4</option>
+                <option value="Fornecedor_5">Fornecedor_5</option>
             </select>
             <br>
             <a>Mensagem de erro</a><br><br>
@@ -129,7 +131,7 @@
 
         <div class="conteudo">
             <label for="garagem">Garagem</label>
-            <select type="text" id="garagem" >
+            <select id="garagem" type="text">
                 <option value="Garagem_1">Garagem_1</option>
                 <option value="Garagem_2">Garagem_2</option>
                 <option value="Garagem_3">Garagem_3</option>
@@ -149,25 +151,18 @@
 
         <div class="conteudo">
             <label for="capacidade_pessoas">Capacidade de pessoas</label>
-            <input type="number" id="capacidade_pessoas" placeholder="Digite a capacidade de pessoas  "
-            ><br>
-            <a>Mensagem de erro</a><br><br>
-        </div>
-
-        <div class="conteudo">
-            <label for="categoria">Categoria</label>
-                <select type="text" id="categoria">
-                <option value="Categoria_luxo">Luxo</option>
-                <option value="Categoria_Econômica">Econômica</option>
-                <option value="Categoria_esportiva">Esportiva</option>
-                </select>
+            <input type="number" id="capacidade_pessoas" placeholder="Digite a capacidade de pessoas">
             <br>
             <a>Mensagem de erro</a><br><br>
         </div>
 
         <div class="conteudo">
-            <label for="preco_diaria">Preço da diária</label>
-            <input type="number" id="preco_diaria" placeholder="Digite o valor da diária.">
+            <label for="categoria">Categoria</label>
+            <select id="categoria" type="text">
+                <option value="Luxo">Luxo</option>
+                <option value="Econômica">Econômica</option>
+                <option value="Esportiva">Esportiva</option>
+            </select>
             <br>
             <a>Mensagem de erro</a><br><br>
         </div>
@@ -181,9 +176,9 @@
         
         <div class="conteudo">
             <label for="disponivel">Disponibilidade</label>
-            <select type="text" id="disponivel">
-                <option value="True">Sim</option>
-                <option value="False">Não</option>
+            <select id="disponivel" type="text">
+                <option value="sim">Sim</option>
+                <option value="nao">Não</option>
             </select>
             <br>
             <a>Mensagem de erro</a><br><br>
@@ -191,7 +186,7 @@
 
         <div class="conteudo">
             <label for="plano_seguro">Plano de seguro</label>
-            <select type="text" id="plano_seguro" >
+            <select id="plano_seguro" type="text">
                 <option value="Cobertura_total">Cobertura total</option>
                 <option value="Cobertura_parcial">Cobertura parcial</option>
                 <option value="Sem_cobertura">Sem cobertura</option>
@@ -206,9 +201,7 @@
 </div>
 
 
-    <div id="carros_cadastrados"></div>
-
-
+<div id="carros_cadastrados"></div>
 
 </center><script src="/static/cadastro_carro.js"></script>
 
