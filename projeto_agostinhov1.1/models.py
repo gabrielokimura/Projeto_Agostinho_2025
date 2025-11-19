@@ -428,6 +428,8 @@ def cadastrar_carro(portas, preco_diaria, placa, cor, preco_compra, capacidade_p
    except Exception as e:
     return "Erro inesperado", e
    
+
+print("oi")
     
 
 
