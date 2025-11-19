@@ -1,5 +1,11 @@
 const formulario = document.getElementById("formulario")
 const marca = document.getElementById("marca")
+const placa = document.getElementById("placa")
+const plano_seguro = document.getElementById("plano_seguro")
+const capacidade_pessoas = document.getElementById("capacidade_pessoas")
+const preco_compra = document.getElementById("preco_compra")
+const fornecedor = document.getElementById("fornecedor")
+const garagem = document.getElementById("garagem")
 const modelo = document.getElementById("modelo")
 const aluguel = document.getElementById("aluguel")
 const cor = document.getElementById("cor")
@@ -89,18 +95,26 @@ function validarFormulario (){
 function adicionarCarro(){
     id_carro++
     return [
+        portas.value,
+        aluguel.value,
+        placa.value,
+        cor.value,
+        preco_compra.value,
+        capacidade_pessoas.value,
+        quilometragem.value,
+        cambio.value,
+        airbag.value, 
+        ar_condicionado.value,
+        disponivel.value,
+        fornecedor.value,
+        garagem.value,
+        plano_seguro.value,
         marca.value,
         modelo.value,
-        aluguel.value,
-        cor.value,
-        cambio.value,
-        portas.value,
-        airbag.value,
-        ar_condicionado.value,
-        quilometragem.value, 
-        combustivel.value,
         categoria.value,
-        disponivel.value
+        combustivel.value
+        
+
     ]}
 
 
