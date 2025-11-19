@@ -1,4 +1,4 @@
-""" # Inserts convertidos para SQLAlchemy - Parte 1: Clientes e Telefones
+# Inserts convertidos para SQLAlchemy - Parte 1: Clientes e Telefones
 try:
     sessao = Sessao()
 
@@ -34,13 +34,13 @@ except Exception as e:
 finally:
     sessao.close()
 
- """
+ 
 
 
 
 
 
-""" 
+
 # Inserts convertidos para SQLAlchemy - Parte 2: Telefones Estrangeiros, Fornecedores e Telefones Fornecedores
 try:
     sessao = Sessao()
@@ -78,11 +78,11 @@ except Exception as e:
 finally:
     sessao.close()
 
- """
 
 
 
-""" # Inserts convertidos para SQLAlchemy - Parte 3: Funcionários, Telefones Funcionários e Marcas
+
+ # Inserts convertidos para SQLAlchemy - Parte 3: Funcionários, Telefones Funcionários e Marcas
 try:
     sessao = Sessao()
 
@@ -120,11 +120,10 @@ except Exception as e:
     print(f"Erro na Parte 3: {str(e)}")
 finally:
     sessao.close()
- """
 
 
 
-""" 
+
 # 1. Modelo (Modelos de carros)
 modelos_carros = [
     Modelo(nome="Uno", descricao="Carro compacto, econômico e versátil"),
@@ -263,9 +262,9 @@ finally:
      session.close()
 
 
- """
 
-""" try:
+
+try:
     gabriel=Funcionario(cpf="45715291801", nome="admin", senha="123", data_nasc=date.fromisoformat("1930-04-05"), email="gabriel@gmail.com", cargo="administrador", salario=9999.99, data_admissao=date.fromisoformat("2000-04-05"))
     sessao = Sessao()
     sessao.add(gabriel)
@@ -273,13 +272,13 @@ finally:
     sessao.close()
 except Exception as e:
     print(e)
- """
 
-""" try:
+""" 
+try:
     sessao =Sessao()
     carro = sessao.query(Veiculo).filter_by(id=1).first()
     sessao.delete(carro)
     sessao.commit()
     sessao.close()
 except Exception as e:
-    print (e) """
+    print (e)  """

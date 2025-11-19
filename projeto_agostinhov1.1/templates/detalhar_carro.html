@@ -6,17 +6,52 @@
     {% block conteudo_principal %}
 
     <ul>
-        <li>Marca: {{ carro.marca }}</li>
-        <li>Modelo: {{ carro.modelo }}</li>
+        <li>Marca: {{ carro.id_marca }}</li>
+        <li>Modelo: {{ carro.id_modelo }}</li>
         <li>Aluguel: {{ carro.aluguel }}</li>
         <li>Cor: {{ carro.cor }}</li>
         <li>Cambio: {{ carro.cambio }}</li>
         <li>Portas: {{ carro.portas }}</li>
-        <li>Airbag: {{ carro.airbag }}</li>
+        <li>Airbag: {{ carro.airbags }}</li>
         <li>Ar condicionado: {{ carro.ar_condicionado }}</li>
         <li>Quilometragem: {{ carro.quilometragem }}</li>
-        <li>Combustível: {{ carro.combustivel }}</li>
-        <li>Categoria: {{ carro.categoria }}</li>
+        <li>Combustível: {{ carro.id_combustivel }}</li>
+        <li>Categoria: {{ carro.id_categoria }}</li>
     </ul>
     
+
+
+    <br><br>
+
+    
+<div class="form_container">
+    <form class="form_simples input" action="/cadastro" method="POST">
+
+        <div class="container">
+            <label for="local_entrega">Local de entrega</label>
+            <input type="text" name="local_entrega" required minlength="3" placeholder="  ">
+        </div>
+
+        <div class="container">
+            <label for="senha">Senha</label>
+            <input type="password" name="senha" required minlength="3" placeholder="  ">
+        </div>
+
+        <div class="container">
+            <label for="email">Email</label>
+            <input type="email" name="email" required minlength="3" placeholder="  ">
+        </div>
+
+        <div class="container">
+            <label for="telefone">Telefone</label>
+            <input type="tel" name="telefone" required placeholder="(xx) xxxxx-xxxx">
+        </div>
+
+        <div class="container">
+            <label for="data_nasc">Data de nascimento</label>
+            <input type="date" name="data_nasc" required placeholder="  ">
+        </div>
+
+        <div class="container">
+            <button type="submit">Cadastrar</button>
     {% endblock %}

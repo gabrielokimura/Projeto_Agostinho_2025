@@ -28,21 +28,26 @@
     <ul>
     {% for carro in carros_cadastrados %}
     {% if carro %}
-        <a href="{{ url_for('detalhar_carro', carro_id = carro['id']) }}"><div><li>
+    {% if carro.disponivel %}
+        <div><li>
     <ul>
-        <li>Marca: {{ carro.marca }}</li>
-        <li>Modelo: {{ carro.modelo }}</li>
+        <li>Marca: {{ carro.id_marca }}</li>
+        <li>Modelo: {{ carro.id_modelo }}</li>
         <li>Aluguel: {{ carro.aluguel }}</li>
         <li>Cor: {{ carro.cor }}</li>
         <li>Cambio: {{ carro.cambio }}</li>
-        <li>Portas: {{ carroportas }}</li>
-        <li>Airbag: {{ carro.airbag }}</li>
+        <li>Portas: {{ carro.portas }}</li>
+        <li>Airbag: {{ carro.airbags }}</li>
         <li>Ar condicionado: {{ carro.ar_condicionado }}</li>
         <li>Quilometragem: {{ carro.quilometragem }}</li>
-        <li>Combustível: {{ carro.combustivel }}</li>
-        <li>Categoria: {{ carro.categoria }}</li>
+        <li>Combustível: {{ carro.id_combustivel }}</li>
+        <li>Categoria: {{ carro.id_categoria }}</li>
+        <a role="button" href="{{ url_for('detalhar_carro', carro_id = carro['id']) }}">Comprar</a>
+
     </ul>
-        </li></div></a><br>
+        </li></div><br>
+
+        {% endif %}
 
         {% endif %}
         
