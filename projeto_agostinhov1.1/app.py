@@ -56,7 +56,7 @@ def cadastro():
         session["cnh"] = request.form.get("cnh")
         session["doc_identificacao"] = request.form.get("doc_identificacao")
         if session["nome"] and session["email"] and session["senha"] and session["telefone"] and session["data_nasc"] and session["cpf"] and session["cnh"] and session["doc_identificacao"]:
-            cadastrar_cliente(session["nome"], session["email"], session["senha"],session["telefone"],session["data_nasc"], session["cpf"], session["cnh"], session["doc_identificacao"])
+            cadastrar_cliente(session["nome"], session["nome"], session["email"],session["senha"],session["data_nasc"], session["cnh"], session["cpf"], session["doc_identificacao"])
             flash(f'Obrigado por se cadastrar, {session["nome"]}!', "success")
             return redirect(url_for("login"))
         else:
@@ -71,6 +71,8 @@ def login():
     if request.method=="POST":
         nome = request.form.get("nome")
         senha = request.form.get("senha")
+        print(nome)
+        print(senha)
         try:
             cliente = sessao.query(Cliente).filter_by(nome=nome, senha=senha).first()
             if cliente:
@@ -81,10 +83,11 @@ def login():
                 sessao.close()
                 return redirect(url_for("pagina_inicial"))
             
-            funcionario = sessao.query(Funcionario).filter_by(nome=nome, cpf=senha).first()  
+            funcionario = sessao.query(Funcionario).filter_by(nome=nome, senha=senha).first()  
+            print(funcionario.nome)
             if funcionario:
                 session["nome"] = funcionario.nome
-                session["senha"] = funcionario.cpf  
+                session["senha"] = funcionario.senha
                 session["funcionario_id"] = funcionario.id
                 session["tipo"] = "funcionario" 
                 sessao.close()

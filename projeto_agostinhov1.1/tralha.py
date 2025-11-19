@@ -34,7 +34,7 @@ class Modelo:
 
 """ 
 
-kiki = Funcionario("11111111111","admin",date(2000, 6, 17), "admin@gmail.com", "administrador", 9999.99, date(2025, 11, 1))
+kiki = Funcionario("11111111111","admin","123",date(2000, 6, 17), "admin@gmail.com", "administrador", 9999.99, date(2025, 11, 1))
 sessao.add(kiki)
 sessao.commit()
  """
