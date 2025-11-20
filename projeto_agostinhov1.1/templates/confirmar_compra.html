@@ -1,0 +1,43 @@
+    {% extends "base.html" %}
+
+    {% block title %}Detalhar Carro{% endblock %}
+
+
+    {% block conteudo_principal %}
+    <h2>Valor Total da compra: {{ preco_diaria*dias }}</h2>
+
+{% if metodo_pagamento == "Cartão de Crédito" or metodo_pagamento == "Cartão de Débito" %}
+
+<div class="form_container">
+    <form class="form_simples input" action="/comprar_definitivo" method="POST">
+
+        <div class="container">
+            <label for="local_entrega">numero do {{ metodo_pagamento }}</label>
+            <input type="number" name="numero_cartao" required minlength="3" placeholder="  ">
+        </div>
+
+        <div class="container">
+            <label for="horario_entrega"> Senha do {{ metodo_pagamento }} </label>
+            <input type="number" name="senha_cartao" required minlength="3" placeholder="  ">
+        </div>
+        <div class="container">
+            <button type="submit">Pagar</button>
+{% endif %}
+
+
+{% if metodo_pagamento == "Pix" %}
+
+<div class="form_container">
+    <form class="form_simples input" action="/comprar_definitivo" method="POST">
+
+        <div class="container">
+            <label for="local_entrega">Chave pix</label>
+            <input type="number" name="chave_pix" required minlength="3" placeholder="  ">
+        </div>
+        <div class="container">
+            <button type="submit">Pagar</button>
+
+
+            {% endif %}
+
+    {% endblock %}

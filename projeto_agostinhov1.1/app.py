@@ -14,7 +14,10 @@ def pagina_inicial():
     carros = sessao.query(Veiculo).all() 
     if session.get("funcionario_id"):
         funcionario = sessao.query(Funcionario).filter_by(id = session.get("funcionario_id")).first()
-        cargo = funcionario.cargo
+        if funcionario:
+            cargo = funcionario.cargo
+        else:
+            cargo=None 
     else:
         cargo=None 
     sessao.close()
@@ -225,7 +228,59 @@ def pegar_lista():
 
 
 
+@app.route("/comprar_carro", methods = ["POST"])
+def comprar_carro():
+    if request.method=="POST":
+        try:
+            local_entrega = request.form.get("local_entrega")
+            horario_entrega = request.form.get("horario_entrega")
+            local_devolucao = request.form.get("local_devolucao")
+            horario_devolucao = request.form.get("horario_devolucao")
+            metodo_pagamento = request.form.get("metodo_pagamento")
+            session["local_entrega"] = local_entrega
+            session["horario_entrega"] = horario_entrega
+            session["local_devolucao"] = local_devolucao
+            session["horario_devolucao"] = horario_devolucao
+            session["metodo_pagamento"] = metodo_pagamento
+            carro_id = request.form.get("carro_id")
+            session["carro_id"] = carro_id
+            return redirect(url_for("confirmar_compra"))
+        except Exception as e:
+            print(e)
 
+
+@app.route("/confirmar_compra")
+def confirmar_compra():
+    metodo_pagamento = session.get("metodo_pagamento")
+    carro_id = session.get("carro_id")
+    sessao =Sessao()
+    if not metodo_pagamento or not carro_id:
+        return redirect(url_for("pagina_inicial"))
+    carro = sessao.query(Veiculo).filter_by(id =carro_id).first()
+    formato = "%Y-%m-%dT%H:%M"
+    horario_entrega =session.get("horario_entrega")
+    horario_devolucao=session.get("horario_devolucao")
+    horario_entrega = datetime.strptime(horario_entrega, formato)
+    horario_devolucao =datetime.strptime(horario_devolucao, formato)
+    diferenca = horario_devolucao - horario_entrega
+    diferenca_dias = diferenca.days
+
+    return render_template("confirmar_compra.html", metodo_pagamento = metodo_pagamento, dias= diferenca_dias, preco_diaria=carro.preco_diaria)
+
+@app.route("/comprar_definitivo", methods=["POST"])
+def comprar_definitivo():
+    metodo_pagamento = session.get("metodo_pagamento")
+    if not metodo_pagamento:
+       return redirect(url_for("pagina_inicial"))
+    if request.method == "POST":
+        sessao =Sessao()
+        carro_id =session.get("carro_id")
+        carro = sessao.query(Veiculo).filter_by(id=carro_id).first()
+        if carro.disponivel == True:
+            carro.disponivel = False
+            sessao.commit()
+        sessao.close()
+        return redirect(url_for("pagina_inicial"))
 
 
 if __name__=="__main__":

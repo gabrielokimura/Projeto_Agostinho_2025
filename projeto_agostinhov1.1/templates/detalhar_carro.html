@@ -5,6 +5,9 @@
 
     {% block conteudo_principal %}
 
+
+
+    <div><li>
     <ul>
         <li>Marca: {{ carro.id_marca }}</li>
         <li>Modelo: {{ carro.id_modelo }}</li>
@@ -17,15 +20,14 @@
         <li>Quilometragem: {{ carro.quilometragem }}</li>
         <li>Combustível: {{ carro.id_combustivel }}</li>
         <li>Categoria: {{ carro.id_categoria }}</li>
+
+
     </ul>
-    
-
-
-    <br><br>
-
+        </li></div>
     
 <div class="form_container">
-    <form class="form_simples input" action="/cadastro" method="POST">
+    <form class="form_simples input" action="/comprar_carro" method="POST">
+        <input type="hidden" name="carro_id" value="{{ carro.id }}">
 
         <div class="container">
             <label for="local_entrega">Local de entrega</label>
@@ -33,25 +35,31 @@
         </div>
 
         <div class="container">
-            <label for="senha">Senha</label>
-            <input type="password" name="senha" required minlength="3" placeholder="  ">
+            <label for="horario_entrega">Horário de entrega</label>
+            <input type="datetime-local" name="horario_entrega" required minlength="3" placeholder="  ">
         </div>
 
         <div class="container">
-            <label for="email">Email</label>
-            <input type="email" name="email" required minlength="3" placeholder="  ">
+            <label for="local_devolucao">Local de devoluçã</label>
+            <input type="text" name="local_devolucao" required minlength="3" placeholder="  ">
         </div>
 
         <div class="container">
-            <label for="telefone">Telefone</label>
-            <input type="tel" name="telefone" required placeholder="(xx) xxxxx-xxxx">
+            <label for="horario_devolucao">Horário de devolução</label>
+            <input type="datetime-local" name="horario_devolucao" required minlength="3" >
         </div>
 
         <div class="container">
-            <label for="data_nasc">Data de nascimento</label>
-            <input type="date" name="data_nasc" required placeholder="  ">
+            <label for="metodo_pagamento">Método de pagamento</label>
+             <select name="metodo_pagamento" type="text">
+                <option value="Cartão de Crédito">Cartão de Crédito</option>
+                <option value="Cartão de Débito">Cartão de Débito</option>
+                <option value="Pix">Pix</option>
+
+            </select>
+            <button type="submit" class="button_comprar">Comprar</button>
         </div>
 
         <div class="container">
-            <button type="submit">Cadastrar</button>
+            
     {% endblock %}
