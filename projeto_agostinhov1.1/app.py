@@ -151,18 +151,18 @@ def detalhar_carro(carro_id):
 
 @app.route("/receber_carro", methods=["POST"])
 def receber_carro():
-    print("Recebendo dados do carro...")  # Log para debug
+    print("Recebendo dados do carro...") 
     try:
         lista_de_atributos = request.get_json()
-        print(f"Dados recebidos: {lista_de_atributos}")  # Log
+        print(f"Dados recebidos: {lista_de_atributos}")  
         resultado = cadastrar_carro(*lista_de_atributos)
         if "Erro" in resultado:
-            print(f"Erro no cadastro: {resultado}")  # Log
+            print(f"Erro no cadastro: {resultado}")  
             return jsonify({"success": False, "message": resultado}), 400
-        print("Carro cadastrado com sucesso!")  # Log
+        print("Carro cadastrado com sucesso!")  
         return jsonify({"success": True, "message": resultado})
     except Exception as erro:
-        print(f"Erro na rota: {erro}")  # Log
+        print(f"Erro na rota: {erro}")  
         return jsonify({"success": False, "message": "Erro interno"}), 500
 
 

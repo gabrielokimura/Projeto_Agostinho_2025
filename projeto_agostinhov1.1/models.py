@@ -410,7 +410,7 @@ def cadastrar_carro(portas, preco_diaria, placa, cor, preco_compra, capacidade_p
         capacidade_pessoas = int(capacidade_pessoas)
         quilometragem = int(quilometragem)
         sessao =Sessao()
-        print(f"Cadastrando carro: portas={portas}, preco_diaria={preco_diaria}, ...")  # Log
+        print(f"Cadastrando carro: portas={portas}, preco_diaria={preco_diaria}, ...")  
         fornecedor_obj = sessao.query(Fornecedor).filter_by(nome=fornecedor).first()
         if not fornecedor_obj:
             return "Erro: Fornecedor não encontrado"

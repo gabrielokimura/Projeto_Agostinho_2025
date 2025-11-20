@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const CAMPOS = [marca, placa, modelo, preco_diaria, cor, cambio, portas, airbag, ar_condicionado, combustivel, quilometragem, categoria, preco_compra, capacidade_pessoas, fornecedor, garagem, plano_seguro, disponivel]
     const conteudo = document.getElementById("carros_cadastrados")
 
-    // Verificação: Checa se algum campo é null e para o script se erro
+
     for (let campo of CAMPOS) {
         if (!campo) {
             console.error(`Campo não encontrado: verifique o ID no HTML para ${campo ? campo.id : 'campo indefinido'}`)
