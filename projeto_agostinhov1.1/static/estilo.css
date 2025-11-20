@@ -25,7 +25,9 @@ h1{
 }
 
 body{
-    font-family: "Work Sans";
+    font-family: "Canva Sans";
+    font-size: 18px;
+    color: #fff;
     background-color: #ff6606;
     margin: 0;
     min-height: 100vh;
@@ -70,7 +72,7 @@ header{
     gap: 20px;
     color: white;
     font-weight: 600;
-    font-size: 18px;
+    font-size: 20px;
   }
   nav a {
     color: white;
@@ -97,11 +99,11 @@ label{
     display: block;
     color: black;
     font-weight: 500;
-    font-size: 20px;
+    font-size: 22px;
     
 }
 a{
-    color: black;
+    color: #000000;
 }
 
 button[type="submit"] {
@@ -177,6 +179,7 @@ button[type="submit"] {
   border-radius: 10px;
   max-width: 1100px;
   margin: 0 auto;
+  margin-top: 20px;
 }
 
 .formulario_pesquisa{
@@ -245,7 +248,7 @@ main {
 footer {
   background-color: #ff9900;
   color: #fff;
-  padding: 40px 20px 20px 20px;
+  padding: 30px 20px 20px 20px;
   margin-top: 60px;
   font-family: "Work Sans", sans-serif;
 }
@@ -282,7 +285,7 @@ footer {
 
 .footer_section p, 
 .footer_section ul {
-  font-size: 14px;
+  font-size: 16px;
   line-height: 1.6;
   list-style: none;
   padding: 0;
@@ -303,12 +306,116 @@ footer {
 
 .footer_bottom {
 text-align: center;
-margin-top: 30px;
-font-size: 12px;
+margin-top: 10px;
+font-size: 14px;
 opacity: 0.8;
 }
 
+/* --- ESTILOS DA FROTA (CARDS) --- */
 
+/* Grid que segura todos os cards */
+.frota_container {
+    display: grid;
+    /* Cria colunas automáticas com largura mínima de 280px */
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 25px;
+    padding: 20px 0;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+/* O cartão individual */
+.card_carro {
+    background-color: #ffffff;
+    border-radius: 12px;
+    overflow: hidden; /* Garante que a imagem não saia das bordas arredondadas */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #e0e0e0;
+}
+
+/* Efeito ao passar o mouse (Hover) */
+.card_carro:hover {
+    transform: translateY(-5px); /* Sobe levemente */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Container da imagem para manter proporção */
+.card_img_wrapper {
+    width: 100%;
+    height: 180px; /* Altura fixa para alinhar os cards */
+    background-color: #f0f0f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card_img_wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Corta a imagem para preencher o espaço sem distorcer */
+}
+
+/* Área de texto */
+.card_info {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.card_modelo {
+    font-family: "Bubblegum Sans", sans-serif; /* Usando a fonte importada no seu CSS */
+    font-size: 22px;
+    color: #ff6606; /* Cor laranja da sua marca */
+    margin: 0 0 5px 0;
+}
+
+.card_marca {
+    font-size: 14px;
+    color: #777;
+    margin: 0 0 15px 0;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.card_preco {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.card_preco span {
+    font-weight: bold;
+    font-size: 20px;
+    color: #000;
+}
+
+/* Botão de Detalhes */
+.botao_detalhes {
+    margin-top: auto; /* Empurra o botão para o final do card */
+    display: block;
+    width: 100%;
+    padding: 10px 0;
+    text-align: center;
+    background-color: transparent;
+    color: #ff6606;
+    border: 2px solid #ff6606;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.2s;
+    visibility: visible !important; /* Sobrescrevendo a regra global que escondia links */
+}
+
+.botao-detalhes:hover {
+    background-color: #ff6606;
+    color: white;
+    text-decoration: none;
+}
 
 
 

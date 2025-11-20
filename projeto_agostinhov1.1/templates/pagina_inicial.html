@@ -17,48 +17,58 @@
         <button type="submit">Pesquisar</button>
     </form>
 </div>
-<br><br><br>
+<br><br>
 
 
 
 
- {% if carros_cadastrados %}
+{% if carros_cadastrados %}
 
-    <h2>Frota de carros</h2>
-    <ul>
-    {% for carro in carros_cadastrados %}
-    {% if carro %}
-    {% if carro.disponivel %}
-        <div><li>
-    <ul>
-        <li>Marca: {{ carro.id_marca }}</li>
-        <li>Modelo: {{ carro.id_modelo }}</li>
-        <li>Aluguel: {{ carro.aluguel }}</li>
-        <li>Cor: {{ carro.cor }}</li>
-        <li>Cambio: {{ carro.cambio }}</li>
-        <li>Portas: {{ carro.portas }}</li>
-        <li>Airbag: {{ carro.airbags }}</li>
-        <li>Ar condicionado: {{ carro.ar_condicionado }}</li>
-        <li>Quilometragem: {{ carro.quilometragem }}</li>
-        <li>Combustível: {{ carro.id_combustivel }}</li>
-        <li>Categoria: {{ carro.id_categoria }}</li>
-        <a role="button" href="{{ url_for('detalhar_carro', carro_id = carro['id']) }}">Comprar</a>
-
-    </ul>
-        </li></div><br>
-
-        {% endif %}
-
-        {% endif %}
-        
-    {% endfor %} 
-    </ul>
+    <h2 style="text-align: center; margin-bottom: 30px;">Frota Disponível</h2>
     
-    {% else %}
+    <div class="frota_container">
+        {% for carro in carros_cadastrados %}
+            {% if carro and carro.disponivel %}
+                
+                <div class="card_carro">
+                    
+                    <div class="card_img_wrapper">
+                        <img src="{{ url_for('static', filename='imagens/' ~ carro.id_modelo|lower ~ '.jpg') }}" 
+                             alt="Foto do {{ carro.id_modelo }}"
+                             onerror="this.onerror=null;this.src='https://via.placeholder.com/300x200?text=Sem+Foto';">
+                    </div>
 
-    <p>Não há carros cadastrados no momento</p>
+                    <div class="card_info">
+                        <h3 class="card_modelo">{{ carro.id_modelo }}</h3>
+                        <p class="card_marca">Marca: {{ carro.id_marca }}</p>
+                        <div class="card_preco">
+                            <span>R$ {{ carro.aluguel }}</span> /dia
+                        </div>
+                        
+                        <a href="{{ url_for('detalhar_carro', carro_id = carro['id']) }}" class="botao_detalhes">Detalhes</a>
+                    </div>
+                </div>
 
+            {% endif %}
+        {% endfor %}
+    </div>
+
+{% else %}
+    <p style="text_align: center;">Não há carros cadastrados ou disponíveis no momento.</p>
+{% endif %}
+
+
+{% if cargo != None %}
+    {% if cargo == "administrador" %}
+        <div style="text-align: center; margin-top: 40px;">
+            <a href="/cadastro_carro" class="botao-detalhes" style="background-color: #333; border-color: #333; color: white; max-width: 250px; margin: 0 auto;">Cadastrar novos carros</a>
+        </div>
     {% endif %}
+{% endif %}
+
+<div style="text-align: center; margin-top: 20px;">
+    <a href="/logout">Sair da conta</a>
+</div>
 
 
 
