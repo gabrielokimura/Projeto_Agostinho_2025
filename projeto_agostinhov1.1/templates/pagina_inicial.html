@@ -42,7 +42,7 @@
         <li>Quilometragem: {{ carro.quilometragem }}</li>
         <li>Combustível: {{ carro.id_combustivel }}</li>
         <li>Categoria: {{ carro.id_categoria }}</li>
-        <a role="button" href="{{ url_for('detalhar_carro', carro_id = carro['id']) }}">Comprar</a>
+        <a role="button" href="{{ url_for('detalhar_carro', carro_id = carro.id) }}">Comprar</a>
 
     </ul>
         </li></div><br>
