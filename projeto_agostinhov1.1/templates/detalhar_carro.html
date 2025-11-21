@@ -1,65 +1,76 @@
-    {% extends "base.html" %}
+{% extends "base.html" %}
 
-    {% block title %}Detalhar Carro{% endblock %}
+{% block title %}Detalhar Carro{% endblock %}
 
-
-    {% block conteudo_principal %}
-
-
-
-    <div><li>
-    <ul>
-        <li>Marca: {{ carro.id_marca }}</li>
-        <li>Modelo: {{ carro.id_modelo }}</li>
-        <li>Aluguel: {{ carro.aluguel }}</li>
-        <li>Cor: {{ carro.cor }}</li>
-        <li>Cambio: {{ carro.cambio }}</li>
-        <li>Portas: {{ carro.portas }}</li>
-        <li>Airbag: {{ carro.airbags }}</li>
-        <li>Ar condicionado: {{ carro.ar_condicionado }}</li>
-        <li>Quilometragem: {{ carro.quilometragem }}</li>
-        <li>Combustível: {{ carro.id_combustivel }}</li>
-        <li>Categoria: {{ carro.id_categoria }}</li>
-
-
-    </ul>
-        </li></div>
-    
-<div class="form_container">
-    <form class="form_simples input" action="/comprar_carro" method="POST">
-        <input type="hidden" name="carro_id" value="{{ carro.id }}">
-
-        <div class="container">
-            <label for="local_entrega">Local de entrega</label>
-            <input type="text" name="local_entrega" required minlength="3" placeholder="  ">
+{% block conteudo_principal %}
+<div class="detalhar-container">
+    <!-- Setor Esquerdo: Informações do Carro e Opções -->
+    <div class="setor-esquerdo">
+        <div class="carro-imagem-detalhe">
+            <img src="{{ url_for('static', filename='imagens/' + carro.id|string + '.jpg') }}" alt="{{ carro.id_modelo }}">
         </div>
-
-        <div class="container">
-            <label for="horario_entrega">Horário de entrega</label>
-            <input type="datetime-local" name="horario_entrega" required minlength="3" placeholder="  ">
+        <div class="carro-informacoes">
+            <h2>{{ carro.id_marca }} {{ carro.id_modelo }}</h2>
+            <ul>
+                <li><strong>Aluguel:</strong> R$ {{ carro.aluguel }}</li>
+                <li><strong>Cor:</strong> {{ carro.cor }}</li>
+                <li><strong>Câmbio:</strong> {{ carro.cambio }}</li>
+                <li><strong>Portas:</strong> {{ carro.portas }}</li>
+                <li><strong>Airbag:</strong> {{ carro.airbags }}</li>
+                <li><strong>Ar condicionado:</strong> {{ carro.ar_condicionado }}</li>
+                <li><strong>Quilometragem:</strong> {{ carro.quilometragem }}</li>
+                <li><strong>Combustível:</strong> {{ carro.id_combustivel }}</li>
+                <li><strong>Categoria:</strong> {{ carro.id_categoria }}</li>
+            </ul>
         </div>
-
-        <div class="container">
-            <label for="local_devolucao">Local de devoluçã</label>
-            <input type="text" name="local_devolucao" required minlength="3" placeholder="  ">
+        <div class="opcoes-entrega">
+            <h3>Opções de Entrega e Devolução</h3>
+            <form class="form-simples" action="/comprar_carro" method="POST" id="form-compra">
+                <input type="hidden" name="carro_id" value="{{ carro.id }}">
+                <div class="campo">
+                    <label for="local_entrega">Local de entrega</label>
+                    <input type="text" name="local_entrega" required minlength="3" placeholder="Digite o local">
+                </div>
+                <div class="campo">
+                    <label for="horario_entrega">Horário de entrega</label>
+                    <input type="datetime-local" name="horario_entrega" required>
+                </div>
+                <div class="campo">
+                    <label for="local_devolucao">Local de devolução</label>
+                    <input type="text" name="local_devolucao" required minlength="3" placeholder="Digite o local">
+                </div>
+                <div class="campo">
+                    <label for="horario_devolucao">Horário de devolução</label>
+                    <input type="datetime-local" name="horario_devolucao" required>
+                </div>
+            </form>
         </div>
+    </div>
 
-        <div class="container">
-            <label for="horario_devolucao">Horário de devolução</label>
-            <input type="datetime-local" name="horario_devolucao" required minlength="3" >
+    <!-- Setor Direito: Resumo e Pagamento -->
+    <div class="setor-direito">
+        <div class="resumo-pedido">
+            <h3>Resumo do Pedido</h3>
+            <p><strong>Carro:</strong> {{ carro.id_marca }} {{ carro.id_modelo }}</p>
+            <p><strong>Valor diário:</strong> R$ {{ carro.aluguel }}</p>
+            <p><strong>Total estimado:</strong> R$ <span id="total-estimado">0,00</span> (calculado com base nas datas)</p>
+            <!-- Nota: O cálculo do total pode ser implementado via JavaScript se necessário -->
         </div>
-
-        <div class="container">
-            <label for="metodo_pagamento">Método de pagamento</label>
-             <select name="metodo_pagamento" type="text">
-                <option value="Cartão de Crédito">Cartão de Crédito</option>
-                <option value="Cartão de Débito">Cartão de Débito</option>
-                <option value="Pix">Pix</option>
-
-            </select>
-            <button type="submit" class="button_comprar">Comprar</button>
+        <div class="pagamento">
+            <h3>Forma de Pagamento</h3>
+            <form class="form-simples" action="/comprar_carro" method="POST" id="form-pagamento">
+                <input type="hidden" name="carro_id" value="{{ carro.id }}">
+                <div class="campo">
+                    <label for="metodo_pagamento">Método de pagamento</label>
+                    <select name="metodo_pagamento" required>
+                        <option value="Cartão de Crédito">Cartão de Crédito</option>
+                        <option value="Cartão de Débito">Cartão de Débito</option>
+                        <option value="Pix">Pix</option>
+                    </select>
+                </div>
+                <button type="submit" class="button_comprar">Comprar</button>
+            </form>
         </div>
-
-        <div class="container">
-            
-    {% endblock %}
+    </div>
+</div>
+{% endblock %}

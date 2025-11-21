@@ -42,7 +42,7 @@
                         <h3 class="card_modelo">{{ carro.id_modelo }}</h3>
                         <p class="card_marca">Marca: {{ carro.id_marca }}</p>
                         <div class="card_preco">
-                            <span>R$ {{ carro.aluguel }}</span> /dia
+                            <span>R$ {{ carro.preco_diaria }}</span> /dia
                         </div>
                         
                         <a href="{{ url_for('detalhar_carro', carro_id = carro['id']) }}" class="botao_detalhes">Detalhes</a>
