@@ -12,6 +12,8 @@ app.config['SECRET_KEY'] = "456743785t24783564738564783"
 def pagina_inicial():
     sessao =Sessao()
     carros = sessao.query(Veiculo).all() 
+    modelos = sessao.query(Modelo).all()
+    marcas = sessao.query(Marca).all()
     if session.get("funcionario_id"):
         funcionario = sessao.query(Funcionario).filter_by(id = session.get("funcionario_id")).first()
         if funcionario:
@@ -22,7 +24,7 @@ def pagina_inicial():
         cargo=None 
     sessao.close()
              
-    return render_template("pagina_inicial.html", carros_cadastrados=carros, cargo = cargo)
+    return render_template("pagina_inicial.html", carros_cadastrados=carros, cargo = cargo, modelos = modelos, marcas = marcas)
 
 
 
