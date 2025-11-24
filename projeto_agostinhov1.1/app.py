@@ -8,12 +8,32 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = "456743785t24783564738564783"
 
 
-@app.route("/")
+@app.route("/", methods=["GET","POST"])
 def pagina_inicial():
     sessao =Sessao()
-    carros = sessao.query(Veiculo).all() 
+    carros_filtrados_ids = session.get("carros_filtrados_ids")
+    if carros_filtrados_ids==[]:
+        carros = []
+        mensagem = "Sua filtragem não encontrou resultados, tente outra combinção de filtragem"
+        print("Nenhum carro cumpre os filtros") 
+    elif carros_filtrados_ids is not None:
+        carros = sessao.query(Veiculo).filter(Veiculo.id.in_(carros_filtrados_ids)).all()
+        print("OIIIIIIIIIIIII")
+        mensagem = ""
+    else:
+        carros = sessao.query(Veiculo).all() 
+        mensagem=""
+    
     modelos = sessao.query(Modelo).all()
     marcas = sessao.query(Marca).all()
+    garagens = sessao.query(Garagem).all()
+    local_retirada = session.get("local_retirada")
+    valor_maximo = session.get("valor_maximo")
+    valor_minimo = session.get("valor_minimo")
+    porta = session.get("porta")
+    cambio = session.get("cambio")
+    marca = session.get("marca")
+    modelo = session.get("modelo")
     if session.get("funcionario_id"):
         funcionario = sessao.query(Funcionario).filter_by(id = session.get("funcionario_id")).first()
         if funcionario:
@@ -24,8 +44,59 @@ def pagina_inicial():
         cargo=None 
     sessao.close()
              
-    return render_template("pagina_inicial.html", carros_cadastrados=carros, cargo = cargo, modelos = modelos, marcas = marcas)
+    return render_template("pagina_inicial.html", carros_cadastrados=carros, cargo = cargo, modelos = modelos, marcas = marcas, garagens = garagens, local_retirada=local_retirada,valor_maximo=valor_maximo,valor_minimo=valor_minimo,porta=porta,cambio=cambio,modelo=modelo,marca=marca, mensagem=mensagem)
 
+
+@app.route("/filtrar", methods = ["GET","POST"])
+def filtrar():
+    if request.method == "POST":
+        sessao = Sessao()
+        local_retirada = request.form.get("local_retirada")
+        valor_maximo = request.form.get("maximo")
+        valor_minimo = request.form.get("minimo")
+        porta = request.form.get("porta")
+        cambio = request.form.get("cambio")
+        modelo = request.form.get("modelo")
+        marca = request.form.get("marca")
+        if not local_retirada and not valor_maximo and not valor_minimo and  not porta and not cambio and not modelo and not marca:
+            session.pop("local_retirada", None)
+            session.pop("valor_maximo", None)
+            session.pop("valor_minimo", None)
+            session.pop("porta", None)
+            session.pop("cambio", None)
+            session.pop("modelo", None)
+            session.pop("marca", None)
+            session.pop("carros_filtrados_ids", None)
+            sessao.close()
+            return redirect(url_for("pagina_inicial"))
+        else:
+            if valor_maximo:
+                valor_maximo = float(valor_maximo)
+            if valor_minimo:
+                valor_minimo=float(valor_minimo)
+            if porta:
+                porta =int(porta)
+            query = sessao.query(Veiculo)
+            if local_retirada:
+                query = query.filter(Veiculo.id_garagem == local_retirada)
+            if valor_maximo:
+                query = query.filter(Veiculo.preco_diaria<=valor_maximo)
+            if valor_minimo:
+                query = query.filter(Veiculo.preco_diaria>=valor_minimo)
+            if porta:
+                query = query.filter(Veiculo.portas == porta)
+            if cambio:
+                query = query.filter(Veiculo.cambio == cambio)
+            if modelo:
+                query = query.filter(Veiculo.id_modelo == modelo)
+            if marca:
+                query = query.filter(Veiculo.id_marca == marca)
+            carros_filtrados = query.all()
+            carros_filtrados_ids = [carro.id for carro in carros_filtrados]
+            session["carros_filtrados_ids"] = carros_filtrados_ids
+            sessao.close()
+            return redirect(url_for("pagina_inicial"))
+            
 
 
 @app.errorhandler(404)
@@ -91,7 +162,6 @@ def login():
                 return redirect(url_for("pagina_inicial"))
             
             funcionario = sessao.query(Funcionario).filter_by(nome=nome, senha=senha).first()  
-            print(funcionario.nome)
             if funcionario:
                 session["nome"] = funcionario.nome
                 session["senha"] = funcionario.senha
