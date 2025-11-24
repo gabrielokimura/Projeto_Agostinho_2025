@@ -7,51 +7,75 @@
 
 <div class="painel_pesquisa">
     <form class="formulario_pesquisa" action="/filtrar" method="post">
-        <div class="local_retirada">
-            <label>Local de Retirada</label>
-            <select type="text" name="local_retirada">
-                <option value="">Selecione uma garagem</option>
-                {% for garagem in garagens %}
-                    <option value="{{ garagem.id }}">Garagem {{garagem.bairro}} - {{garagem.cidade}}</option>
-                {% endfor %}
-            </select>
+        
+        <div class="linha_form">
+            <div class="grupo_input largo">
+                <label>Local de Retirada</label>
+                <select name="local_retirada">
+                    <option value="">Selecione uma garagem</option>
+                    {% for garagem in garagens %}
+                        <option value="{{ garagem.id }}">Garagem {{garagem.bairro}} - {{garagem.cidade}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="grupo_input pequeno">
+                <label>Preço Min</label>
+                <input name="minimo" type="number" placeholder="R$ 0"/>
+            </div>
+
+            <div class="grupo_input pequeno">
+                <label>Preço Max</label>
+                <input name="maximo" type="number" placeholder="R$ Max"/>
+            </div>
+
         </div>
-        <div class="data" title="Data de retirada e horário">
-            <label><h4>Valor do carro</h4></label>
-            <br>
-            <label>Valor maximo</label>
-            <input name="maximo" type="number"/>
-            <label>Valor minimo</label>
-            <input name="minimo" type="number"/>
+
+        <div class="linha_form">
+
+            <div class="grupo_input medio">
+                <label>Marca</label>
+                <select name="marca">
+                    <option value="">Todas</option>
+                    {% for marca in marcas %}
+                        <option value="{{ marca.id }}">{{ marca.nome }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="grupo_input medio">
+                <label>Modelo</label>
+                <select name="modelo">
+                    <option value="">Todos</option>
+                    {% for modelo in modelos %}
+                        <option value="{{ modelo.id }}">{{ modelo.nome }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="grupo_input medio">
+                <label>Portas</label>
+                <select name="porta">
+                    <option value="">Qualquer</option>
+                    <option value="2">2 Portas</option>
+                    <option value="4">4 Portas</option>
+                </select>
+            </div>
+
+            <div class="grupo_input medio">
+                <label>Câmbio</label>
+                <select name="cambio">
+                    <option value="">Qualquer</option>
+                    <option value="Manual">Manual</option>
+                    <option value="Automático">Automático</option>
+                </select>
+            </div>
         </div>
-        <label>Portas</label>
-        <select type="number" name="porta">
-            <option value="">Selecione quantas portas</option>
-            <option value="2">2 Portas</option>
-            <option value="4">4 Portas</option>
-        </select>
-        <br>
-        <label>Câmbio</label>
-        <select type="text" name="cambio">
-            <option value="">Selecione um cambio</option>
-            <option value="Manual">Manual</option>
-            <option value="Automático">Automático</option>
-        </select>
-        <label>Modelo</label>
-        <select type="text" name="modelo">
-            <option value="">Selecione um modelo</option>
-            {% for modelo in modelos %}
-                <option value="{{ modelo.id }}">{{ modelo.nome }}</option>
-            {% endfor %}
-        </select>
-        <label>Marca</label>
-        <select type="text" name="marca">
-            <option value="">Selecione uma marca</option>
-            {% for marca in marcas %}
-                <option value="{{ marca.id }}">{{ marca.nome }}</option>
-            {% endfor %}
-        </select>
-        <button type="submit">Pesquisar</button>
+
+        <div class="linha_form centralizar_botao">
+            <button type="submit" class="btn_pesquisar">PESQUISAR</button>
+        </div>
+
     </form>
 </div>
 <br><br>
@@ -103,7 +127,7 @@
     </div>
 
 {% else %}
-    <p style="text_align: center;">Não há carros cadastrados ou disponíveis no momento.</p>
+    <p style="text-align: center;">Não há carros cadastrados ou disponíveis no momento.</p>
 {% endif %}
 
 

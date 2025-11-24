@@ -106,6 +106,7 @@ a{
     color: #000000;
 }
 
+/*
 button[type="submit"] {
     background: white;
     border: 2px solid #ddd;
@@ -113,7 +114,7 @@ button[type="submit"] {
     padding: 4px 10px;
     cursor: pointer;
     font-weight: bold;
-}
+}*/
 
 
 
@@ -130,7 +131,7 @@ button[type="submit"] {
 }
 
 .form_simples select,
-.form_simples input {
+.form_simples input{
   width: 100%;
   padding: 10px;
   border: 2px solid #000000;
@@ -142,7 +143,7 @@ button[type="submit"] {
   background-color: #fff;
 }
 
-.form_simples button {
+.form_simples button{
   background-color: #ff6606;
   color: #fff;
   width: 50%;
@@ -152,6 +153,8 @@ button[type="submit"] {
   font-size: 18px;
   box-sizing: border-box;
   margin-bottom: 15px;
+  cursor: pointer;
+  font-weight: bold;
 }
 
 .mensagem_cadastro{
@@ -161,55 +164,122 @@ button[type="submit"] {
   font-size: 14px;
 }
 
-.mensagem_cadastro p {
+.mensagem_cadastro p{
     margin: 5px 0 0 0;
     font-size: 18px;
 }
 
 
-.conteudo_principal {
+.conteudo_principal{
   max-width: 1100px;
   width: 100%;
   margin: 0 auto;
 }
+
+/* --- ESTILOS DO PAINEL DE PESQUISA (Novo) --- */
 
 .painel_pesquisa {
-  background-color: #ff9900;
-  padding: 60px 30px;
-  border-radius: 10px;
-  max-width: 1100px;
-  margin: 0 auto;
-  margin-top: 20px;
+    background-color: #ff9900;
+    padding: 40px;
+    border-radius: 15px;
+    max-width: 1100px;
+    margin: 30px auto;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
 
-.formulario_pesquisa{
-  display:flex;
-  gap: 10px;
-  width: 100%;
-  align-items: center;
+.formulario_pesquisa {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Espaço entre a linha de cima e a de baixo */
 }
 
-.formulario_pesquisa input{
-  height: 80px;
-  padding: 0 10px;
-  box-sizing: border-box;
-  border-radius: 10px;
-  border:none;
-
+/* Configuração das linhas */
+.linha_form {
+    display: flex;
+    gap: 15px;
+    align-items: flex-end; /* Alinha o botão com os inputs na base */
+    flex-wrap: wrap; /* Permite que caia para baixo em telas pequenas */
 }
 
-.formulario_pesquisa > form > div {
-  display: flex;
-  align-items: center;  /* centraliza verticalmente os inputs dentro dessas divs */
-  gap: 10px;            /* opcional para espaçar inputs dentro dos grupos */
+.centralizar_botao {
+    justify-content: center; /* Isso centraliza horizontalmente no Flexbox */
+    margin-top: 30px;        /* Um pequeno espaço extra para separar dos inputs */
 }
 
-.local_retirada {
-    flex: 4; 
+.btn_pesquisar {
+    /* Mantenha o que você já fez, mas se quiser alargar: */
+    width: 25%; /* Ocupa metade da linha */
+    min-width: 200px; /* Garante que não fique minúsculo no celular */
 }
 
-.input_local {
-  width:100%;
+/* Configuração de cada bloquinho (Label + Input) */
+.grupo_input {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1; /* Faz todos crescerem igualmente por padrão */
+    min-width: 150px;
+}
+
+/* Classes utilitárias para tamanhos específicos */
+.grupo_input.largo {
+    flex: 2; /* Ocupa o dobro do espaço dos outros */
+    min-width: 250px;
+}
+
+.grupo_input.medio {
+    flex: 1;
+}
+
+.grupo_input.pequeno {
+    flex: 0.7;
+    min-width: 100px;
+}
+
+/* Estilização dos Inputs e Selects */
+.formulario_pesquisa label {
+    font-size: 25px;
+    font-weight: bold;
+    font-family: "Canva Sans";
+    color: #fff; /* Texto branco para contrastar com o laranja */
+    text-shadow: 0 1px 2px rgba(0,0,0,1);
+}
+
+.formulario_pesquisa input,
+.formulario_pesquisa select {
+    height: 50px; /* Altura padrão para todos */
+    padding: 0 15px;
+    border-radius: 8px;
+    border: 2px solid transparent;
+    font-size: 16px;
+    background-color: #fff;
+    width: 100%; /* Garante que preencha a div pai */
+    box-sizing: border-box;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.formulario_pesquisa input:focus,
+.formulario_pesquisa select:focus {
+    border-color: #cc5200; /* Cor de foco */
+    border-radius: 50px;
+}
+
+/* Estilização do Botão de Pesquisa */
+.btn_pesquisar {
+    height: 50px;
+    padding: 0 30px;
+    background-color:#ff6606; /* Botão escuro para destaque */
+    color: #fff;
+    font-weight: bold;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: background-color 0.3s, transform 0.2s;
+    min-width: 150px;
+    
 }
 
 .data {
@@ -229,17 +299,7 @@ button[type="submit"] {
     width: 100%;
 }
 
-.formulario_pesquisa button{
-  height: 80px;
-  flex: 1;       
-  padding: 0 10px;
-  box-sizing: border-box;
-  border-radius: 10px;
-  border:none;
-  background-color: #ff6606;
-  font-size: 17px;
-  color: #ffffff;
-}
+
 
 main {
   flex: 1;  /* MODIFICADO: adicionado para sticky footer */
