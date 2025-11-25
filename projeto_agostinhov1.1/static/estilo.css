@@ -25,7 +25,7 @@ h1{
 }
 
 body{
-    font-family: "Canva Sans";
+    font-family: "Work Sans";
     font-size: 18px;
     color: #000000;
     background-color: #ff6606;
@@ -583,4 +583,42 @@ opacity: 0.8;
     .setor-direito {
         flex: none;
     }
+}
+
+.simples_container{
+  background-color: #fff;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 500px;
+  margin: 30px auto;
+  padding: 50px 30px;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.simples_container p {
+    font-size: 18px;
+    border-bottom: 1px solid #ccc; /* Uma linha cinza simples entre cada item */
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+    text-align: left; /* Alinha o texto à esquerda para facilitar leitura */
+    color: #333;
+}
+
+.link-social {
+    color: #333; /* Cor do texto do link (Escuro) */
+    text-decoration: none;
+    font-weight: normal;
+    visibility: visible !important; /* Garante que o link apareça */
+    transition: color 0.2s;
+}
+
+.link-social:hover {
+    color: #ff6606; /* Fica laranja quando passa o mouse */
+    text-decoration: underline;
+}
+
+/* Garante que o link de voltar também apareça */
+.simples_container a {
+    visibility: visible !important;
 }
