@@ -2,27 +2,30 @@
 
 {% block title %}Perfil{% endblock %}
 
-
 {% block conteudo_principal %}
 
-<h1>Perfil</h1>
+    <h1>Perfil</h1>
 
-<p>Nome de usuário: {{ usuario["nome"] }}</p>
+    <div class="simples_container">
+        
+        <p><strong>Nome de usuário:</strong> {{ usuario["nome"] }}</p>
 
-<p>senha: {{ usuario["senha"] }}</p>
+        <p><strong>Senha:</strong> {{ usuario["senha"] }}</p>
 
-<p>Email: {{ usuario["email"] }}</p>
+        <p><strong>Email:</strong> {{ usuario["email"] }}</p>
 
-<p>Telefone: {{ usuario["telefone"] }}</p>
+        <p><strong>Telefone:</strong> {{ usuario["telefone"] }}</p>
 
-<p>Data de nascimento: {{ usuario["data_nasc"] }}</p>
+        <p><strong>Data de nascimento:</strong> {{ usuario["data_nasc"] }}</p>
 
-<p>CPF: {{ usuario["cpf"] }}</p>
+        <p><strong>CPF:</strong> {{ usuario["cpf"] }}</p>
 
-<p>CNH: {{ usuario["cnh"] }}</p>
-<br><br>
-<a href="/logout">Logout</a>
+        <p><strong>CNH:</strong> {{ usuario["cnh"] }}</p>
+        
+        <br>
+        <div style="text-align: center;">
+            <a href="/logout" style="color: red; font-weight: bold;">Sair da conta</a>
+        </div>
+    </div>
 
 {% endblock %}
-
-        
