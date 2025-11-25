@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}Detalhar Carro{% endblock %}
+
+{% block conteudo_principal %}
+<div class="detalhar-container">
+    
+    <form action="/resumo_pedido" method="POST">
+        <div class="setor-direito">
+            <div class="resumo-pedido">
+                <h3>Resumo do Pedido</h3>
+                <p><strong>Carro:</strong> {{ marca }} {{ modelo }}</p>
+                <p><strong>Valor diário:</strong> R$ {{ carro.preco_diaria }}</p>
+                <p><strong>Total estimado:</strong> R$ <span id="total-estimado">{{ valor_total }}</span></p>
+            </div>
+            
+            <div class="pagamento">
+                <h3>Forma de Pagamento</h3>
+                <div class="form-simples">
+                    <div class="campo">
+                        <label for="metodo_pagamento">Método de pagamento</label>
+                        <select name="metodo_pagamento" required>
+                            <option value="Cartão de Crédito">Cartão de Crédito</option>
+                            <option value="Cartão de Débito">Cartão de Débito</option>
+                            <option value="Pix">Pix</option>
+                        </select>
+                    </div>
+                    
+                    <button type="submit" class="button_comprar">Comprar</button>
+                </div>
+            </div>
+        </div>
+        
+    </form>
+    </div>
+{% endblock %}

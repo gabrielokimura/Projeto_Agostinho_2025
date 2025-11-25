@@ -5,7 +5,7 @@
 {% block conteudo_principal %}
 <div class="detalhar-container">
     
-    <form action="/comprar_carro" method="POST">
+    <form action="{{ url_for('detalhar_carro', carro_id=carro.id) }}" method="POST">
         <input type="hidden" name="carro_id" value="{{ carro.id }}">
         
         <div class="setor-esquerdo">
@@ -41,36 +41,12 @@
                     <div class="campo">
                         <label for="horario_devolucao">Horário de devolução</label>
                         <input type="datetime-local" name="horario_devolucao" required>
+                        <button type="submit">Avançar</button>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="setor-direito">
-            <div class="resumo-pedido">
-                <h3>Resumo do Pedido</h3>
-                <p><strong>Carro:</strong> {{ carro.id_marca }} {{ carro.id_modelo }}</p>
-                <p><strong>Valor diário:</strong> R$ {{ carro.preco_diaria }}</p>
-                <p><strong>Total estimado:</strong> R$ <span id="total-estimado">0,00</span> (calculado com base nas datas)</p>
-            </div>
-            
-            <div class="pagamento">
-                <h3>Forma de Pagamento</h3>
-                <div class="form-simples">
-                    <div class="campo">
-                        <label for="metodo_pagamento">Método de pagamento</label>
-                        <select name="metodo_pagamento" required>
-                            <option value="Cartão de Crédito">Cartão de Crédito</option>
-                            <option value="Cartão de Débito">Cartão de Débito</option>
-                            <option value="Pix">Pix</option>
-                        </select>
-                    </div>
-                    
-                    <button type="submit" class="button_comprar">Comprar</button>
-                </div>
-            </div>
-        </div>
-        
     </form>
     </div>
 {% endblock %}

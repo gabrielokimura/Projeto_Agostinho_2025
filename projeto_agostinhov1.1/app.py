@@ -218,17 +218,7 @@ def perfil():
 @app.route("/cadastro_carro")
 def cadastro_carro():
     usuario = session.get("id_usuario")
-    return render_template("cadastro_carro.html")
-
-
-@app.route("/<int:carro_id>")
-def detalhar_carro(carro_id):
-    sessao =Sessao()
-    usuario = session.get("id_usuario")
-    carro = sessao.query(Veiculo).filter_by(id=carro_id).first()
-    if carro is None:
-        abort(404)
-    return render_template("detalhar_carro.html", carro= carro, usuario = usuario) 
+    return render_template("cadastro_carro.html", usuario = usuario)
 
 
 
@@ -312,36 +302,35 @@ def pegar_lista():
 
 
 
-@app.route("/comprar_carro", methods = ["POST"])
-def comprar_carro():
-    if request.method=="POST":
+@app.route("/<int:carro_id>",methods = ["POST", "GET"])
+def detalhar_carro(carro_id):
+    sessao =Sessao()
+    usuario = session.get("id_usuario")
+    carro = sessao.query(Veiculo).filter_by(id=carro_id).first()
+    if carro is None:
+        abort(404)
+    if request.method =="POST":
         try:
-            local_entrega = request.form.get("local_entrega")
-            horario_entrega = request.form.get("horario_entrega")
-            local_devolucao = request.form.get("local_devolucao")
-            horario_devolucao = request.form.get("horario_devolucao")
-            metodo_pagamento = request.form.get("metodo_pagamento")
-            session["local_entrega"] = local_entrega
-            session["horario_entrega"] = horario_entrega
-            session["local_devolucao"] = local_devolucao
-            session["horario_devolucao"] = horario_devolucao
-            session["metodo_pagamento"] = metodo_pagamento
-            carro_id = request.form.get("carro_id")
+            session["horario_entrega"] = request.form.get("horario_entrega")
+            session["horario_devolucao"] = request.form.get("horario_devolucao")
             session["carro_id"] = carro_id
-            return redirect(url_for("confirmar_compra"))
+            return redirect(url_for("resumo_pedido"))
         except Exception as e:
             print(e)
+    return render_template("detalhar_carro.html", carro= carro, usuario = usuario) 
 
 
-@app.route("/confirmar_compra")
-def confirmar_compra():
+
+
+
+@app.route("/resumo_pedido",methods = ["POST", "GET"])
+def resumo_pedido():
     usuario = session.get("id_usuario")
-    metodo_pagamento = session.get("metodo_pagamento")
     carro_id = session.get("carro_id")
     sessao =Sessao()
-    if not metodo_pagamento or not carro_id:
-        return redirect(url_for("pagina_inicial"))
     carro = sessao.query(Veiculo).filter_by(id =carro_id).first()
+    marca = sessao.query(Marca).filter_by(id = carro.id_marca).first().nome
+    modelo = sessao.query(Modelo).filter_by(id = carro.id_modelo).first().nome
     formato = "%Y-%m-%dT%H:%M"
     horario_entrega =session.get("horario_entrega")
     horario_devolucao=session.get("horario_devolucao")
@@ -349,23 +338,50 @@ def confirmar_compra():
     horario_devolucao =datetime.strptime(horario_devolucao, formato)
     diferenca = horario_devolucao - horario_entrega
     diferenca_dias = diferenca.days
+    valor_total = carro.preco_diaria*diferenca_dias
+    
+    if request.method == "POST":
+        try:
+            metodo_pagamento = request.form.get("metodo_pagamento")
+            session["metodo_pagamento"] = metodo_pagamento
+            return redirect(url_for("confirmar_compra"))
+        except Exception as e:
+            print(e)
+        finally:
+            sessao.close()
+    return render_template("resumo_pedido.html", valor_total = valor_total, carro = carro, marca = marca, modelo = modelo, usuario = usuario)
 
-    return render_template("confirmar_compra.html", metodo_pagamento = metodo_pagamento, dias= diferenca_dias, preco_diaria=carro.preco_diaria, usuario=usuario)
+@app.route("/confirmar_compra", methods = ["GET", "POST"])
+def confirmar_compra():
+    usuario = session.get("id_usuario")
+    metodo_pagamento = session.get("metodo_pagamento")
+    if not metodo_pagamento or not session.get("carro_id"):
+        return redirect(url_for("pagina_inicial"))
+    if request.method == "POST":
+        return redirect(url_for("comprar_definitivo"))
+           
+    return render_template("confirmar_compra.html", metodo_pagamento = metodo_pagamento, usuario=usuario)
+
+
 
 @app.route("/comprar_definitivo", methods=["POST"])
 def comprar_definitivo():
-    metodo_pagamento = session.get("metodo_pagamento")
-    if not metodo_pagamento:
-       return redirect(url_for("pagina_inicial"))
-    if request.method == "POST":
-        sessao =Sessao()
-        carro_id =session.get("carro_id")
-        carro = sessao.query(Veiculo).filter_by(id=carro_id).first()
-        if carro.disponivel == True:
-            carro.disponivel = False
-            sessao.commit()
+    try:
+        sessao = Sessao()
+        carro_id = session.get("carro_id")
+        if not carro_id:
+            redirect(url_for("pagina_inicial"))
+        carro = sessao.query(Veiculo).filter_by(id = carro_id).first()
+        if carro:
+            if carro.disponivel:
+                carro.disponivel = False
+                sessao.commit()
+        else:
+            return redirect(url_for("pagina_inicial"))
+    finally:
         sessao.close()
-        return redirect(url_for("pagina_inicial"))
+
+    return redirect(url_for("pagina_inicial"))
 
 
 if __name__=="__main__":

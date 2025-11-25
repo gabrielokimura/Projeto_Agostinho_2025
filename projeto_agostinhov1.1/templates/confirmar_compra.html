@@ -4,7 +4,6 @@
 
 
     {% block conteudo_principal %}
-    <h2>Valor Total da compra: {{ preco_diaria*dias }}</h2>
 
 {% if metodo_pagamento == "Cartão de Crédito" or metodo_pagamento == "Cartão de Débito" %}
 
@@ -12,7 +11,7 @@
     <form class="form_simples input" action="/comprar_definitivo" method="POST">
 
         <div class="container">
-            <label for="numero_cartaoero do {{ metodo_pagamento }}</label>
+            <label>numero do {{ metodo_pagamento }}</label>
             <input type="number" name="numero_cartao" required minlength="3" placeholder="  ">
         </div>
 
