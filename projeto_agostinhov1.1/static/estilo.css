@@ -262,7 +262,7 @@ button[type="submit"] {
 .formulario_pesquisa input:focus,
 .formulario_pesquisa select:focus {
     border-color: #cc5200; /* Cor de foco */
-    border-radius: 50px;
+    border-radius: 0px;
 }
 
 /* Estilização do Botão de Pesquisa */
