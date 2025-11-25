@@ -126,7 +126,9 @@
         {% endfor %}
     </div>
 
-{% else %}
+{% endif %}
+
+{% if not carros_cadastrados and not mensagem %}
     <p style="text-align: center;">Não há carros cadastrados ou disponíveis no momento.</p>
 {% endif %}
 
@@ -139,9 +141,6 @@
     {% endif %}
 {% endif %}
 
-<div style="text-align: center; margin-top: 20px;">
-    <a href="/logout">Sair da conta</a>
-</div>
 
 
 
@@ -153,6 +152,5 @@
     {% endif %}
 
     <br>
-    <a href="/logout">Limpar</a>
 
 {% endblock %}

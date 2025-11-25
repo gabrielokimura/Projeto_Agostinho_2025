@@ -34,8 +34,9 @@ def pagina_inicial():
     cambio = session.get("cambio")
     marca = session.get("marca")
     modelo = session.get("modelo")
-    if session.get("funcionario_id"):
-        funcionario = sessao.query(Funcionario).filter_by(id = session.get("funcionario_id")).first()
+    usuario = session.get("id_usuario")
+    if session.get("cargo"):
+        funcionario = sessao.query(Funcionario).filter_by(id = session.get("id_usuario")).first()
         if funcionario:
             cargo = funcionario.cargo
         else:
@@ -44,7 +45,7 @@ def pagina_inicial():
         cargo=None 
     sessao.close()
              
-    return render_template("pagina_inicial.html", carros_cadastrados=carros, cargo = cargo, modelos = modelos, marcas = marcas, garagens = garagens, local_retirada=local_retirada,valor_maximo=valor_maximo,valor_minimo=valor_minimo,porta=porta,cambio=cambio,modelo=modelo,marca=marca, mensagem=mensagem)
+    return render_template("pagina_inicial.html", carros_cadastrados=carros, cargo = cargo, modelos = modelos, marcas = marcas, garagens = garagens, local_retirada=local_retirada,valor_maximo=valor_maximo,valor_minimo=valor_minimo,porta=porta,cambio=cambio,modelo=modelo,marca=marca, mensagem=mensagem, usuario = usuario)
 
 
 @app.route("/filtrar", methods = ["GET","POST"])
@@ -123,6 +124,7 @@ def acesso_proibido(error):
 def cadastro():
     sessao =Sessao()
     mensagem= ""
+    usuario = session.get("id_usuario")
     if request.method=="POST":
         session["nome"]=request.form.get("nome")
         session["senha"] = request.form.get("senha")
@@ -140,10 +142,11 @@ def cadastro():
             mensagem = "Bota o nome E a senha idiota"
 
 
-    return render_template("cadastro.html", mensagem = mensagem, usuarios = sessao.query(Cliente).all())
+    return render_template("cadastro.html", mensagem = mensagem, usuarios = sessao.query(Cliente).all(), usuario = usuario)
 
 @app.route("/login", methods = ["GET", "POST"])
 def login():
+    usuario = session.get("id_usuario")
     sessao=Sessao()
     mensagem = ""
     if request.method=="POST":
@@ -154,19 +157,21 @@ def login():
         try:
             cliente = sessao.query(Cliente).filter_by(nome=nome, senha=senha).first()
             if cliente:
+                session.clear()
                 session["nome"] = cliente.nome
                 session["senha"] = cliente.senha
-                session["cliente_id"] = cliente.id
-                session["cargo"] = "cliente"  
+                session["id_usuario"] = cliente.id
+                session["tipo"] = "cliente"  
                 sessao.close()
                 return redirect(url_for("pagina_inicial"))
             
             funcionario = sessao.query(Funcionario).filter_by(nome=nome, senha=senha).first()  
             if funcionario:
+                session.clear()
                 session["nome"] = funcionario.nome
                 session["senha"] = funcionario.senha
-                session["funcionario_id"] = funcionario.id
-                session["tipo"] = "funcionario" 
+                session["id_usuario"] = funcionario.id
+                session["cargo"] = "funcionario" 
                 sessao.close()
                 return redirect(url_for("pagina_inicial"))
             
@@ -176,7 +181,7 @@ def login():
             mensagem = f"Ocorreu um erro: {str(e)}" 
         finally:
             sessao.close() 
-    return render_template("login.html", mensagem=mensagem)
+    return render_template("login.html", mensagem=mensagem, usuario=usuario)
         
 
     
@@ -198,25 +203,32 @@ def logout():
 
 @app.route("/perfil")
 def perfil():
-    usuario = session.get("usuario")
-    if usuario:
-        return render_template("perfil.html", usuario = usuario)
+    sessao = Sessao()
+    usuario = session.get("id_usuario")
+    if session.get("cargo"):
+        usuario_certo = sessao.query(Funcionario).filter_by(id = usuario).first()
+    elif session.get("tipo"):
+        usuario_certo = sessao.query(Cliente).filter_by(id = usuario).first()
+    if usuario_certo:
+        return render_template("perfil.html", usuario = usuario_certo)
     else:
         return abort(401)
 
 
 @app.route("/cadastro_carro")
 def cadastro_carro():
+    usuario = session.get("id_usuario")
     return render_template("cadastro_carro.html")
 
 
 @app.route("/<int:carro_id>")
 def detalhar_carro(carro_id):
     sessao =Sessao()
+    usuario = session.get("id_usuario")
     carro = sessao.query(Veiculo).filter_by(id=carro_id).first()
     if carro is None:
         abort(404)
-    return render_template("detalhar_carro.html", carro= carro) 
+    return render_template("detalhar_carro.html", carro= carro, usuario = usuario) 
 
 
 
@@ -323,6 +335,7 @@ def comprar_carro():
 
 @app.route("/confirmar_compra")
 def confirmar_compra():
+    usuario = session.get("id_usuario")
     metodo_pagamento = session.get("metodo_pagamento")
     carro_id = session.get("carro_id")
     sessao =Sessao()
@@ -337,7 +350,7 @@ def confirmar_compra():
     diferenca = horario_devolucao - horario_entrega
     diferenca_dias = diferenca.days
 
-    return render_template("confirmar_compra.html", metodo_pagamento = metodo_pagamento, dias= diferenca_dias, preco_diaria=carro.preco_diaria)
+    return render_template("confirmar_compra.html", metodo_pagamento = metodo_pagamento, dias= diferenca_dias, preco_diaria=carro.preco_diaria, usuario=usuario)
 
 @app.route("/comprar_definitivo", methods=["POST"])
 def comprar_definitivo():
