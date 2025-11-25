@@ -367,6 +367,12 @@ def comprar_definitivo():
         sessao.close()
         return redirect(url_for("pagina_inicial"))
 
+@app.route("/contato")
+def contato():
+    usuario = session.get("id_usuario")
+    return render_template("contato.html", usuario = usuario)
+    
+
 
 if __name__=="__main__":
     app.run(debug=True)

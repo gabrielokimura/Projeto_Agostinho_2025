@@ -604,3 +604,21 @@ opacity: 0.8;
     text-align: left; /* Alinha o texto à esquerda para facilitar leitura */
     color: #333;
 }
+
+.link-social {
+    color: #333; /* Cor do texto do link (Escuro) */
+    text-decoration: none;
+    font-weight: normal;
+    visibility: visible !important; /* Garante que o link apareça */
+    transition: color 0.2s;
+}
+
+.link-social:hover {
+    color: #ff6606; /* Fica laranja quando passa o mouse */
+    text-decoration: underline;
+}
+
+/* Garante que o link de voltar também apareça */
+.simples_container a {
+    visibility: visible !important;
+}
