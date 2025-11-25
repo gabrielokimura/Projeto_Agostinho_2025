@@ -13,17 +13,25 @@
                 <img src="{{ url_for('static', filename='imagens/' + carro.id|string + '.jpg') }}" alt="{{ carro.id_modelo }}">
             </div>
             <div class="carro-informacoes">
-                <h2>{{ carro.id_marca }} {{ carro.id_modelo }}</h2>
+                <h2>{{ marca }} {{ modelo }}</h2>
                 <ul>
                     <li><strong>Aluguel:</strong> R$ {{ carro.preco_diaria }}</li>
                     <li><strong>Cor:</strong> {{ carro.cor }}</li>
                     <li><strong>Câmbio:</strong> {{ carro.cambio }}</li>
                     <li><strong>Portas:</strong> {{ carro.portas }}</li>
-                    <li><strong>Airbag:</strong> {{ carro.airbags }}</li>
-                    <li><strong>Ar condicionado:</strong> {{ carro.ar_condicionado }}</li>
+                    {% if carro.airbags %}
+                    <li><strong>Airbag:</strong> Sim</li>
+                    {% else %}
+                    <li><strong>Airbag:</strong> Não</li>
+                    {% endif %}
+                    {% if carro.ar_condicionado %}
+                    <li><strong>Ar condicionado:</strong> Sim</li>
+                    {% else %}
+                    <li><strong>Ar condicionado:</strong> Não</li>
+                    {% endif %}
                     <li><strong>Quilometragem:</strong> {{ carro.quilometragem }}</li>
-                    <li><strong>Combustível:</strong> {{ carro.id_combustivel }}</li>
-                    <li><strong>Categoria:</strong> {{ carro.id_categoria }}</li>
+                    <li><strong>Combustível:</strong> {{ combustivel }}</li>
+                    <li><strong>Categoria:</strong> {{ categoria }}</li>
                 </ul>
             </div>
             

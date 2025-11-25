@@ -307,6 +307,10 @@ def detalhar_carro(carro_id):
     sessao =Sessao()
     usuario = session.get("id_usuario")
     carro = sessao.query(Veiculo).filter_by(id=carro_id).first()
+    marca = sessao.query(Marca).filter_by(id = carro.id_marca).first().nome
+    modelo = sessao.query(Modelo).filter_by(id = carro.id_modelo).first().nome
+    combustivel = sessao.query(Combustivel).filter_by(id = carro.id_combustivel).first().tipo
+    categoria = sessao.query(Categoria).filter_by(id = carro.id_categoria).first().nome
     if carro is None:
         abort(404)
     if request.method =="POST":
@@ -317,7 +321,7 @@ def detalhar_carro(carro_id):
             return redirect(url_for("resumo_pedido"))
         except Exception as e:
             print(e)
-    return render_template("detalhar_carro.html", carro= carro, usuario = usuario) 
+    return render_template("detalhar_carro.html", carro= carro, usuario = usuario, marca = marca, modelo = modelo, combustivel = combustivel, categoria = categoria) 
 
 
 
