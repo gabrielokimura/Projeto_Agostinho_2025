@@ -12,12 +12,12 @@
 
         <div class="container">
             <label for="nome">Nome de Usuário</label>
-            <input type="text" name="nome" required minlength="3" placeholder="  ">
+            <input type="text" name="nome" required minlength="3" maxlength="100" placeholder="  ">
         </div>
 
         <div class="container">
             <label for="senha">Senha</label>
-            <input type="password" name="senha" required minlength="3" placeholder="  ">
+            <input type="password" name="senha" required minlength="3" maxlength="64" placeholder="  ">
         </div>
 
         <div class="container">
@@ -27,17 +27,17 @@
 
         <div class="container">
             <label for="telefone">Telefone</label>
-            <input type="tel" name="telefone" required placeholder="(xx) xxxxx-xxxx">
+            <input type="tel" name="telefone" required minlength="10" maxlength="11" placeholder="(xx) xxxxx-xxxx">
         </div>
 
         <div class="container">
             <label for="data_nasc">Data de nascimento</label>
-            <input type="date" name="data_nasc" required placeholder="  ">
+            <input type="date" name="data_nasc" min="1900-01-01" max="2025-01-01" required placeholder="  ">
         </div>
 
         <div class="container">
             <label for="CPF">CPF</label>
-            <input type="number" name="cpf" required minlength="11" maxlength="11" placeholder="  ">
+            <input type="text" name="cpf" required minlength="11" maxlength="11" placeholder="  ">
         </div>
 
         <div class="container">
@@ -48,7 +48,7 @@
 
         <div class="container">
             <label for="CNH">CNH</label>
-            <input type="number" name="cnh" required minlength="11" maxlength="11" placeholder="  ">
+            <input type="text" name="cnh" required minlength="11" maxlength="11" placeholder="  ">
         </div>
 
         <div class="container">

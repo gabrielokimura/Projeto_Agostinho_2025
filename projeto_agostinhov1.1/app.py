@@ -203,6 +203,8 @@ def logout():
 
 @app.route("/perfil")
 def perfil():
+    if not session.get("usuario_id"):
+        return abort(401)
     sessao = Sessao()
     usuario = session.get("id_usuario")
     if session.get("cargo"):
@@ -211,12 +213,12 @@ def perfil():
         usuario_certo = sessao.query(Cliente).filter_by(id = usuario).first()
     if usuario_certo:
         return render_template("perfil.html", usuario = usuario_certo)
-    else:
-        return abort(401)
 
 
 @app.route("/cadastro_carro")
 def cadastro_carro():
+    if not session.get("cargo"):
+        return abort(403)
     usuario = session.get("id_usuario")
     return render_template("cadastro_carro.html", usuario = usuario)
 
@@ -307,7 +309,7 @@ def detalhar_carro(carro_id):
     sessao =Sessao()
     usuario = session.get("id_usuario")
     if not usuario:
-        return abort(401)
+        return redirect(url_for("login"))
     carro = sessao.query(Veiculo).filter_by(id=carro_id).first()
     marca = sessao.query(Marca).filter_by(id = carro.id_marca).first().nome
     modelo = sessao.query(Modelo).filter_by(id = carro.id_modelo).first().nome
