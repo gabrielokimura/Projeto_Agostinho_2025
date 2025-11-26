@@ -173,7 +173,7 @@ class Locacao(Base):
         self.id_cliente = id_cliente
         self.id_veiculo = id_veiculo
 
-# Tabela: Gerencia (junção de tabela)
+
 class Gerencia(Base):
     __tablename__ = "gerencias"
     id = Column("id", Integer, primary_key=True, autoincrement=True)
@@ -199,7 +199,7 @@ class ItemAdicional(Base):
         self.preco = preco
         self.descricao = descricao
 
-# Tabela Inclui (junção de tabela)
+
 class Inclui(Base):
     __tablename__ = "incluis"
     id = Column("id", Integer, primary_key=True, autoincrement=True)
@@ -307,9 +307,11 @@ class Modelo(Base):
     id = Column("id", Integer, primary_key=True, autoincrement=True)
     nome = Column("nome", String(255), nullable=False)
     descricao = Column("descricao", String(255))
+    id_marca = Column("id_marca", Integer, ForeignKey("marcas.id"), nullable=False)  
 
-    def __init__(self, nome, descricao=None):
+    def __init__(self, nome, id_marca, descricao=None):
         self.nome = nome
+        self.id_marca = id_marca
         self.descricao = descricao
 
 
@@ -402,7 +404,6 @@ def cadastrar_cliente(nome, email, senha, data_nasc, cnh,cpf, doc_identificacao,
 def cadastrar_carro(portas, preco_diaria, placa, cor, preco_compra, capacidade_pessoas, quilometragem, cambio, airbags, ar_condicionado, disponivel, fornecedor, garagem, plano_seguro, marca, modelo, categoria, combustivel):
 
     try:
-        # Conversões
         portas = int(portas)
         preco_diaria = float(preco_diaria)
         preco_compra = float(preco_compra)
@@ -425,12 +426,12 @@ def cadastrar_carro(portas, preco_diaria, placa, cor, preco_compra, capacidade_p
             return "Erro: Plano seguro não encontrado"
         id_plano_seguro = plano_seguro_obj.id
         
-        marca_obj = sessao.query(Marca).filter_by(nome=marca).first()
+        marca_obj = sessao.query(Marca).filter_by(id=marca).first()
         if not marca_obj:
             return "Erro: Marca não encontrada"
         id_marca = marca_obj.id
         
-        modelo_obj = sessao.query(Modelo).filter_by(nome=modelo).first()
+        modelo_obj = sessao.query(Modelo).filter_by(id=modelo).first()
         if not modelo_obj:
             return "Erro: Modelo não encontrado"
         id_modelo = modelo_obj.id

@@ -114,8 +114,8 @@ document.addEventListener("DOMContentLoaded", () => {
             fornecedor.value,
             garagem.value,
             plano_seguro.value,
-            marca.value,
-            modelo.value,
+            marca.value,  
+            modelo.value, 
             categoria.value,
             combustivel.value
         ]

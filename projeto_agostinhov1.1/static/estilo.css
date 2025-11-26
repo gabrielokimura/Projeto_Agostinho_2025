@@ -26,6 +26,11 @@ h1{
 
 body{
     font-family: "Work Sans";
+<<<<<<< Updated upstream
+=======
+    font-size: 18px;
+    color: #000000;
+>>>>>>> Stashed changes
     background-color: #ff6606;
     display: block;
     padding-left: 20px;
@@ -105,6 +110,10 @@ a{
     color: black;
 }
 
+<<<<<<< Updated upstream
+=======
+/*
+>>>>>>> Stashed changes
 button[type="submit"] {
     background: white;
     border: 2px solid #ddd;
@@ -112,7 +121,11 @@ button[type="submit"] {
     padding: 4px 10px;
     cursor: pointer;
     font-weight: bold;
+<<<<<<< Updated upstream
 }
+=======
+}*/
+>>>>>>> Stashed changes
 
 
 
@@ -201,12 +214,89 @@ button[type="submit"] {
   gap: 10px;            /* opcional para espaçar inputs dentro dos grupos */
 }
 
+<<<<<<< Updated upstream
 .local_retirada {
     flex: 4; 
 }
 
 .input_local {
   width:100%;
+=======
+.btn_pesquisar {
+    /* Mantenha o que você já fez, mas se quiser alargar: */
+    width: 25%; /* Ocupa metade da linha */
+    min-width: 200px; /* Garante que não fique minúsculo no celular */
+}
+
+/* Configuração de cada bloquinho (Label + Input) */
+.grupo_input {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1; /* Faz todos crescerem igualmente por padrão */
+    min-width: 150px;
+}
+
+/* Classes utilitárias para tamanhos específicos */
+.grupo_input.largo {
+    flex: 2; /* Ocupa o dobro do espaço dos outros */
+    min-width: 250px;
+}
+
+.grupo_input.medio {
+    flex: 1;
+}
+
+.grupo_input.pequeno {
+    flex: 0.7;
+    min-width: 100px;
+}
+
+/* Estilização dos Inputs e Selects */
+.formulario_pesquisa label {
+    font-size: 25px;
+    font-weight: bold;
+    font-family: "Canva Sans";
+    color: #fff; /* Texto branco para contrastar com o laranja */
+    text-shadow: 0 1px 2px rgba(0,0,0,1);
+}
+
+.formulario_pesquisa input,
+.formulario_pesquisa select {
+    height: 50px; /* Altura padrão para todos */
+    padding: 0 15px;
+    border-radius: 8px;
+    border: 2px solid transparent;
+    font-size: 16px;
+    background-color: #fff;
+    width: 100%; /* Garante que preencha a div pai */
+    box-sizing: border-box;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.formulario_pesquisa input:focus,
+.formulario_pesquisa select:focus {
+    border-color: #cc5200; /* Cor de foco */
+    border-radius: 0px;
+}
+
+/* Estilização do Botão de Pesquisa */
+.btn_pesquisar {
+    height: 50px;
+    padding: 0 30px;
+    background-color:#ff6606; /* Botão escuro para destaque */
+    color: #fff;
+    font-weight: bold;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: background-color 0.3s, transform 0.2s;
+    min-width: 150px;
+    
+>>>>>>> Stashed changes
 }
 
 .data {
@@ -305,7 +395,253 @@ font-size: 12px;
 opacity: 0.8;
 }
 
+<<<<<<< Updated upstream
+=======
+/* --- ESTILOS DA FROTA (CARDS) --- */
+
+/* Grid que segura todos os cards */
+.frota_container {
+    display: grid;
+    /* Cria colunas automáticas com largura mínima de 280px */
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 25px;
+    padding: 20px 0;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+/* O cartão individual */
+.card_carro {
+    background-color: #ffffff;
+    border-radius: 12px;
+    overflow: hidden; /* Garante que a imagem não saia das bordas arredondadas */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #e0e0e0;
+}
+
+/* Efeito ao passar o mouse (Hover) */
+.card_carro:hover {
+    transform: translateY(-5px); /* Sobe levemente */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Container da imagem para manter proporção */
+.card_img_wrapper {
+    width: 100%;
+    height: 180px; /* Altura fixa para alinhar os cards */
+    background-color: #f0f0f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card_img_wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Corta a imagem para preencher o espaço sem distorcer */
+}
+
+/* Área de texto */
+.card_info {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.card_modelo {
+    font-family: "Bumblebee", sans-serif; /* Usando a fonte importada no seu CSS */
+    font-size: 22px;
+    color: #ff6606; /* Cor laranja da sua marca */
+    margin: 0 0 5px 0;
+}
+
+.card_marca {
+    font-size: 14px;
+    color: #777;
+    margin: 0 0 15px 0;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.card_preco {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.card_preco span {
+    font-weight: bold;
+    font-size: 20px;
+    color: #000;
+}
+
+/* Botão de Detalhes */
+.botao_detalhes {
+    margin-top: auto; /* Empurra o botão para o final do card */
+    display: block;
+    width: 100%;
+    padding: 10px 0;
+    text-align: center;
+    background-color: transparent;
+    color: #ff6606;
+    border: 2px solid #ff6606;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.2s;
+    visibility: visible !important; /* Sobrescrevendo a regra global que escondia links */
+}
+
+.botao-detalhes:hover {
+    background-color: #ff6606;
+    color: white;
+    text-decoration: none;
+}
+
+/* Adicione estes estilos ao final do arquivo estilo.css */
+
+/* Estilos para a página de detalhar carro */
+.detalhar-container {
+    display: flex;
+    gap: 20px;
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 0 20px;
+}
+
+.setor-esquerdo {
+    flex: 2; /* Ocupa 2/3 da tela */
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+>>>>>>> Stashed changes
+
+.setor-direito {
+    flex: 1; /* Ocupa 1/3 da tela */
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    height: fit-content;
+}
 
 
+<<<<<<< Updated upstream
+=======
+.carro-informacoes h2 {
+    margin-top: 0;
+    color: #333;
+}
 
+.carro-informacoes ul {
+    list-style: none;
+    padding: 0;
+}
 
+.carro-informacoes li {
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+.opcoes-entrega h3,
+.resumo-pedido h3,
+.pagamento h3 {
+    margin-top: 0;
+    color: #ff6606;
+}
+
+.campo {
+    margin-bottom: 15px;
+}
+
+.campo label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.campo input,
+.campo select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.button_comprar {
+    background-color: #ff6606;
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.button_comprar:hover {
+    background-color: #e55a05;
+}
+
+.resumo-pedido p {
+    margin: 10px 0;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .detalhar-container {
+        flex-direction: column;
+    }
+    .setor-esquerdo,
+    .setor-direito {
+        flex: none;
+    }
+}
+
+.simples_container{
+  background-color: #fff;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 500px;
+  margin: 30px auto;
+  padding: 50px 30px;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.simples_container p {
+    font-size: 18px;
+    border-bottom: 1px solid #ccc; /* Uma linha cinza simples entre cada item */
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+    text-align: left; /* Alinha o texto à esquerda para facilitar leitura */
+    color: #333;
+}
+
+.link-social {
+    color: #333; /* Cor do texto do link (Escuro) */
+    text-decoration: none;
+    font-weight: normal;
+    visibility: visible !important; /* Garante que o link apareça */
+    transition: color 0.2s;
+}
+
+.link-social:hover {
+    color: #ff6606; /* Fica laranja quando passa o mouse */
+    text-decoration: underline;
+}
+
+/* Garante que o link de voltar também apareça */
+.simples_container a {
+    visibility: visible !important;
+}
+>>>>>>> Stashed changes

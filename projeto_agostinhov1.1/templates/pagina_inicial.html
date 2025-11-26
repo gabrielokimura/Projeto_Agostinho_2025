@@ -26,6 +26,7 @@
 
             <div class="grupo_input pequeno">
                 <label>Preço Min</label>
+<<<<<<< Updated upstream
                 <input name="minimo" type="number" placeholder="R$ 0"
                 oninput="this.setCustomValidity(
                     (this.form.maximo.value && Number(this.value) < Number(this.form.maximo.value))
@@ -33,17 +34,14 @@
                     : ''
                 )"
                 />
+=======
+                <input name="minimo" type="number" placeholder="R$ 0"/>
+>>>>>>> Stashed changes
             </div>
 
             <div class="grupo_input pequeno">
                 <label>Preço Max</label>
-                <input name="maximo" type="number" placeholder="R$ Max"
-                oninput="this.setCustomValidity(
-                    (this.form.minimo.value && Number(this.value) < Number(this.form.minimo.value))
-                    ? 'O preço máximo não pode ser menor que o preço mínimo'
-                    :''
-                )"
-                />
+                <input name="maximo" type="number" placeholder="R$ Max"/>
             </div>
 
 >>>>>>> Stashed changes

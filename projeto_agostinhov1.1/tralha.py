@@ -124,14 +124,48 @@ finally:
 
 
 
+<<<<<<< Updated upstream
 """ 
 # 1. Modelo (Modelos de carros)
+=======
+
+# 1. Modelo (Modelos de carros) - Atualizados com modelos específicos e id_marca correto
+>>>>>>> Stashed changes
 modelos_carros = [
-    Modelo(nome="Uno", descricao="Carro compacto, econômico e versátil"),
-    Modelo(nome="Onix", descricao="Carro hatch compacto com opções de motores 1.0 aspirado e 1.0 turbo"),
-    Modelo(nome="SUV", descricao="Veículos com maior altura do solo, frequentemente com tração nas quatro rodas, usado normalmente em off-road."),
-    Modelo(nome="Picape", descricao="Veículo com caçamba aberta na parte traseira, ideal para transporte de carga"),
-    Modelo(nome="HB20", descricao="Hatchback, compacto, versátil, com porta-malas integrado à cabine")
+    # Fiat (id_marca=1)
+    Modelo(nome="Argo", id_marca=1, descricao="Hatchback compacto e moderno da Fiat"),
+    Modelo(nome="Cronos", id_marca=1, descricao="Sedã médio da Fiat com bom espaço interno"),
+    Modelo(nome="Pulse", id_marca=1, descricao="SUV compacto da Fiat"),
+    Modelo(nome="Strada", id_marca=1, descricao="Picape leve da Fiat, ideal para trabalho"),
+    Modelo(nome="Mobi", id_marca=1, descricao="Hatchback subcompacto e econômico da Fiat"),
+    
+    # Chevrolet (id_marca=2)
+    Modelo(nome="Onix", id_marca=2, descricao="Hatchback compacto da Chevrolet"),
+    Modelo(nome="Tracker", id_marca=2, descricao="SUV compacto da Chevrolet"),
+    Modelo(nome="S10", id_marca=2, descricao="Picape média da Chevrolet"),
+    Modelo(nome="Spin", id_marca=2, descricao="Monovolume da Chevrolet"),
+    Modelo(nome="Bolt EV", id_marca=2, descricao="Carro elétrico da Chevrolet"),
+    
+    # Volkswagen (id_marca=3)
+    Modelo(nome="Polo", id_marca=3, descricao="Hatchback compacto da Volkswagen"),
+    Modelo(nome="Nivus", id_marca=3, descricao="SUV cupê da Volkswagen"),
+    Modelo(nome="T-Cross", id_marca=3, descricao="SUV compacto da Volkswagen"),
+    Modelo(nome="Jetta", id_marca=3, descricao="Sedã médio da Volkswagen"),
+    Modelo(nome="Amarok", id_marca=3, descricao="Picape média da Volkswagen"),
+    
+    # Toyota (id_marca=4)
+    Modelo(nome="Corolla", id_marca=4, descricao="Sedã médio da Toyota"),
+    Modelo(nome="Corolla Cross", id_marca=4, descricao="SUV compacto da Toyota"),
+    Modelo(nome="Hilux", id_marca=4, descricao="Picape média da Toyota"),
+    Modelo(nome="Yaris Hatch", id_marca=4, descricao="Hatchback compacto da Toyota"),
+    Modelo(nome="SW4", id_marca=4, descricao="SUV médio da Toyota"),
+    
+    # Hyundai (id_marca=5)
+    Modelo(nome="HB20", id_marca=5, descricao="Hatchback compacto da Hyundai"),
+    Modelo(nome="Creta", id_marca=5, descricao="SUV compacto da Hyundai"),
+    Modelo(nome="HB20S", id_marca=5, descricao="Sedã compacto da Hyundai"),
+    Modelo(nome="Tucson", id_marca=5, descricao="SUV médio da Hyundai"),
+    Modelo(nome="IONIQ 5", id_marca=5, descricao="SUV elétrico da Hyundai")
 ]
 
 # 2. Categoria (Categorias/Grupos de carros)
@@ -175,16 +209,24 @@ itens_adicionais = [
     ItemAdicional(nome="Lavagem Antecipada", preco=80.00, descricao="Veículo não precisa vir limpo na devolução")
 ]
 
-# 7. Veiculo (Veículos)
-# NOTA: Os IDs (idFornecedor, idGaragem, etc.) devem ser preenchidos com os valores corretos após a inserção dos dados nas tabelas relacionadas.
-# Assumindo que os IDs estão na ordem de 1 a N de acordo com os inserts anteriores:
 veiculos = [
+    # Veículo 1: Fiat Argo (id_marca=1, id_modelo=1)
     Veiculo(portas=4, preco_diaria=100.00, placa="ABC1D23", cor="Prata", preco_compra=80000.00, capacidade_pessoas=5, quilometragem=15000, cambio="Manual", airbags=True, ar_condicionado=True, disponivel=True, id_fornecedor=1, id_garagem=1, id_plano_seguro=1, id_marca=1, id_modelo=1, id_categoria=1, id_combustivel=3),
-    Veiculo(portas=4, preco_diaria=150.00, placa="EFG2H45", cor="Branco", preco_compra=75000.00, capacidade_pessoas=5, quilometragem=8000, cambio="Automático", airbags=True, ar_condicionado=True, disponivel=True, id_fornecedor=2, id_garagem=2, id_plano_seguro=2, id_marca=2, id_modelo=2, id_categoria=2, id_combustivel=1),
-    Veiculo(portas=4, preco_diaria=180.00, placa="IJK3L67", cor="Preto", preco_compra=80000.00, capacidade_pessoas=5, quilometragem=20000, cambio="Automático", airbags=True, ar_condicionado=True, disponivel=True, id_fornecedor=3, id_garagem=3, id_plano_seguro=2, id_marca=3, id_modelo=3, id_categoria=2, id_combustivel=3),
-    Veiculo(portas=4, preco_diaria=300.00, placa="MNO4P89", cor="Cinza", preco_compra=120000.00, capacidade_pessoas=5, quilometragem=5000, cambio="Automático", airbags=True, ar_condicionado=True, disponivel=True, id_fornecedor=4, id_garagem=4, id_plano_seguro=3, id_marca=4, id_modelo=4, id_categoria=2, id_combustivel=4),
-    Veiculo(portas=4, preco_diaria=200.00, placa="QRS5T01", cor="Vermelho", preco_compra=100000.00, capacidade_pessoas=5, quilometragem=12000, cambio="Automático", airbags=True, ar_condicionado=True, disponivel=True, id_fornecedor=5, id_garagem=5, id_plano_seguro=3, id_marca=5, id_modelo=5, id_categoria=4, id_combustivel=2),
-    Veiculo(portas=2, preco_diaria=200.00, placa="UVW5X01", cor="Preto", preco_compra=90000.00, capacidade_pessoas=5, quilometragem=12000, cambio="Automático", airbags=False, ar_condicionado=True, disponivel=True, id_fornecedor=5, id_garagem=5, id_plano_seguro=3, id_marca=5, id_modelo=5, id_categoria=4, id_combustivel=2)
+    
+    # Veículo 2: Chevrolet Onix (id_marca=2, id_modelo=6)
+    Veiculo(portas=4, preco_diaria=150.00, placa="EFG2H45", cor="Branco", preco_compra=75000.00, capacidade_pessoas=5, quilometragem=8000, cambio="Automático", airbags=True, ar_condicionado=True, disponivel=True, id_fornecedor=2, id_garagem=2, id_plano_seguro=2, id_marca=2, id_modelo=6, id_categoria=2, id_combustivel=1),
+    
+    # Veículo 3: Volkswagen T-Cross (id_marca=3, id_modelo=13)
+    Veiculo(portas=4, preco_diaria=180.00, placa="IJK3L67", cor="Preto", preco_compra=80000.00, capacidade_pessoas=5, quilometragem=20000, cambio="Automático", airbags=True, ar_condicionado=True, disponivel=True, id_fornecedor=3, id_garagem=3, id_plano_seguro=2, id_marca=3, id_modelo=13, id_categoria=2, id_combustivel=3),
+    
+    # Veículo 4: Toyota Hilux (id_marca=4, id_modelo=18)
+    Veiculo(portas=4, preco_diaria=300.00, placa="MNO4P89", cor="Cinza", preco_compra=120000.00, capacidade_pessoas=5, quilometragem=5000, cambio="Automático", airbags=True, ar_condicionado=True, disponivel=True, id_fornecedor=4, id_garagem=4, id_plano_seguro=3, id_marca=4, id_modelo=18, id_categoria=2, id_combustivel=4),
+    
+    # Veículo 5: Hyundai HB20 (id_marca=5, id_modelo=21)
+    Veiculo(portas=4, preco_diaria=200.00, placa="QRS5T01", cor="Vermelho", preco_compra=100000.00, capacidade_pessoas=5, quilometragem=12000, cambio="Automático", airbags=True, ar_condicionado=True, disponivel=True, id_fornecedor=5, id_garagem=5, id_plano_seguro=3, id_marca=5, id_modelo=21, id_categoria=4, id_combustivel=2),
+    
+    # Veículo 6: Hyundai HB20S (id_marca=5, id_modelo=23) - Ajustado para outro modelo Hyundai
+    Veiculo(portas=2, preco_diaria=200.00, placa="UVW5X01", cor="Preto", preco_compra=90000.00, capacidade_pessoas=5, quilometragem=12000, cambio="Automático", airbags=False, ar_condicionado=True, disponivel=True, id_fornecedor=5, id_garagem=5, id_plano_seguro=3, id_marca=5, id_modelo=23, id_categoria=4, id_combustivel=2)
 ]
 
 # 8. Locacao (Locações)
