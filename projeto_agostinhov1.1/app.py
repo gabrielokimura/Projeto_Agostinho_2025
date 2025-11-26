@@ -379,29 +379,24 @@ def confirmar_compra():
 
 @app.route("/comprar_definitivo", methods=["POST"])
 def comprar_definitivo():
+    sessao = Sessao()
+    carro_id = session.get("carro_id")
+    carro = sessao.query(Veiculo).filter_by(id = carro_id).first()
+    garagem = sessao.query(Garagem).filter_by(id = carro.id_garagem).first()
     status_locacao = "Confirmada"
     data_horario_pedido = datetime.now()
     data_horario_entrega = session.get("horario_entrega")
     data_horario_devolucao = session.get("horario_devolucao")
     id_usuario = session.get("id_usuario")
     id_veiculo = session.get("carro_id")
+    local_entrega = "Garagem ", garagem.bairro
+    local_devolucao = session.get("local_devolucao")
 
 
     if not id_usuario:
         return abort(401)
     try:
-        sessao = Sessao()
-
-        carro_id = session.get("carro_id")
-        if not carro_id:
-            redirect(url_for("pagina_inicial"))
-        carro = sessao.query(Veiculo).filter_by(id = carro_id).first()
-        if carro:
-            if carro.disponivel:
-                carro.disponivel = False
-                sessao.commit()
-        else:
-            return redirect(url_for("pagina_inicial"))
+        comprar_carro()  
     finally:
         sessao.close()
 
