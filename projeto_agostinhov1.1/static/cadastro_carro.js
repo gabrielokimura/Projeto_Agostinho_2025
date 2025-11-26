@@ -23,37 +23,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const CAMPOS = [marca, placa, modelo, preco_diaria, cor, cambio, portas, airbag, ar_condicionado, combustivel, quilometragem, categoria, preco_compra, capacidade_pessoas, fornecedor, garagem, plano_seguro, disponivel]
     const conteudo = document.getElementById("carros_cadastrados")
 
-  
-    const modelosPorMarca = {
-        "1": [1, 2, 3, 4, 5],  
-        "2": [6, 7, 8, 9, 10],  
-        "3": [11, 12, 13, 14, 15],  
-        "4": [16, 17, 18, 19, 20],  
-        "5": [21, 22, 23, 24, 25]  
-    }
-
-
-    const nomesModelos = {
-        1: "Argo", 2: "Cronos", 3: "Pulse", 4: "Strada", 5: "Mobi",
-        6: "Onix", 7: "Tracker", 8: "S10", 9: "Spin", 10: "Bolt EV",
-        11: "Polo", 12: "Nivus", 13: "T-Cross", 14: "Jetta", 15: "Amarok",
-        16: "Corolla", 17: "Corolla Cross", 18: "Hilux", 19: "Yaris Hatch", 20: "SW4",
-        21: "HB20", 22: "Creta", 23: "HB20S", 24: "Tucson", 25: "IONIQ 5"
-    }
-
-
-    marca.addEventListener("change", () => {
-        const marcaSelecionada = marca.value
-        modelo.innerHTML = '<option value="">Selecione um modelo</option>' 
-        if (modelosPorMarca[marcaSelecionada]) {
-            modelosPorMarca[marcaSelecionada].forEach(modeloId => {
-                const option = document.createElement("option")
-                option.value = modeloId
-                option.textContent = nomesModelos[modeloId]
-                modelo.appendChild(option)
-            })
-        }
-    })
 
     for (let campo of CAMPOS) {
         if (!campo) {
@@ -145,8 +114,8 @@ document.addEventListener("DOMContentLoaded", () => {
             fornecedor.value,
             garagem.value,
             plano_seguro.value,
-            marca.value,  
-            modelo.value, 
+            marca.value,
+            modelo.value,
             categoria.value,
             combustivel.value
         ]
