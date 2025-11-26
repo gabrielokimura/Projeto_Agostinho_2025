@@ -379,8 +379,6 @@ Base.metadata.create_all(bind = bd)
 
 
 
-
-
 # Funções 
 
 

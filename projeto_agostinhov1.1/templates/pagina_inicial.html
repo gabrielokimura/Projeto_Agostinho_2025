@@ -97,7 +97,7 @@
                 <div class="card_carro">
                     
                     <div class="card_img_wrapper">
-                        <img src="{{ url_for('static', filename='imagens/' ~ carro.id_modelo|lower ~ '.jpg') }}" 
+                        <img src="{{ url_for('static', filename='imagens/' ~ carro.id_modelo|lower ~ '.jpeg') }}" 
                              alt="Foto {% for modelo in modelos %}
                         {% if carro.id_modelo == modelo.id %}
                         {{ modelo.nome }}
