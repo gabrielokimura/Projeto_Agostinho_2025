@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const conteudo = document.getElementById("carros_cadastrados")
 
   
-    const modelosPorMarca = {
+    const modelos_por_marca = {
         "1": [1, 2, 3, 4, 5],  
         "2": [6, 7, 8, 9, 10],  
         "3": [11, 12, 13, 14, 15],  
@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    const nomesModelos = {
+    const nomes_modelos = {
         1: "Argo", 2: "Cronos", 3: "Pulse", 4: "Strada", 5: "Mobi",
         6: "Onix", 7: "Tracker", 8: "S10", 9: "Spin", 10: "Bolt EV",
         11: "Polo", 12: "Nivus", 13: "T-Cross", 14: "Jetta", 15: "Amarok",
@@ -43,13 +43,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     marca.addEventListener("change", () => {
-        const marcaSelecionada = marca.value
+        const marca_selecionada = marca.value
         modelo.innerHTML = '<option value="">Selecione um modelo</option>' 
-        if (modelosPorMarca[marcaSelecionada]) {
-            modelosPorMarca[marcaSelecionada].forEach(modeloId => {
+        if (modelos_por_marca[marca_selecionada]) {
+            modelos_por_marca[marca_selecionada].forEach(modelo_id => {
                 const option = document.createElement("option")
-                option.value = modeloId
-                option.textContent = nomesModelos[modeloId]
+                option.value = modelo_id
+                option.textContent = nomes_modelos[modelo_id]
                 modelo.appendChild(option)
             })
         }
