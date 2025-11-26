@@ -98,7 +98,11 @@
                     
                     <div class="card_img_wrapper">
                         <img src="{{ url_for('static', filename='imagens/' ~ carro.id_modelo|lower ~ '.jpg') }}" 
-                             alt="Foto do {{ carro.id_modelo }}"
+                             alt="Foto {% for modelo in modelos %}
+                        {% if carro.id_modelo == modelo.id %}
+                        {{ modelo.nome }}
+                        {% endif %}
+                        {% endfor %}"
                              onerror="this.onerror=null;this.src='https://via.placeholder.com/300x200?text=Sem+Foto';">
                     </div>
 
