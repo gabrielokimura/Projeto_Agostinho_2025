@@ -39,10 +39,6 @@
                 <h3>Opções de Entrega e Devolução</h3>
                 <div class="form_simples">
                     <div class="campo">
-                        <label for="horario_entrega">Horário de entrega</label>
-                        <input type="datetime-local" name="horario_entrega" required>
-                    </div>
-                    <div class="campo">
                         <label for="local_devolucao">Local de devolução</label>
                         <select name="local_retirada">
                             <option value="">Selecione uma garagem</option>
@@ -52,7 +48,11 @@
                        </select>
                     </div>
                     <div class="campo">
-                        <label for="horario_devolucao">Horário de devolução</label>
+                        <label for="horario_entrega">Data de recebimento</label>
+                        <input type="datetime-local" name="horario_entrega" required>
+                    </div>
+                    <div class="campo">
+                        <label for="horario_devolucao">Data de devolução</label>
                         <input type="datetime-local" name="horario_devolucao" required>
                     </div>
                         <div class="linha_form centralizar_botao">
