@@ -6,9 +6,47 @@
 {% block conteudo_principal %}
 
 <div class="painel_pesquisa">
+<<<<<<< Updated upstream
     <form class="formulario_pesquisa" action="#">
         <div class="local_retirada">
             <input type="text" class="input_local" placeholder="local de retirada"/>
+=======
+    <form class="formulario_pesquisa" action="/filtrar" method="post">
+        
+        <div class="linha_form">
+            <div class="grupo_input largo">
+                <label>Local de Retirada</label>
+                <select name="local_retirada">
+                    <option value="">Selecione uma garagem</option>
+                    {% for garagem in garagens %}
+                        <option value="{{ garagem.id }}">Garagem {{garagem.bairro}} - {{garagem.cidade}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="grupo_input pequeno">
+                <label>Preço Min</label>
+                <input name="minimo" type="number" placeholder="R$ 0"
+                oninput="this.setCustomValidity(
+                    (this.form.maximo.value && Number(this.value) < Number(this.form.maximo.value))
+                    ? 'O preço mínimo não pode ser menor que o preço máximo'
+                    : ''
+                )"
+                />
+            </div>
+
+            <div class="grupo_input pequeno">
+                <label>Preço Max</label>
+                <input name="maximo" type="number" placeholder="R$ Max"
+                oninput="this.setCustomValidity(
+                    (this.form.minimo.value && Number(this.value) < Number(this.form.minimo.value))
+                    ? 'O preço máximo não pode ser menor que o preço mínimo'
+                    :''
+                )"
+                />
+            </div>
+
+>>>>>>> Stashed changes
         </div>
         <div class="data" title="Data de retirada e horário">
             <input type="date" class="input_data" aria-label="Data de retirada"/>
