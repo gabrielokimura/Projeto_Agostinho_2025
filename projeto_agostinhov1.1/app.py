@@ -306,6 +306,8 @@ def pegar_lista():
 def detalhar_carro(carro_id):
     sessao =Sessao()
     usuario = session.get("id_usuario")
+    if not usuario:
+        return abort(401)
     carro = sessao.query(Veiculo).filter_by(id=carro_id).first()
     marca = sessao.query(Marca).filter_by(id = carro.id_marca).first().nome
     modelo = sessao.query(Modelo).filter_by(id = carro.id_modelo).first().nome
@@ -330,6 +332,8 @@ def detalhar_carro(carro_id):
 @app.route("/resumo_pedido",methods = ["POST", "GET"])
 def resumo_pedido():
     usuario = session.get("id_usuario")
+    if not usuario:
+        return abort(401)
     carro_id = session.get("carro_id")
     sessao =Sessao()
     carro = sessao.query(Veiculo).filter_by(id =carro_id).first()
@@ -358,6 +362,8 @@ def resumo_pedido():
 @app.route("/confirmar_compra", methods = ["GET", "POST"])
 def confirmar_compra():
     usuario = session.get("id_usuario")
+    if not usuario:
+        return abort(401)
     metodo_pagamento = session.get("metodo_pagamento")
     if not metodo_pagamento or not session.get("carro_id"):
         return redirect(url_for("pagina_inicial"))
@@ -370,6 +376,9 @@ def confirmar_compra():
 
 @app.route("/comprar_definitivo", methods=["POST"])
 def comprar_definitivo():
+    usuario = session.get("id_usuario")
+    if not usuario:
+        return abort(401)
     try:
         sessao = Sessao()
         carro_id = session.get("carro_id")

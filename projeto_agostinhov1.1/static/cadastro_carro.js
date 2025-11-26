@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-    console.log("JS loaded")
+    
 
     const formulario = document.getElementById("formulario")
     const marca = document.getElementById("marca")
