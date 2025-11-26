@@ -313,17 +313,20 @@ def detalhar_carro(carro_id):
     modelo = sessao.query(Modelo).filter_by(id = carro.id_modelo).first().nome
     combustivel = sessao.query(Combustivel).filter_by(id = carro.id_combustivel).first().tipo
     categoria = sessao.query(Categoria).filter_by(id = carro.id_categoria).first().nome
+    avaliacoes = sessao.query(Avaliacao).filter_by(id_veiculo = carro.id ).all()
+    garagem = sessao.query(Garagem).filter_by(id = carro.id_garagem).first()
     if carro is None:
         abort(404)
     if request.method =="POST":
         try:
             session["horario_entrega"] = request.form.get("horario_entrega")
             session["horario_devolucao"] = request.form.get("horario_devolucao")
+            session["local_devolucao"] = request.form.get("local_devolucao")
             session["carro_id"] = carro_id
             return redirect(url_for("resumo_pedido"))
         except Exception as e:
             print(e)
-    return render_template("detalhar_carro.html", carro= carro, usuario = usuario, marca = marca, modelo = modelo, combustivel = combustivel, categoria = categoria) 
+    return render_template("detalhar_carro.html", carro= carro, usuario = usuario, marca = marca, modelo = modelo, combustivel = combustivel, categoria = categoria, avaliacoes=avaliacoes, garagem = garagem) 
 
 
 
@@ -376,11 +379,19 @@ def confirmar_compra():
 
 @app.route("/comprar_definitivo", methods=["POST"])
 def comprar_definitivo():
-    usuario = session.get("id_usuario")
-    if not usuario:
+    status_locacao = "Confirmada"
+    data_horario_pedido = datetime.now()
+    data_horario_entrega = session.get("horario_entrega")
+    data_horario_devolucao = session.get("horario_devolucao")
+    id_usuario = session.get("id_usuario")
+    id_veiculo = session.get("carro_id")
+
+
+    if not id_usuario:
         return abort(401)
     try:
         sessao = Sessao()
+
         carro_id = session.get("carro_id")
         if not carro_id:
             redirect(url_for("pagina_inicial"))

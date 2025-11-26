@@ -464,3 +464,16 @@ def cadastrar_carro(portas, preco_diaria, placa, cor, preco_compra, capacidade_p
     
 
     
+def comprar_carro(id_carro, id_cliente,data_horario_entrega, data_horario_devolucao,local_devolucao,local_entrega, status_locacao = "Concluída",data_horario_pedido = datetime.now()):
+    sessao = Sessao()
+    carro = sessao.query(Veiculo).filter_by(id = id_carro).first()
+    if carro.disponivel:
+        try:
+            locacao = Locacao(status_locacao=status_locacao, data_horario_pedido=data_horario_pedido,data_horario_entrega=data_horario_entrega,data_horario_devolucao=data_horario_devolucao,id_cliente=id_cliente,id_veiculo=id_carro,local_entrega=local_entrega,local_devolucao=local_devolucao)
+            sessao.add(locacao)
+            carro.disponivel=False
+            sessao.commit()
+        except Exception as e:
+            print(e)
+        finally:
+            sessao.close()

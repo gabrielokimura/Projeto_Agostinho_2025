@@ -32,6 +32,7 @@
                     <li><strong>Quilometragem:</strong> {{ carro.quilometragem }}</li>
                     <li><strong>Combustível:</strong> {{ combustivel }}</li>
                     <li><strong>Categoria:</strong> {{ categoria }}</li>
+                    <li><strong>Local de retirada:</strong>Garagem {{ garagem.bairro }} - {{ garagem.cidade }}</li>
                 </ul>
             </div>
             
@@ -57,4 +58,10 @@
 
     </form>
     </div>
+    <h1>Avaliações</h1>
+    {% for avaliacao in avaliacoes %}
+    <p>{{ avaliacao.texto }}</p>
+    <br>
+    {% endfor %}
+
 {% endblock %}
