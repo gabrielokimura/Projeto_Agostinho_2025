@@ -27,5 +27,89 @@
             <a href="/logout" style="color: red; font-weight: bold;">Sair da conta</a>
         </div>
     </div>
+    <br><br><br><br>
+
+
+    <h1>Carros Alugados</h1>
+ {% if carros %}
+        {% for carro in carros %}
+    <form action="/avaliacao" method="post">
+        <input type="hidden" name="id_carro" value="{{ carro.id }}">
+        <div class="detalhar-container">        
+        <div class="setor-esquerdo">
+            <div class="carro-imagem-detalhe">
+                <img src="{{ url_for('static', filename='imagens/' + carro.id|string + '.JPG') }}" alt="Meramente ilustrativo">
+            </div>
+            <div class="carro-informacoes">
+                <h2>
+                {% for marca in marcas %}
+                {% if marca.id == carro.id_marca %}
+                {{ marca.nome }} - 
+                {% endif %}
+                {% endfor %}
+                {% for modelo in modelos %}
+                {% if modelo.id == carro.id_modelo %}
+                {{ modelo.nome }}
+                {% endif %}
+                {% endfor %}
+                </h2>
+                <ul>
+                    <li><strong>Aluguel:</strong> R$ {{ carro.preco_diaria }}</li>
+                    <li><strong>Cor:</strong> {{ carro.cor }}</li>
+                    <li><strong>Câmbio:</strong> {{ carro.cambio }}</li>
+                    <li><strong>Portas:</strong> {{ carro.portas }}</li>
+                    {% if carro.airbags %}
+                    <li><strong>Airbag:</strong> Sim</li>
+                    {% else %}
+                    <li><strong>Airbag:</strong> Não</li>
+                    {% endif %}
+                    {% if carro.ar_condicionado %}
+                    <li><strong>Ar condicionado:</strong> Sim</li>
+                    {% else %}
+                    <li><strong>Ar condicionado:</strong> Não</li>
+                    {% endif %}
+                    <li><strong>Quilometragem:</strong> {{ carro.quilometragem }}</li>
+                    <li><strong>Combustível:</strong> {% for combustivel in combustiveis %}{% if combustivel.id == carro.id_combustivel %}{{ combustivel.tipo }}{% endif %}{% endfor %}</li>
+                    <li><strong>Categoria:</strong> {% for categoria in categorias %}{% if categoria.id == carro.id_categoria %}{{ categoria.nome }}{% endif %}{% endfor %}</li>
+                    {% for locacao in locacoes %}
+                    {% if locacao.id_veiculo == carro.id %}
+                    <li><strong>Local de retirada:</strong>{{ locacao.local_entrega }}</li>
+                    <li><strong>Horario de entrega:</strong>{{ locacao.data_horario_entrega }}</li>
+                    <li><strong>Local de devolução:</strong>{{ locacao.local_devolucao }}</li>
+                    <li><strong>Horário de devolução:</strong>{{ locacao.data_horario_devolucao }}</li>
+                    {% endif %}
+                    {% endfor %}
+                </ul>
+                <label for="avaliação">Escreva uma avaliação para o carro</label>
+                <input type="text" name="texto_avaliacao" required>
+                <br>
+                <label for="nota">Deixe uma nota</label>
+                <select name="nota" required>
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                </select>
+                <button type="submit">Avaliar</button>
+                
+
+            </div>
+        </div>
+    </div>
+    </form>
+    <form action="{{ url_for('desalugar', id_carro=carro.id) }}" method="post">
+    <button type="submit">Desalugar</button>
+    </form>
+    {% endfor %}
+{% else %}
+<h3>Você não alugou nenhum carro ainda</h3>
+{% endif %}
 
 {% endblock %}

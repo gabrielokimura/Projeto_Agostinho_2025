@@ -1,6 +1,8 @@
 from datetime import datetime, date
 from sqlalchemy import create_engine, Column, String, Integer, Boolean, ForeignKey, Float, DateTime, Date, Numeric
 from sqlalchemy.orm import sessionmaker, declarative_base
+import hashlib
+
 
 
 bd = create_engine("sqlite:///projeto_concessionaria.db")
@@ -377,15 +379,14 @@ Base.metadata.create_all(bind = bd)
 
 
 
-
-
 # Funções 
 
 
 def cadastrar_cliente(nome, email, senha, data_nasc, cnh,cpf, doc_identificacao, telefone):
     sessao = Sessao()
+    senha_hash = hashlib.sha256(senha.encode('utf-8')).hexdigest()    
     data_nasc2 = date.fromisoformat(data_nasc)
-    novo_cliente = Cliente(nome,email, senha, data_nasc2, cnh, cpf, doc_identificacao)
+    novo_cliente = Cliente(nome,email, senha_hash, data_nasc2, cnh, cpf, doc_identificacao)
     sessao.add(novo_cliente)
     sessao.commit()
 
@@ -464,3 +465,32 @@ def cadastrar_carro(portas, preco_diaria, placa, cor, preco_compra, capacidade_p
     
 
     
+def comprar_carro(id_carro, id_cliente,data_horario_entrega, data_horario_devolucao,local_devolucao,local_entrega, status_locacao = "Concluída",data_horario_pedido = datetime.now()):
+    sessao = Sessao()
+    carro = sessao.query(Veiculo).filter_by(id = id_carro).first()
+    if carro.disponivel:
+        try:
+            locacao = Locacao(status_locacao=status_locacao, data_horario_pedido=data_horario_pedido,data_horario_entrega=data_horario_entrega,data_horario_devolucao=data_horario_devolucao,id_cliente=id_cliente,id_veiculo=id_carro,local_entrega=local_entrega,local_devolucao=local_devolucao)
+            sessao.add(locacao)
+            carro.disponivel=False
+            sessao.commit()
+            print(locacao)
+        except Exception as e:
+            print(e)
+        finally:
+            sessao.close()
+
+
+
+
+def adicionar_avaliacao(data_horario_avaliacao, nota, texto,id_cliente, id_veiculo):
+    sessao = Sessao()
+    try:
+        avaliacao = Avaliacao(data_horario_avaliacao=data_horario_avaliacao, id_cliente=id_cliente,id_veiculo=id_veiculo, nota=nota, texto=texto)
+        sessao.add(avaliacao)
+        sessao.commit()
+    except Exception as e:
+        sessao.rollback()
+        print(e)
+    finally:
+        sessao.close()
