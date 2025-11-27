@@ -152,10 +152,9 @@ def login():
     if request.method=="POST":
         nome = request.form.get("nome")
         senha = request.form.get("senha")
-        print(nome)
-        print(senha)
+        senha_hash = hashlib.sha256(senha.encode('utf-8')).hexdigest()
         try:
-            cliente = sessao.query(Cliente).filter_by(nome=nome, senha=senha).first()
+            cliente = sessao.query(Cliente).filter_by(nome=nome, senha=senha_hash).first()
             if cliente:
                 session.clear()
                 session["nome"] = cliente.nome
@@ -203,16 +202,26 @@ def logout():
 
 @app.route("/perfil")
 def perfil():
-    if not session.get("usuario_id"):
+    if not session.get("id_usuario"):
         return abort(401)
     sessao = Sessao()
+    locacao = None
+    carros =[]
     usuario = session.get("id_usuario")
     if session.get("cargo"):
         usuario_certo = sessao.query(Funcionario).filter_by(id = usuario).first()
     elif session.get("tipo"):
         usuario_certo = sessao.query(Cliente).filter_by(id = usuario).first()
     if usuario_certo:
-        return render_template("perfil.html", usuario = usuario_certo)
+        locacoes = sessao.query(Locacao).filter_by(id_cliente = usuario_certo.id).all()
+        marcas = sessao.query(Marca).all()
+        modelos = sessao.query(Modelo).all()
+        combustiveis = sessao.query(Combustivel).all()
+        categorias = sessao.query(Categoria).all()
+        for locacao in locacoes:
+            carro = sessao.query(Veiculo).filter_by(id = locacao.id_veiculo).first()
+            carros.append(carro)
+        return render_template("perfil.html", usuario = usuario_certo,carros = carros, marcas = marcas, modelos =modelos, combustiveis=combustiveis, categorias=categorias, locacoes =locacoes )
 
 
 @app.route("/cadastro_carro")
@@ -315,17 +324,21 @@ def detalhar_carro(carro_id):
     modelo = sessao.query(Modelo).filter_by(id = carro.id_modelo).first().nome
     combustivel = sessao.query(Combustivel).filter_by(id = carro.id_combustivel).first().tipo
     categoria = sessao.query(Categoria).filter_by(id = carro.id_categoria).first().nome
+    avaliacoes = sessao.query(Avaliacao).filter_by(id_veiculo = carro.id ).all()
+    garagem = sessao.query(Garagem).filter_by(id = carro.id_garagem).first()
+    garagens = sessao.query(Garagem).all()
     if carro is None:
         abort(404)
     if request.method =="POST":
         try:
             session["horario_entrega"] = request.form.get("horario_entrega")
             session["horario_devolucao"] = request.form.get("horario_devolucao")
+            session["local_devolucao"] = request.form.get("local_devolucao")
             session["carro_id"] = carro_id
             return redirect(url_for("resumo_pedido"))
         except Exception as e:
             print(e)
-    return render_template("detalhar_carro.html", carro= carro, usuario = usuario, marca = marca, modelo = modelo, combustivel = combustivel, categoria = categoria) 
+    return render_template("detalhar_carro.html", carro= carro, usuario = usuario, marca = marca, modelo = modelo, combustivel = combustivel, categoria = categoria, avaliacoes=avaliacoes, garagem = garagem, garagens = garagens) 
 
 
 
@@ -378,21 +391,22 @@ def confirmar_compra():
 
 @app.route("/comprar_definitivo", methods=["POST"])
 def comprar_definitivo():
-    usuario = session.get("id_usuario")
-    if not usuario:
+    id_usuario = session.get("id_usuario")
+    if not id_usuario:
         return abort(401)
+    sessao = Sessao()
+    carro_id = session.get("carro_id")
+    carro = sessao.query(Veiculo).filter_by(id = carro_id).first()
+    garagem = sessao.query(Garagem).filter_by(id = carro.id_garagem).first()
+    status_locacao = "Confirmada"
+    data_horario_pedido = datetime.now()
+    formato = "%Y-%m-%dT%H:%M"  
+    data_horario_entrega = datetime.strptime(session.get("horario_entrega"), formato)
+    data_horario_devolucao = datetime.strptime(session.get("horario_devolucao"), formato)
+    local_entrega = "Garagem "+ garagem.bairro
+    local_devolucao = session.get("local_devolucao")
     try:
-        sessao = Sessao()
-        carro_id = session.get("carro_id")
-        if not carro_id:
-            redirect(url_for("pagina_inicial"))
-        carro = sessao.query(Veiculo).filter_by(id = carro_id).first()
-        if carro:
-            if carro.disponivel:
-                carro.disponivel = False
-                sessao.commit()
-        else:
-            return redirect(url_for("pagina_inicial"))
+        comprar_carro(id_carro=carro_id,id_cliente=id_usuario, data_horario_entrega=data_horario_entrega,data_horario_devolucao=data_horario_devolucao, local_devolucao=local_devolucao,local_entrega=local_entrega, status_locacao=status_locacao, data_horario_pedido=data_horario_pedido )  
     finally:
         sessao.close()
 
@@ -402,7 +416,48 @@ def comprar_definitivo():
 def contato():
     usuario = session.get("id_usuario")
     return render_template("contato.html", usuario = usuario)
+
+@app.route("/avaliacao", methods = ["POST"])
+def avaliacao():
+    id_usuario = session.get("id_usuario")
+    if not id_usuario:
+        return abort(401)
+    if request.method == "POST":
+        try:
+            texto_avaliacao = request.form.get("texto_avaliacao")
+            nota = int(request.form.get("nota"))
+            data_horario_avaliacao = datetime.now()
+            if not request.form.get("id_carro"):
+                abort(401)
+            else:
+                id_carro = request.form.get("id_carro")
+            adicionar_avaliacao(data_horario_avaliacao=data_horario_avaliacao,nota=nota, texto=texto_avaliacao,id_cliente=id_usuario, id_veiculo=id_carro)
+            return redirect(url_for("perfil"))
+        except Exception as e:
+            print(e)
+
+
+
     
+
+@app.route("/desalugar/<int:id_carro>", methods=["POST"])
+def desalugar(id_carro):
+    id_usuario = session.get("id_usuario")
+    if not id_usuario:
+        return abort(401)
+    try:
+        sessao = Sessao()
+        carro  = sessao.query(Veiculo).filter_by(id = id_carro).first()
+        carro.disponivel = True
+        sessao.commit()
+        return redirect(url_for("perfil"))
+    except Exception as e:
+        sessao.rollback()
+        print("Não foi",e)
+    finally:
+        sessao.close()
+    
+
 
 
 if __name__=="__main__":

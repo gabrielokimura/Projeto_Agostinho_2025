@@ -140,7 +140,7 @@
 {% if cargo != None %}
     {% if cargo == "administrador" %}
         <div style="text-align: center; margin-top: 40px;">
-            <a href="/cadastro_carro" class="botao-detalhes" style="background-color: #333; border-color: #333; color: white; max-width: 250px; margin: 0 auto;">Cadastrar novos carros</a>
+            <a href="/cadastro_carro" class="botao-detalhes" style="color: white; max-width: 250px; margin: 0 auto;">Cadastrar novos carros</a>
         </div>
     {% endif %}
 {% endif %}
@@ -149,12 +149,6 @@
 
 
 
-    {% if cargo !=None %}
-        {% if cargo == "administrador" %}
-    <a href="/cadastro_carro">Cadastrar novos carros</a>
-        {% endif %}
-    {% endif %}
 
-    <br>
 
 {% endblock %}

@@ -41,7 +41,7 @@
                 <div class="form-simples">
                     <div class="campo">
                         <label for="horario_entrega">Horário de entrega</label>
-                        <input type="datetime-local" name="horario_entrega" required>
+                        <input type="datetime-local" name="horario_entrega" required min="1900-01-01T00:00" max="2030-12-31T23:59">
                     </div>
                     <div class="campo">
                         <label for="local_devolucao">Local de devolução</label>
@@ -53,7 +53,7 @@
                     </div>
                     <div class="campo">
                         <label for="horario_devolucao">Horário de devolução</label>
-                        <input type="datetime-local" name="horario_devolucao" required>
+                        <input type="datetime-local" name="horario_devolucao" required min="1900-01-01T00:00" max="2030-12-31T23:59">
                         <button type="submit">Avançar</button>
                     </div>
                 </div>
