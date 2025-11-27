@@ -204,13 +204,23 @@ def logout():
 @app.route("/perfil")
 def perfil():
     sessao = Sessao()
+    locacao = None
+    carros =[]
     usuario = session.get("id_usuario")
     if session.get("cargo"):
         usuario_certo = sessao.query(Funcionario).filter_by(id = usuario).first()
     elif session.get("tipo"):
         usuario_certo = sessao.query(Cliente).filter_by(id = usuario).first()
     if usuario_certo:
-        return render_template("perfil.html", usuario = usuario_certo)
+        locacoes = sessao.query(Locacao).filter_by(id_cliente = usuario_certo.id).all()
+        marcas = sessao.query(Marca).all()
+        modelos = sessao.query(Modelo).all()
+        combustiveis = sessao.query(Combustivel).all()
+        categorias = sessao.query(Categoria).all()
+        for locacao in locacoes:
+            carro = sessao.query(Veiculo).filter_by(id = locacao.id_veiculo).first()
+            carros.append(carro)
+        return render_template("perfil.html", usuario = usuario_certo,carros = carros, marcas = marcas, modelos =modelos, combustiveis=combustiveis, categorias=categorias, locacoes =locacoes )
     else:
         return abort(401)
 
@@ -405,6 +415,30 @@ def comprar_definitivo():
 def contato():
     usuario = session.get("id_usuario")
     return render_template("contato.html", usuario = usuario)
+
+@app.route("/avaliacao", methods = ["POST"])
+def avaliacao():
+    id_usuario = session.get("id_usuario")
+    if not id_usuario:
+        return abort(401)
+    if request.method == "POST":
+        try:
+            texto_avaliacao = request.form.get("texto_avaliacao")
+            nota = int(request.form.get("nota"))
+            data_horario_avaliacao = datetime.now()
+            if not request.form.get("id_carro"):
+                abort(401)
+            else:
+                id_carro = request.form.get("id_carro")
+            adicionar_avaliacao(data_horario_avaliacao=data_horario_avaliacao,nota=nota, texto=texto_avaliacao,id_cliente=id_usuario, id_veiculo=id_carro)
+            return redirect(url_for("perfil"))
+        except Exception as e:
+            print(e)
+
+
+
+    
+
     
 
 

@@ -45,7 +45,7 @@
                     </div>
                     <div class="campo">
                         <label for="local_devolucao">Local de devolução</label>
-                        <select>
+                        <select name="local_devolucao">
                             {% for garagem in garagens %}
                             <option value="Garagem {{ garagem.bairro }} - {{ garagem.cidade }}">Garagem {{ garagem.bairro }} - {{ garagem.cidade }}</option>
                             {% endfor %}
@@ -64,7 +64,8 @@
     </div>
     <h1>Avaliações</h1>
     {% for avaliacao in avaliacoes %}
-    <p>{{ avaliacao.texto }}</p>
+    <h2>{{ avaliacao.texto }}</h2><br><br>
+    <h2>Nota:{{ avaliacao.nota }}</h2>
     <br>
     {% endfor %}
 

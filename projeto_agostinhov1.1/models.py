@@ -376,7 +376,6 @@ Base.metadata.create_all(bind = bd)
 
 
 
-
 # Funções 
 
 
@@ -476,3 +475,18 @@ def comprar_carro(id_carro, id_cliente,data_horario_entrega, data_horario_devolu
             print(e)
         finally:
             sessao.close()
+
+
+
+
+def adicionar_avaliacao(data_horario_avaliacao, nota, texto,id_cliente, id_veiculo):
+    sessao = Sessao()
+    try:
+        avaliacao = Avaliacao(data_horario_avaliacao=data_horario_avaliacao, id_cliente=id_cliente,id_veiculo=id_veiculo, nota=nota, texto=texto)
+        sessao.add(avaliacao)
+        sessao.commit()
+    except Exception as e:
+        sessao.rollback()
+        print(e)
+    finally:
+        sessao.close()
