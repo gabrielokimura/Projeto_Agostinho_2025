@@ -377,8 +377,6 @@ Base.metadata.create_all(bind = bd)
 
 
 
-
-
 # Funções 
 
 
@@ -473,6 +471,7 @@ def comprar_carro(id_carro, id_cliente,data_horario_entrega, data_horario_devolu
             sessao.add(locacao)
             carro.disponivel=False
             sessao.commit()
+            print(locacao)
         except Exception as e:
             print(e)
         finally:

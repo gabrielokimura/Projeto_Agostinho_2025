@@ -45,7 +45,11 @@
                     </div>
                     <div class="campo">
                         <label for="local_devolucao">Local de devolução</label>
-                        <input type="text" name="local_devolucao" required minlength="3" placeholder="Digite o local">
+                        <select>
+                            {% for garagem in garagens %}
+                            <option value="Garagem {{ garagem.bairro }} - {{ garagem.cidade }}">Garagem {{ garagem.bairro }} - {{ garagem.cidade }}</option>
+                            {% endfor %}
+                        </select>
                     </div>
                     <div class="campo">
                         <label for="horario_devolucao">Horário de devolução</label>

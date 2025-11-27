@@ -315,6 +315,7 @@ def detalhar_carro(carro_id):
     categoria = sessao.query(Categoria).filter_by(id = carro.id_categoria).first().nome
     avaliacoes = sessao.query(Avaliacao).filter_by(id_veiculo = carro.id ).all()
     garagem = sessao.query(Garagem).filter_by(id = carro.id_garagem).first()
+    garagens = sessao.query(Garagem).all()
     if carro is None:
         abort(404)
     if request.method =="POST":
@@ -326,7 +327,7 @@ def detalhar_carro(carro_id):
             return redirect(url_for("resumo_pedido"))
         except Exception as e:
             print(e)
-    return render_template("detalhar_carro.html", carro= carro, usuario = usuario, marca = marca, modelo = modelo, combustivel = combustivel, categoria = categoria, avaliacoes=avaliacoes, garagem = garagem) 
+    return render_template("detalhar_carro.html", carro= carro, usuario = usuario, marca = marca, modelo = modelo, combustivel = combustivel, categoria = categoria, avaliacoes=avaliacoes, garagem = garagem, garagens = garagens) 
 
 
 
@@ -379,24 +380,22 @@ def confirmar_compra():
 
 @app.route("/comprar_definitivo", methods=["POST"])
 def comprar_definitivo():
+    id_usuario = session.get("id_usuario")
+    if not id_usuario:
+        return abort(401)
     sessao = Sessao()
     carro_id = session.get("carro_id")
     carro = sessao.query(Veiculo).filter_by(id = carro_id).first()
     garagem = sessao.query(Garagem).filter_by(id = carro.id_garagem).first()
     status_locacao = "Confirmada"
     data_horario_pedido = datetime.now()
-    data_horario_entrega = session.get("horario_entrega")
-    data_horario_devolucao = session.get("horario_devolucao")
-    id_usuario = session.get("id_usuario")
-    id_veiculo = session.get("carro_id")
-    local_entrega = "Garagem ", garagem.bairro
+    formato = "%Y-%m-%dT%H:%M"  
+    data_horario_entrega = datetime.strptime(session.get("horario_entrega"), formato)
+    data_horario_devolucao = datetime.strptime(session.get("horario_devolucao"), formato)
+    local_entrega = "Garagem "+ garagem.bairro
     local_devolucao = session.get("local_devolucao")
-
-
-    if not id_usuario:
-        return abort(401)
     try:
-        comprar_carro()  
+        comprar_carro(id_carro=carro_id,id_cliente=id_usuario, data_horario_entrega=data_horario_entrega,data_horario_devolucao=data_horario_devolucao, local_devolucao=local_devolucao,local_entrega=local_entrega, status_locacao=status_locacao, data_horario_pedido=data_horario_pedido )  
     finally:
         sessao.close()
 

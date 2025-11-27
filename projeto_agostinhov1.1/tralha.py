@@ -319,3 +319,15 @@ try:
     sessao.close()
 except Exception as e:
     print (e)  """
+
+
+
+
+
+
+
+""" sessao = Sessao()
+locacao = sessao.query(Locacao).filter_by(id = 7).first()
+sessao.delete(locacao)
+sessao.commit()
+sessao.close() """
