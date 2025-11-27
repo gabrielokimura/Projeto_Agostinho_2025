@@ -152,10 +152,9 @@ def login():
     if request.method=="POST":
         nome = request.form.get("nome")
         senha = request.form.get("senha")
-        print(nome)
-        print(senha)
+        senha_hash = hashlib.sha256(senha.encode('utf-8')).hexdigest()
         try:
-            cliente = sessao.query(Cliente).filter_by(nome=nome, senha=senha).first()
+            cliente = sessao.query(Cliente).filter_by(nome=nome, senha=senha_hash).first()
             if cliente:
                 session.clear()
                 session["nome"] = cliente.nome
@@ -439,7 +438,24 @@ def avaliacao():
 
     
 
+@app.route("/desalugar/<int:id_carro>", methods=["POST"])
+def desalugar(id_carro):
+    id_usuario = session.get("id_usuario")
+    if not id_usuario:
+        return abort(401)
+    try:
+        sessao = Sessao()
+        carro  = sessao.query(Veiculo).filter_by(id = id_carro).first()
+        carro.disponivel = True
+        sessao.commit()
+        return redirect(url_for("perfil"))
+    except Exception as e:
+        sessao.rollback()
+        print("Não foi",e)
+    finally:
+        sessao.close()
     
+
 
 
 if __name__=="__main__":

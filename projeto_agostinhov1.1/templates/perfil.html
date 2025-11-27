@@ -38,7 +38,7 @@
         <div class="detalhar-container">        
         <div class="setor-esquerdo">
             <div class="carro-imagem-detalhe">
-                <img src="{{ url_for('static', filename='imagens/' + carro.id|string + '.jpeg') }}" alt="Meramente ilustrativo">
+                <img src="{{ url_for('static', filename='imagens/' + carro.id|string + '.JPG') }}" alt="Meramente ilustrativo">
             </div>
             <div class="carro-informacoes">
                 <h2>
@@ -98,10 +98,14 @@
                     <option value="10">10</option>
                 </select>
                 <button type="submit">Avaliar</button>
+                
 
             </div>
         </div>
     </div>
+    </form>
+    <form action="{{ url_for('desalugar', id_carro=carro.id) }}" method="post">
+    <button type="submit">Desalugar</button>
     </form>
     {% endfor %}
 {% else %}

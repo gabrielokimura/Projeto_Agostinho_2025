@@ -1,6 +1,8 @@
 from datetime import datetime, date
 from sqlalchemy import create_engine, Column, String, Integer, Boolean, ForeignKey, Float, DateTime, Date, Numeric
 from sqlalchemy.orm import sessionmaker, declarative_base
+import hashlib
+
 
 
 bd = create_engine("sqlite:///projeto_concessionaria.db")
@@ -376,13 +378,15 @@ Base.metadata.create_all(bind = bd)
 
 
 
+
 # Funções 
 
 
 def cadastrar_cliente(nome, email, senha, data_nasc, cnh,cpf, doc_identificacao, telefone):
     sessao = Sessao()
+    senha_hash = hashlib.sha256(senha.encode('utf-8')).hexdigest()    
     data_nasc2 = date.fromisoformat(data_nasc)
-    novo_cliente = Cliente(nome,email, senha, data_nasc2, cnh, cpf, doc_identificacao)
+    novo_cliente = Cliente(nome,email, senha_hash, data_nasc2, cnh, cpf, doc_identificacao)
     sessao.add(novo_cliente)
     sessao.commit()
 

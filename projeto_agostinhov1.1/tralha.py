@@ -222,6 +222,73 @@ veiculos = [
     # Veículo 6: Hyundai HB20S (id_marca=5, id_modelo=23) - Ajustado para outro modelo Hyundai
     Veiculo(portas=2, preco_diaria=200.00, placa="UVW5X01", cor="Preto", preco_compra=90000.00, capacidade_pessoas=5, quilometragem=12000, cambio="Automático", airbags=False, ar_condicionado=True, disponivel=True, id_fornecedor=5, id_garagem=5, id_plano_seguro=3, id_marca=5, id_modelo=23, id_categoria=4, id_combustivel=2)
 ]
+# Continuação dos inserts: Mais 20 veículos com modelos diferentes dos já existentes
+# Modelos já usados: 1 (Argo), 6 (Onix), 13 (T-Cross), 18 (Hilux), 21 (HB20), 23 (HB20S)
+# Usando modelos disponíveis: 2,3,4,5,7,8,9,10,11,12,14,15,16,17,19,20,22,24,25 (e repetindo alguns para completar 20)
+
+veiculos_adicionais = [
+    # 7. Fiat Cronos (id_marca=1, id_modelo=2)
+    Veiculo(portas=4, preco_diaria=120.00, placa="ABC1D24", cor="Azul", preco_compra=85000.00, capacidade_pessoas=5, quilometragem=10000, cambio="Manual", airbags=True, ar_condicionado=True, disponivel=True, id_fornecedor=1, id_garagem=1, id_plano_seguro=1, id_marca=1, id_modelo=2, id_categoria=1, id_combustivel=3),
+    
+    # 8. Fiat Pulse (id_marca=1, id_modelo=3)
+    Veiculo(portas=4, preco_diaria=140.00, placa="EFG2H46", cor="Verde", preco_compra=90000.00, capacidade_pessoas=5, quilometragem=5000, cambio="Automático", airbags=True, ar_condicionado=True, disponivel=True, id_fornecedor=1, id_garagem=2, id_plano_seguro=2, id_marca=1, id_modelo=3, id_categoria=2, id_combustivel=3),
+    
+    # 9. Fiat Strada (id_marca=1, id_modelo=4)
+    Veiculo(portas=2, preco_diaria=160.00, placa="IJK3L68", cor="Branco", preco_compra=95000.00, capacidade_pessoas=2, quilometragem=25000, cambio="Manual", airbags=False, ar_condicionado=True, disponivel=True, id_fornecedor=1, id_garagem=3, id_plano_seguro=2, id_marca=1, id_modelo=4, id_categoria=3, id_combustivel=4),
+    
+    # 10. Fiat Mobi (id_marca=1, id_modelo=5)
+    Veiculo(portas=4, preco_diaria=90.00, placa="MNO4P90", cor="Cinza", preco_compra=70000.00, capacidade_pessoas=4, quilometragem=30000, cambio="Manual", airbags=True, ar_condicionado=False, disponivel=True, id_fornecedor=1, id_garagem=4, id_plano_seguro=1, id_marca=1, id_modelo=5, id_categoria=1, id_combustivel=3),
+    
+    # 11. Chevrolet Tracker (id_marca=2, id_modelo=7)
+    Veiculo(portas=4, preco_diaria=170.00, placa="QRS5T02", cor="Preto", preco_compra=95000.00, capacidade_pessoas=5, quilometragem=7000, cambio="Automático", airbags=True, ar_condicionado=True, disponivel=True, id_fornecedor=2, id_garagem=5, id_plano_seguro=3, id_marca=2, id_modelo=7, id_categoria=2, id_combustivel=1),
+    
+    # 12. Chevrolet S10 (id_marca=2, id_modelo=8)
+    Veiculo(portas=4, preco_diaria=250.00, placa="UVW5X03", cor="Prata", preco_compra=110000.00, capacidade_pessoas=5, quilometragem=15000, cambio="Automático", airbags=True, ar_condicionado=True, disponivel=True, id_fornecedor=2, id_garagem=1, id_plano_seguro=3, id_marca=2, id_modelo=8, id_categoria=2, id_combustivel=4),
+    
+    # 13. Chevrolet Spin (id_marca=2, id_modelo=9)
+    Veiculo(portas=4, preco_diaria=130.00, placa="YZA6B04", cor="Vermelho", preco_compra=80000.00, capacidade_pessoas=7, quilometragem=20000, cambio="Manual", airbags=True, ar_condicionado=True, disponivel=True, id_fornecedor=2, id_garagem=2, id_plano_seguro=2, id_marca=2, id_modelo=9, id_categoria=3, id_combustivel=3),
+    
+    # 14. Chevrolet Bolt EV (id_marca=2, id_modelo=10)
+    Veiculo(portas=4, preco_diaria=220.00, placa="BCD7C05", cor="Azul", preco_compra=150000.00, capacidade_pessoas=5, quilometragem=5000, cambio="Automático", airbags=True, ar_condicionado=True, disponivel=True, id_fornecedor=2, id_garagem=3, id_plano_seguro=3, id_marca=2, id_modelo=10, id_categoria=4, id_combustivel=5),
+    
+    # 15. Volkswagen Polo (id_marca=3, id_modelo=11)
+    Veiculo(portas=4, preco_diaria=110.00, placa="EFG8D06", cor="Branco", preco_compra=75000.00, capacidade_pessoas=5, quilometragem=18000, cambio="Manual", airbags=True, ar_condicionado=True, disponivel=True, id_fornecedor=3, id_garagem=4, id_plano_seguro=1, id_marca=3, id_modelo=11, id_categoria=1, id_combustivel=3),
+    
+    # 16. Volkswagen Nivus (id_marca=3, id_modelo=12)
+    Veiculo(portas=4, preco_diaria=190.00, placa="HIJ9E07", cor="Cinza", preco_compra=95000.00, capacidade_pessoas=5, quilometragem=8000, cambio="Automático", airbags=True, ar_condicionado=True, disponivel=True, id_fornecedor=3, id_garagem=5, id_plano_seguro=2, id_marca=3, id_modelo=12, id_categoria=2, id_combustivel=3),
+    
+    # 17. Volkswagen Jetta (id_marca=3, id_modelo=14)
+    Veiculo(portas=4, preco_diaria=160.00, placa="KLM0F08", cor="Preto", preco_compra=100000.00, capacidade_pessoas=5, quilometragem=12000, cambio="Automático", airbags=True, ar_condicionado=True, disponivel=True, id_fornecedor=3, id_garagem=1, id_plano_seguro=2, id_marca=3, id_modelo=14, id_categoria=2, id_combustivel=1),
+    
+    # 18. Volkswagen Amarok (id_marca=3, id_modelo=15)
+    Veiculo(portas=4, preco_diaria=280.00, placa="NOP1G09", cor="Verde", preco_compra=130000.00, capacidade_pessoas=5, quilometragem=10000, cambio="Automático", airbags=True, ar_condicionado=True, disponivel=True, id_fornecedor=3, id_garagem=2, id_plano_seguro=3, id_marca=3, id_modelo=15, id_categoria=2, id_combustivel=4),
+    
+    # 19. Toyota Corolla (id_marca=4, id_modelo=16)
+    Veiculo(portas=4, preco_diaria=200.00, placa="QRS2H10", cor="Prata", preco_compra=110000.00, capacidade_pessoas=5, quilometragem=15000, cambio="Automático", airbags=True, ar_condicionado=True, disponivel=True, id_fornecedor=4, id_garagem=3, id_plano_seguro=3, id_marca=4, id_modelo=16, id_categoria=2, id_combustivel=3),
+    
+    # 20. Toyota Corolla Cross (id_marca=4, id_modelo=17)
+    Veiculo(portas=4, preco_diaria=210.00, placa="TUV3I11", cor="Azul", preco_compra=115000.00, capacidade_pessoas=5, quilometragem=6000, cambio="Automático", airbags=True, ar_condicionado=True, disponivel=True, id_fornecedor=4, id_garagem=4, id_plano_seguro=3, id_marca=4, id_modelo=17, id_categoria=2, id_combustivel=3),
+    
+    # 21. Toyota Yaris Hatch (id_marca=4, id_modelo=19)
+    Veiculo(portas=4, preco_diaria=130.00, placa="WXY4J12", cor="Vermelho", preco_compra=85000.00, capacidade_pessoas=5, quilometragem=22000, cambio="Manual", airbags=True, ar_condicionado=True, disponivel=True, id_fornecedor=4, id_garagem=5, id_plano_seguro=2, id_marca=4, id_modelo=19, id_categoria=1, id_combustivel=3),
+    
+    # 22. Toyota SW4 (id_marca=4, id_modelo=20)
+    Veiculo(portas=4, preco_diaria=320.00, placa="ZAB5K13", cor="Cinza", preco_compra=140000.00, capacidade_pessoas=7, quilometragem=8000, cambio="Automático", airbags=True, ar_condicionado=True, disponivel=True, id_fornecedor=4, id_garagem=1, id_plano_seguro=3, id_marca=4, id_modelo=20, id_categoria=2, id_combustivel=4),
+    
+    # 23. Hyundai Creta (id_marca=5, id_modelo=22)
+    Veiculo(portas=4, preco_diaria=180.00, placa="CDE6L14", cor="Branco", preco_compra=105000.00, capacidade_pessoas=5, quilometragem=10000, cambio="Automático", airbags=True, ar_condicionado=True, disponivel=True, id_fornecedor=5, id_garagem=2, id_plano_seguro=2, id_marca=5, id_modelo=22, id_categoria=2, id_combustivel=3),
+    
+    # 24. Hyundai Tucson (id_marca=5, id_modelo=24)
+    Veiculo(portas=4, preco_diaria=230.00, placa="FGH7M15", cor="Preto", preco_compra=125000.00, capacidade_pessoas=5, quilometragem=5000, cambio="Automático", airbags=True, ar_condicionado=True, disponivel=True, id_fornecedor=5, id_garagem=3, id_plano_seguro=3, id_marca=5, id_modelo=24, id_categoria=2, id_combustivel=3),
+    
+    # 25. Hyundai IONIQ 5 (id_marca=5, id_modelo=25)
+    Veiculo(portas=4, preco_diaria=250.00, placa="IJK8N16", cor="Azul", preco_compra=160000.00, capacidade_pessoas=5, quilometragem=3000, cambio="Automático", airbags=True, ar_condicionado=True, disponivel=True, id_fornecedor=5, id_garagem=4, id_plano_seguro=3, id_marca=5, id_modelo=25, id_categoria=4, id_combustivel=5),
+    
+ 
+]
+
+sessao.add_all(veiculos_adicionais)
+sessao.commit()
 
 # 8. Locacao (Locações)
 locacoes = [
